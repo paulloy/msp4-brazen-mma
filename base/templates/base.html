@@ -1,0 +1,123 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Meta Description -->
+    <meta name="Description" content="{% block meta_description %}{% endblock %}"/>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.2/sandstone/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=RocknRoll+One&family=Stick&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block css %}{% endblock %}
+
+    <title>Brazen MMA{% block title %}{% endblock %}</title>
+</head>
+
+<body class="position-relative">
+
+    <header class="w-100 d-none d-lg-flex justify-content-between px-5">
+        <a class="btn h-100 d-flex align-items-center" href="#"><h1 class="mb-0"><i class="fas fa-yin-yang"></i> Brazen MMA</h1></a>
+        <nav class="h-100">
+            <ul class="list-unstyled d-flex align-items-center h-100">
+                <li class="mx-3">
+                    <form class="search-form d-flex">
+                        <input class="px-2" type="text" placeholder="Search Products...">
+                        <button class="px-2" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+                <li class="mx-4"><a class="listitem btn p-0" href="{% url 'home' %}"><i class="fas fa-home"></i></a></li>
+                <li class="listitem mx-4"><i class="fas fa-user"></i></li>
+                <li class="listitem ml-4"><i class="fas fa-shopping-bag"></i></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container-fluid px-0 d-flex">
+        <nav id="product-menu" class="d-none d-md-block p-0">
+            <ul class="list-unstyled">
+                <li class="my-4 text-center">
+                    <span class="product-menu-listitem w-100">MMA</span>
+                    <ul class="list-unstyled product-menu-submenu">
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                    </ul>
+                    <hr>
+                </li>
+                <li class="my-4 text-center">
+                    <span class="product-menu-listitem w-100">BJJ</span>
+                    <ul class="list-unstyled product-menu-submenu">
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                    </ul>
+                    <hr>
+                </li>
+                <li class="my-4 text-center">
+                    <span class="product-menu-listitem w-100">Muay Thai</span>
+                    <ul class="list-unstyled product-menu-submenu">
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                    </ul>
+                    <hr>
+                </li>
+                <li class="my-4 text-center">
+                    <span class="product-menu-listitem w-100">Equipment</span>
+                    <ul class="list-unstyled product-menu-submenu">
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                    </ul>
+                    <hr>
+                </li>
+                <li class="my-4 text-center">
+                    <span class="product-menu-listitem w-100">Sale <i class="fas fa-tags"></i></span>
+                    <ul class="list-unstyled product-menu-submenu">
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                    </ul>
+                    <hr>
+                </li>
+                <li class="my-4 text-center">
+                    <span class="product-menu-listitem w-100">All Products</span>
+                    <ul class="list-unstyled product-menu-submenu">
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                        <li class="my-3">placeholder</li>
+                    </ul>
+                    <hr>
+                </li>
+            </ul>
+        </nav>
+        <div id="block-content" class="p-3">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>

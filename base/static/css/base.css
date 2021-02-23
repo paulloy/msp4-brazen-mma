@@ -1,0 +1,73 @@
+/* base classes */
+.listitem {
+    font-size: 1.5rem;
+}
+.search-form input {
+    border: 0;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+}
+.search-form button {
+    border: 0;
+    border-bottom: 1px solid black;
+    font-size: 1.5rem;
+    background-color: transparent;
+}
+.product-menu-listitem {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.product-menu-submenu {
+    font-size: 1.2rem;
+    font-weight: 400;
+    display: none;
+}
+/* -------------- */
+
+/* scroll bar styling */
+    /* width */
+    ::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    }
+/* ------------------ */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+header {
+    font-family: 'RocknRoll One', sans-serif;
+    height: 4rem;
+    background-color: rgba(173, 216, 230, 0.3);
+}
+#product-menu {
+    height: calc(100vh - 4rem);
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    width: 12.5rem;
+    background-color: rgba(173, 216, 230, 0.3);
+    overflow-x: scroll;
+}
+#block-content {
+    width: calc(100vw - 12.5rem);
+    position: absolute;
+    top: 4rem;
+    right: 0;
+    height: calc(100vh - 4rem);
+    overflow-x: scroll;
+}
