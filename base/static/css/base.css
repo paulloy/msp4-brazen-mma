@@ -2,6 +2,9 @@
 .listitem {
     font-size: 1.5rem;
 }
+.search-form {
+    height: 3rem;
+}
 .search-form input {
     border: 0;
     border-bottom: 1px solid black;
@@ -48,6 +51,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
 }
 header {
     font-family: 'RocknRoll One', sans-serif;
@@ -55,10 +59,12 @@ header {
     background-color: rgba(173, 216, 230, 0.3);
 }
 #product-menu {
-    height: calc(100vh - 4rem);
     position: absolute;
     top: 4rem;
     left: 0;
+}
+.product-menu {
+    height: calc(100vh - 4rem);
     width: 12.5rem;
     background-color: rgba(173, 216, 230, 0.3);
     overflow-x: scroll;
@@ -70,4 +76,80 @@ header {
     right: 0;
     height: calc(100vh - 4rem);
     overflow-x: scroll;
+}
+
+/* tablet */
+#product-menu-tablet {
+    position: absolute;
+    top: 4rem;
+    right: -12.5rem;
+    display: none;
+    z-index: 1;
+}
+
+
+@media only screen and (max-width: 992px) {
+    .listitem {
+        font-size: 1.3rem;
+    }
+    .search-form input {
+        width: 9rem;
+    }
+    .search-form input::placeholder {
+        font-size: 0.8rem;
+    }
+    .search-form button {
+        font-size: 1.3rem;
+    }
+    #block-content {
+        width: 100vw;
+    }
+}
+@media only screen and (max-width: 768px) {
+    header {
+        height: 6rem;
+    }
+    header a:first-of-type,
+    header nav,
+    header form {
+        height: 3rem;
+    }
+    .listitem {
+        height: auto !important;
+        width: 3rem;
+    }
+    .search-form input {
+        width: 60%;
+        height: 80%;
+        background-color: white;
+    }
+    .search-form button {
+        font-size: 1.2rem;
+        height: 80%;
+        background-color: white;
+    }
+    #block-content {
+        top: 6rem;        
+        height: calc(100vh - 6rem);
+    }
+    #product-menu-tablet {
+        top: 6rem;
+    }
+}
+@media only screen and (max-width: 576px) {
+    header {
+        height: 9rem;
+    }
+    #block-content {
+        top: 9rem;        
+        height: calc(100vh - 9rem);
+    }  
+    #product-menu-tablet {
+        top: 9rem;
+    }  
+    .search-form input {
+        width: 80%;
+        height: 80%;
+        background-color: white;
+    }
 }
