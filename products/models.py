@@ -38,7 +38,7 @@ class ProductGender(models.Model):
 class Product(models.Model):
     product_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=50, blank=False, null=False)
+    name = models.CharField(max_length=254, blank=False, null=False)
     description = models.TextField(null=False, blank=False)
     gender = models.ForeignKey(
         'ProductGender', on_delete=models.CASCADE, null=True, blank=False)
@@ -53,7 +53,7 @@ class Product(models.Model):
     product_type = models.ForeignKey(
         'ProductType', on_delete=models.CASCADE,
         blank=False, null=True)
-    image = models.ImageField(upload_to='products/static/product_img',
+    image = models.ImageField(upload_to='product_img/',
                               blank=False, null=False,
                               default='products/static/\
                                   product_img/placeholder.jpg')
