@@ -4,17 +4,20 @@
 }
 .search-form {
     height: 3rem;
+    width: 15rem;
 }
 .search-form input {
     border: 0;
+    width: calc(100% - 3rem);
     border-bottom: 1px solid black;
-    background-color: transparent;
+    background-color: white;
 }
 .search-form button {
     border: 0;
     border-bottom: 1px solid black;
     font-size: 1.5rem;
-    background-color: transparent;
+    width: 3rem;
+    background-color: white;
 }
 .product-menu-listitem {
     font-size: 1.5rem;
@@ -52,28 +55,38 @@
 body {
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
+    background-color: black;
 }
 header {
     font-family: 'RocknRoll One', sans-serif;
     height: 4rem;
-    background-color: rgba(173, 216, 230, 0.3);
+    background-color: rgb(199, 220, 226);
+}
+h1 {
+    letter-spacing: 4px;
+    font-weight: 700;
 }
 #product-menu {
     position: absolute;
     top: 4rem;
     left: 0;
 }
-.product-menu {
-    height: calc(100vh - 4rem);
-    width: 12.5rem;
-    background-color: rgba(173, 216, 230, 0.3);
-    overflow-x: scroll;
-}
-#block-content {
-    width: calc(100vw - 12.5rem);
+#nav-menu {    
     position: absolute;
     top: 4rem;
     right: 0;
+}
+.product-menu {
+    height: calc(100vh - 4rem);
+    width: 12.5rem;
+    background-color: rgb(199, 220, 226);
+    overflow-x: scroll;
+}
+#block-content {
+    width: calc(100vw - 25rem);
+    position: absolute;
+    top: 4rem;
+    right: 12.5rem;
     height: calc(100vh - 4rem);
     overflow-x: scroll;
 }
@@ -103,6 +116,7 @@ header {
     }
     #block-content {
         width: 100vw;
+        right: 0;
     }
 }
 @media only screen and (max-width: 768px) {

@@ -24,21 +24,14 @@
 
 <body class="position-relative">
 
-    <header class="w-100 d-none d-lg-flex justify-content-between align-items-center px-5">
-        <a class="btn h-100 d-flex p-0 align-items-center" href="{% url 'home' %}"><h1 class="mb-0"><i class="fas fa-yin-yang"></i> Brazen MMA</h1></a>
-        <nav class="h-100">
-            <ul class="list-unstyled d-flex align-items-center h-100">
-                <li class="mx-3">
-                    <form class="search-form d-flex">
-                        <input class="px-2" type="text" placeholder="Search Products...">
-                        <button class="px-2" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </li>
-                <li class="mx-4"><a class="listitem btn p-0" href="{% url 'home' %}"><i class="fas fa-home"></i></a></li>
-                <li class="listitem mx-4"><i class="fas fa-user"></i></li>
-                <li class="listitem ml-4"><i class="fas fa-shopping-bag"></i></li>
-            </ul>
-        </nav>
+    <header class="w-100 d-none d-lg-flex align-items-center px-5">
+        <a class="btn h-100 ml-auto d-flex p-0 align-items-center" href="{% url 'home' %}"><h1 class="mb-0"><i class="fas fa-yin-yang"></i> Brazen MMA</h1></a>
+        <!-- <nav class="h-100">
+        </nav> -->        
+        <form class="ml-auto search-form d-flex">
+            <input class="px-2" type="text" placeholder="Search Products...">
+            <button class="px-2" type="submit"><i class="fas fa-search"></i></button>
+        </form>
     </header>
     <!-- alternate headers -->
     {% include 'includes/tablet/header.html' %}
@@ -112,8 +105,16 @@
             </ul>
         </nav>
         <div id="block-content" class="p-3">
+            <!-- <img src="{% static 'product_img/fire.png' %}" alt="fire png"> -->
             {% block content %}{% endblock %}
         </div>
+        <nav id="nav-menu" class="product-menu d-none d-lg-block">            
+            <ul class="list-unstyled d-flex flex-column w-100 h-100">
+                <li class="mr-auto my-4 ml-4"><a class="listitem btn p-0" href="{% url 'home' %}"><i class="fas fa-home"></i> HOME</a></li>
+                <li class="listitem mr-auto ml-4 my-4"><i class="fas fa-user"></i> ACCOUNT</li>
+                <li class="listitem mr-auto ml-4 my-4"><i class="fas fa-shopping-bag"></i> BAG</li>
+            </ul>
+        </nav>
     </div>
 
     <!-- JQuery -->
