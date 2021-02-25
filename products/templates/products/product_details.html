@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}
+    <meta name="Description" content="This page displays products sold by Brazen MMA."/>
+{% endblock %}
+
+{% block title %}
+ - Products
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .container {
+        background-color: white;
+    }
+    .product-img-container {
+        height: 40rem;
+    }
+    .product-img-container img {
+        height: 100%;
+        width: 100%;
+        object-fit: scale-down;
+    }
+    button {
+        bottom: 5rem;
+        right: 4rem;
+    }
+</style>
+
+<div class="w-100">
+    <h2></h2>
+</div>
+
+<div class="container w-90">
+    <div class="row px-3 position-relative">
+        <h3 class="col-12 text-center my-4">{{ product.name }}</h3>
+        <p class="col-12">All Products > {{ product.category }} > {{ product.product_type }}</p>
+        <div class="col-6 product-img-container p-0 pr-2">
+            <img src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
+        </div>
+        <div class="col-6 p-0 pl-2">
+            <!-- <div class="d-flex justify-content-evenly">
+                <p class="col-4">{{ product.category }}</p>
+                <p class="col-4">{{ product.product_type }}</p>
+                <p class="col-4">{{ product.gender }}</p>
+            </div> -->            
+            {% if product.sale %}
+                <div class="d-flex my-2">
+                    <strike class="mr-2 text-muted pl-4 pr-1">£{{ product.rrp }}</strike>
+                    <p class="mr-auto ml-2 pr-4 pl-1">£{{ product.price }} <i class="fas fa-tags"></i></p>
+                </div>
+            {% else %}
+                <p class="my-2 p-4">£{{ product.price }}</p>
+            {% endif %}
+                <p class="text-justify p-4">{{ product.description }}</p>
+                <button class="btn btn-primary position-absolute">Add to bag</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
