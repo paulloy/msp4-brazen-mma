@@ -6,9 +6,24 @@ def all_products(request):
     """ A view to return the index page """
 
     products = Product.objects.all()
+    category = None
+    product_type = None
+
+    if request.GET:
+        if 'category' and 'product_type' in request.GET:
+            category = request.GET['category']
+            product_type = request.GET['product_type']
+            products = products.filter(category__name__contains=category)
+            products = products.filter(
+                product_type__name__contains=product_type)
+        elif 'category' in request.GET:
+            category = request.GET['category']
+            products = products.filter(category__name__contains=category)
 
     context = {
         'products': products,
+        'category': category,
+        'product_type': product_type,
     }
 
     return render(request, 'products/products.html', context)

@@ -45,40 +45,48 @@
                 <li class="my-4 text-center">
                     <span class="product-menu-listitem w-100">MMA</span>
                     <ul class="list-unstyled product-menu-submenu">
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=shin guards">Shin Guards</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=mouth guards">Mouth Guards</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=hand wrap">Handwrap</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=mma">ALL MMA</a></li>
                     </ul>
                     <hr>
                 </li>
                 <li class="my-4 text-center">
                     <span class="product-menu-listitem w-100">BJJ</span>
                     <ul class="list-unstyled product-menu-submenu">
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=gi">GI</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=belts">Belts</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=rashguards">Rashguards</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=spats">Spats</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=shorts">Shorts</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=bjj">ALL BJJ</a></li>
                     </ul>
                     <hr>
                 </li>
                 <li class="my-4 text-center">
                     <span class="product-menu-listitem w-100">Muay Thai</span>
                     <ul class="list-unstyled product-menu-submenu">
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=shorts">Shorts</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=gloves">Gloves</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=shin guards">Shin Guards</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=mouth guards">Mouth Guards</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=hand wrap">Handwrap</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=groin guard">Groin Guard</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai">ALL MUAY THAI</a></li>
                     </ul>
                     <hr>
                 </li>
                 <li class="my-4 text-center">
                     <span class="product-menu-listitem w-100">Equipment</span>
                     <ul class="list-unstyled product-menu-submenu">
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=equipment&product_type=kick shield">Kick Shields</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=equipment&product_type=belly pads">Belly Pads</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=equipment&product_type=punch bags">Punch Bags</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=equipment&product_type=grappling dummies">Grappling Dummies</a></li>
+                        <li class="my-3"><a href="{% url 'products' %}?category=equipment">ALL EQUIPMENT</a></li>
                     </ul>
                     <hr>
                 </li>
@@ -93,19 +101,13 @@
                     <hr>
                 </li>
                 <li class="my-4 text-center">
-                    <span class="product-menu-listitem w-100">All Products</span>
-                    <ul class="list-unstyled product-menu-submenu">
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                        <li class="my-3">placeholder</li>
-                    </ul>
+                    <span class="product-menu-listitem w-100"><a href="{% url 'products' %}">All Products</a></span>
                     <hr>
                 </li>
             </ul>
         </nav>
-        <div id="block-content" class="p-3">
-            <!-- <img src="{% static 'product_img/fire.png' %}" alt="fire png"> -->
+        <div id="block-content" class="py-3 px-3">
+            <img style="position: absolute; z-index:-1; bottom: 0; width:100%; height: 100%; opacity: 0.2; object-fit: fill;" src="https://thumbs.gfycat.com/BriskFlawlessKiwi-size_restricted.gif" alt="fire png">
             {% block content %}{% endblock %}
         </div>
         <nav id="nav-menu" class="product-menu d-none d-lg-block">            
