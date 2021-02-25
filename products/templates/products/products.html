@@ -10,5 +10,39 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Products</h2>
+
+<style>
+    .img-thumbnail {
+        width: 18rem;
+        height: 18rem;
+        object-fit: scale-down;
+    }
+    .container {
+        background-color: whitesmoke;
+    }
+</style>
+
+<div class="w-100">
+    <h2></h2>
+</div>
+
+<div class="container w-90">
+    <div class="row">
+        {% for product in products %}
+            <a href="{% url 'product_details' product.product_id %}" class="col-xl-3 col-lg-4 d-flex flex-column">
+                <img class="img-thumbnail my-2 mx-auto" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
+                <strong class="my-2 w-100">{{ product.name }}</strong>
+                {% if product.sale %}
+                    <div class="d-flex my-2">
+                        <strike class="mr-2 text-muted">£{{ product.rrp }}</strike>
+                        <p class="mr-auto ml-2">£{{ product.price }} <i class="fas fa-tags"></i></p>
+                    </div>
+                {% else %}
+                    <p class="my-2">£{{ product.price }}</p>
+                {% endif %}
+                </a>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
