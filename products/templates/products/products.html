@@ -28,6 +28,24 @@
 
 <div class="container w-90">
     <div class="row">
+        {% if category and product_type != None %}
+            <nav aria-label="breadcrumb" class="col-12">
+                <ol class="breadcrumb p-0">
+                    <li class="breadcrumb-item"><a href="{% url 'products' %}">All Products</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ category }}">{{ category }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ product_type }}</li>                  
+                </ol>
+            </nav>
+        {% elif category != None %}
+            <nav aria-label="breadcrumb" class="col-12">
+                <ol class="breadcrumb p-0">
+                    <li class="breadcrumb-item"><a href="{% url 'products' %}">All Products</a></li>
+                    <li class="breadcrumb-item">{{ category }}</li>              
+                </ol>
+            </nav>
+        {% else %}
+            <p class="col-12">All Products</p>
+        {% endif %}
         {% for product in products %}
             <a href="{% url 'product_details' product.product_id %}" class="col-xl-3 col-lg-4 d-flex flex-column">
                 <img class="img-thumbnail my-2 mx-auto" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
