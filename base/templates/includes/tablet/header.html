@@ -3,8 +3,8 @@
     <nav class="h-100">
         <ul class="list-unstyled d-flex align-items-center h-100">
             <li class="mx-3">
-                <form class="search-form d-flex">
-                    <input class="px-2" type="text" placeholder="Search Products...">
+                <form method="GET" action="{% url 'products' %}" class="search-form d-flex">
+                    <input name="q" class="px-2" type="text" placeholder="Search Products...">
                     <button class="px-2" type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </li>

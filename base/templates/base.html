@@ -28,8 +28,8 @@
         <a class="btn h-100 ml-auto d-flex p-0 align-items-center" href="{% url 'home' %}"><h1 class="mb-0"><i class="fas fa-yin-yang"></i> Brazen MMA</h1></a>
         <!-- <nav class="h-100">
         </nav> -->        
-        <form class="ml-auto search-form d-flex">
-            <input class="px-2" type="text" placeholder="Search Products...">
+        <form method="GET" action="{% url 'products' %}" class="ml-auto search-form d-flex">
+            <input name="q" class="px-2" type="text" placeholder="Search Products...">
             <button class="px-2" type="submit"><i class="fas fa-search"></i></button>
         </form>
     </header>
