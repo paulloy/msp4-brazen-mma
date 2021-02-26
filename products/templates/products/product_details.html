@@ -30,47 +30,58 @@
             </ol>
         </nav>
         <hr class="w-100 my-2">
-        <div class="col-6 product-img-container p-0 pr-2 position-relative">
-            <img class="p-3 position-absolute" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
+        <div class="col-12 col-xl-6 col-lg-12 col-md-6 product-img-container p-0 pr-2 position-relative">
+            <img class="p-3" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
         </div>
-        <div class="col-6 p-0 pl-2">         
-            {% if product.sale %}
-                <div class="d-flex my-2">
-                    <h4><strike class="mr-2 text-muted pl-4 pr-1">£{{ product.rrp }}</strike></h4>
-                    <h4 class="mx-2 pr-4 pl-1">£{{ product.price }} <i class="fas fa-tags"></i></h4>
-                    <h4 class="mr-auto ml-2"><small>Save £{{ save }}</small></h4>
-                </div>
-            {% else %}
-                <h4 class="my-2 p-4">£{{ product.price }}</h4>
-            {% endif %}
-                <p class="text-justify p-4">{{ product.description }}</p>
-                <div id="cart-size" class="d-flex flex-column position-absolute w-100">
-                    <hr class="w-100">
-                    <div class="d-flex justify-between">
-                        {% if sizes.count > 1 %}
-                            <div id="size">
-                                <p class="w-100">SIZES <a class="ml-auto" href="#">see size chart</a></p>
-                                <div class="d-flex flex-wrap">
-                                    {% for x in sizes %}
-                                        {% if x.stock < 1 %}
-                                            <p class="btn btn-danger out-of-stock size"><strong>{{ x.size }}</strong></p>
-                                        {% elif x.stock < 5 %}                                    
-                                            <p class="btn btn-warning size"><strong>{{ x.size }}</strong></p>
-                                        {% else %}
-                                            <p class="btn btn-primary size"><strong>{{ x.size }}</strong></p>
-                                        {% endif %}
-                                    {% endfor %}
+        <div class="col-12 col-xl-6 col-lg-12 col-md-6 p-0 pl-2"> 
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- product price -->
+                    {% if product.sale %}
+                        <div class="d-flex my-2 col-12">
+                            <h4><strike class="mr-2 text-muted pl-4 pr-1">£{{ product.rrp }}</strike></h4>
+                            <h4 class="mx-2 pr-4 pl-1">£{{ product.price }} <i class="fas fa-tags"></i></h4>
+                            <h4 class="mr-auto ml-2"><small>Save £{{ save }}</small></h4>
+                        </div>
+                    {% else %}
+                        <h4 class="my-2 p-4 col-12">£{{ product.price }}</h4>
+                    {% endif %}
+                    <!-- product description -->
+                        <p class="text-justify p-1 p-md-4 col-12">{{ product.description }}</p>
+                    <!-- product sizes -->
+                        <div id="cart-size" class="d-flex col-12 flex-column mt-5">
+                            <hr class="w-100">
+                            {% if sizes.count > 1 %}
+                                <div id="size">
+                                    <p class="w-100">SIZES <a class="ml-auto" href="#">see size chart</a></p>
+                                    <div class="d-flex flex-wrap">
+                                        {% for x in sizes %}
+                                            {% if x.stock < 1 %}
+                                                <p class="btn btn-danger out-of-stock size"><strong>{{ x.size }}</strong></p>
+                                            {% elif x.stock < 5 %}                                    
+                                                <p class="btn btn-warning size"><strong>{{ x.size }}</strong></p>
+                                            {% else %}
+                                                <p class="btn btn-primary size"><strong>{{ x.size }}</strong></p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                                <!-- Include the below only if stock is low, or out of stock -->
-                                <p class="w-100">
-                                    <div><i class="fas fa-circle text-warning"></i> low stock!</div>
-                                    <div><i class="fas fa-circle text-danger"></i> out of stock :(</div>
-                                </p>
+                            {% endif %}                       
+                        </div>
+                        <div class="d-flex justify-content-between col-12 my-3">
+                            <!-- Include the below only if stock is low, or out of stock -->
+                            <div class="d-flex flex-column">
+                                <span><i class="fas fa-circle text-warning"></i> low stock!</span>
+                                <span><i class="fas fa-circle text-danger"></i> out of stock :(</span>
                             </div>
-                        {% endif %}
-                        <button class="btn btn-primary add-to-bag position-absolute">Add to <br><i class="fas fa-shopping-bag"></i> bag</button>
+                            <!-- add to bag button -->
+                            <button class="btn btn-primary add-to-bag">Add to <br><i class="fas fa-shopping-bag"></i> bag</button>
+                        </div>
                     </div>
-                </div>
+                </div>        
+            
+                
+                
         </div>
     </div>
 </div>

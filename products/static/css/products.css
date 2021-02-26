@@ -3,7 +3,7 @@
         background-color: whitesmoke;
     }
     .product-img-container {
-        height: 40rem;
+        height: auto;
     }
     .product-img-container img {
         height: 100%;
@@ -40,9 +40,6 @@
         width: 10rem;
         height: 4rem;
         font-size: 1rem;
-    }
-    #size {
-        width: calc(100% - 10rem);
     }
     .size {
         width: 3rem;
