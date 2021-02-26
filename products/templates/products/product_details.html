@@ -9,25 +9,12 @@
  - Products
 {% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<style>
-    .container {
-        background-color: white;
-    }
-    .product-img-container {
-        height: 40rem;
-    }
-    .product-img-container img {
-        height: 100%;
-        width: 100%;
-        object-fit: scale-down;
-    }
-    button {
-        bottom: 5rem;
-        right: 4rem;
-    }
-</style>
 
 <div class="w-100">
     <h2></h2>
@@ -35,27 +22,55 @@
 
 <div class="container w-90">
     <div class="row px-3 position-relative">
-        <h3 class="col-12 text-center my-4">{{ product.name }}</h3>
-        <p class="col-12">All Products > {{ product.category }} > {{ product.product_type }}</p>
-        <div class="col-6 product-img-container p-0 pr-2">
-            <img src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
+        <h3 class="col-12 text-center my-4"><strong>{{ product.name }}</strong></h3>
+        <nav aria-label="breadcrumb" class="col-12">
+            <ol class="breadcrumb p-0">
+                <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ product.category }}">{{ product.category }}</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="{% url 'products' %}?category={{ product.category }}&product_type={{ product.product_type }}">{{ product.product_type }}</a></li>                  
+            </ol>
+        </nav>
+        <hr class="w-100 my-2">
+        <div class="col-6 product-img-container p-0 pr-2 position-relative">
+            <img class="p-3 position-absolute" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
         </div>
-        <div class="col-6 p-0 pl-2">
-            <!-- <div class="d-flex justify-content-evenly">
-                <p class="col-4">{{ product.category }}</p>
-                <p class="col-4">{{ product.product_type }}</p>
-                <p class="col-4">{{ product.gender }}</p>
-            </div> -->            
+        <div class="col-6 p-0 pl-2">         
             {% if product.sale %}
                 <div class="d-flex my-2">
-                    <strike class="mr-2 text-muted pl-4 pr-1">£{{ product.rrp }}</strike>
-                    <p class="mr-auto ml-2 pr-4 pl-1">£{{ product.price }} <i class="fas fa-tags"></i></p>
+                    <h4><strike class="mr-2 text-muted pl-4 pr-1">£{{ product.rrp }}</strike></h4>
+                    <h4 class="mx-2 pr-4 pl-1">£{{ product.price }} <i class="fas fa-tags"></i></h4>
+                    <h4 class="mr-auto ml-2"><small>Save £{{ save }}</small></h4>
                 </div>
             {% else %}
-                <p class="my-2 p-4">£{{ product.price }}</p>
+                <h4 class="my-2 p-4">£{{ product.price }}</h4>
             {% endif %}
                 <p class="text-justify p-4">{{ product.description }}</p>
-                <button class="btn btn-primary position-absolute">Add to bag</button>
+                <div id="cart-size" class="d-flex flex-column position-absolute w-100">
+                    <hr class="w-100">
+                    <div class="d-flex justify-between">
+                        {% if sizes.count > 1 %}
+                            <div id="size">
+                                <p class="w-100">SIZES <a class="ml-auto" href="#">see size chart</a></p>
+                                <div class="d-flex flex-wrap">
+                                    {% for x in sizes %}
+                                        {% if x.stock < 1 %}
+                                            <p class="btn btn-danger out-of-stock size"><strong>{{ x.size }}</strong></p>
+                                        {% elif x.stock < 5 %}                                    
+                                            <p class="btn btn-warning size"><strong>{{ x.size }}</strong></p>
+                                        {% else %}
+                                            <p class="btn btn-primary size"><strong>{{ x.size }}</strong></p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <!-- Include the below only if stock is low, or out of stock -->
+                                <p class="w-100">
+                                    <div><i class="fas fa-circle text-warning"></i> low stock!</div>
+                                    <div><i class="fas fa-circle text-danger"></i> out of stock :(</div>
+                                </p>
+                            </div>
+                        {% endif %}
+                        <button class="btn btn-primary add-to-bag position-absolute">Add to <br><i class="fas fa-shopping-bag"></i> bag</button>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
