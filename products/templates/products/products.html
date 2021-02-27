@@ -9,27 +9,33 @@
  - Products
 {% endblock %}
 
-{% block content %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
 
-<style>
-    .img-thumbnail {
-        width: 18rem;
-        height: 18rem;
-        object-fit: scale-down;
-    }
-    .container {
-        background-color: whitesmoke;
-    }
-</style>
+{% block content %}
 
 <div class="w-100">
     <h2></h2>
 </div>
 
-<div class="container w-90">
+<div class="container w-90 bg-transparent">
     <div class="row">
+        <!-- search results -->
+        {% if search_term %}
+            {% if products.count > 1 %}
+                <p class="col-12 text-light">{{ products.count }} products found for "{{ search_term }}"</p>
+            {% elif products.count > 0 %}
+                <p class="col-12 text-light">{{ products.count }} product found for "{{ search_term }}"</p>
+            {% else %}
+                <p class="col-12 text-light">No results found for "{{ search_term }}"</p>
+            {% endif %}
+        {% endif %}
+        <!-- end search results -->
+
+        <!-- breadcrumbs -->
         {% if category and product_type != None %}
-            <nav aria-label="breadcrumb" class="col-12">
+            <nav aria-label="breadcrumb" class="col-6">
                 <ol class="breadcrumb p-0">
                     <li class="breadcrumb-item"><a href="{% url 'products' %}">All Products</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ category }}">{{ category }}</a></li>
@@ -37,19 +43,53 @@
                 </ol>
             </nav>
         {% elif category != None %}
-            <nav aria-label="breadcrumb" class="col-12">
+            <nav aria-label="breadcrumb" class="col-6">
                 <ol class="breadcrumb p-0">
                     <li class="breadcrumb-item"><a href="{% url 'products' %}">All Products</a></li>
                     <li class="breadcrumb-item">{{ category }}</li>              
                 </ol>
             </nav>
         {% else %}
-            <p class="col-12">All Products</p>
-        {% endif %}
+            <p class="col-6 text-light">All Products</p>
+        {% endif %}  
+        <!-- end breadcrumbs -->
+
+        <!-- filters -->
+            <div class="dropdown show col-6">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort Products
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a href="{% url 'products' %}?
+                                {% if category != None %}
+                                    category={{ category }}&
+                                {% endif %}
+                                {% if product_type != None %}
+                                    product_type={{ product_type }}&
+                                {% endif %}
+                                    sort=price&direction=asc" class="dropdown-item">Price (low > high)</a>
+                    <a href="{% url 'products' %}?
+                                {% if category != None %}
+                                    category={{ category }}&
+                                {% endif %}
+                                {% if product_type != None %}
+                                    product_type={{ product_type }}&
+                                {% endif %}
+                                    sort=price&direction=desc" class="dropdown-item">Price (high > low)</a>
+                </div>
+            </div>
+        <!-- end filters -->
+
+        <!-- products -->
         {% for product in products %}
             <a href="{% url 'product_details' product.product_id %}" class="col-xl-3 col-lg-4 d-flex flex-column">
-                <img class="img-thumbnail my-2 mx-auto" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
-                <strong class="my-2 w-100">{{ product.name }}</strong>
+                <div class="img-container">                    
+                    <img class="img-thumbnail my-2 mx-auto" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
+                    <!-- {% if product.sale %}
+                        <span class="position-absolute"><span class="mx-1">sale</span><i class="fas fa-tags"></i></span>
+                    {% endif %} -->
+                </div>
+                <strong class="my-2 w-100 product-name">{{ product.name }}</strong>
                 {% if product.sale %}
                     <div class="d-flex my-2">
                         <strike class="mr-2 text-muted">£{{ product.rrp }}</strike>
@@ -60,6 +100,7 @@
                 {% endif %}
                 </a>
         {% endfor %}
+        <!-- end products -->
     </div>
 </div>
 

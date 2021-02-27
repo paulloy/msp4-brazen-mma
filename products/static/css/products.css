@@ -52,6 +52,12 @@
     }
 
     /* products.html */
+    
+    .product-name {        
+        letter-spacing: 2px;
+        font-weight: 500;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
     #quantity {
         width: 2rem;
         color: #325d88;
@@ -62,6 +68,33 @@
     .quantity-selector {
         width: 2rem;
         height: 2rem;
+        font-size: 1rem;
+    }
+    
+    .img-thumbnail {
+        width: 18rem;
+        height: 18rem;
+        object-fit: scale-down;
+    }
+    .image-container {
+        position: relative;
+    }
+    .image-container img {
+        height: 100%;
+        width: 100%;
+    }
+    .img-container span {
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 1.8rem;
+        color: black;
+    }
+    .img-container span span {
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+    }
+    .breadcrumb-item {
         font-size: 1rem;
     }
 
