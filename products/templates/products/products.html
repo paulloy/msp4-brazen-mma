@@ -56,26 +56,14 @@
 
         <!-- filters -->
             <div class="dropdown show col-6">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="btn dropdown-style dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort Products
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a href="{% url 'products' %}?
-                                {% if category != None %}
-                                    category={{ category }}&
-                                {% endif %}
-                                {% if product_type != None %}
-                                    product_type={{ product_type }}&
-                                {% endif %}
-                                    sort=price&direction=asc" class="dropdown-item">Price (low > high)</a>
-                    <a href="{% url 'products' %}?
-                                {% if category != None %}
-                                    category={{ category }}&
-                                {% endif %}
-                                {% if product_type != None %}
-                                    product_type={{ product_type }}&
-                                {% endif %}
-                                    sort=price&direction=desc" class="dropdown-item">Price (high > low)</a>
+                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=asc"
+                    class="dropdown-item">Price (low > high)</a>
+                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=desc"
+                    class="dropdown-item">Price (high > low)</a>
                 </div>
             </div>
         <!-- end filters -->
