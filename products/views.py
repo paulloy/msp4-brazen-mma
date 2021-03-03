@@ -12,7 +12,7 @@ def all_products(request):
     query = None
     sort = None
     direction = None
-    current_sorting = None
+    filters = None
 
     if request.GET:
 
@@ -46,14 +46,23 @@ def all_products(request):
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
             products = products.order_by(sortkey)
-            current_sorting = f'{sort} {direction}'
+
+        if 'filters' in request.GET:
+            filters = request.GET['filters']
+            if filters == 'MEN' or 'WOMEN':
+                products = products.filter(
+                    Q(gender__iexact=filters) | Q(gender__iexact='UNISEX'))
+            elif filters == 'UNISEX':
+                products = products.filter(gender__iexact=filters)
 
     context = {
         'products': products,
         'category': category,
         'product_type': product_type,
         'search_term': query,
-        'current_sorting': current_sorting,
+        'sort': sort,
+        'direction': direction,
+        'filters': filters,
     }
 
     return render(request, 'products/products.html', context)

@@ -58,7 +58,7 @@
         <!-- end breadcrumbs -->
 
         <!-- filters -->
-            <div class="show col-6">
+            <div class="show col-3">
                 <a class="btn dropdown-style dropdown-toggle float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort Products
                 </a>
@@ -71,6 +71,19 @@
                     class="dropdown-item">By Name (A > Z)</a>
                     <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=desc"
                     class="dropdown-item">By Name (Z > A)</a>
+                </div>
+            </div>
+            <div class="show col-3">
+                <a class="btn dropdown-style dropdown-toggle float-right" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter Products
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=MEN"
+                    class="dropdown-item">Men</a>
+                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=WOMEN"
+                    class="dropdown-item">Women</a>
+                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=UNISEX"
+                    class="dropdown-item">Unisex</a>
                 </div>
             </div>
         <!-- end filters -->
