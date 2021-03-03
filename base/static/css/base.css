@@ -1,9 +1,10 @@
 /* base classes */
 .listitem {
     font-size: 1.5rem;
+    color: white;
 }
 .search-form {
-    height: 3rem;
+    height: 2.5rem;
     width: 15rem;
 }
 .search-form input {
@@ -27,6 +28,9 @@
     font-size: 1.2rem;
     font-weight: 400;
     display: none;
+}
+a {
+    color: (148,201,61);
 }
 /* -------------- */
 
@@ -55,40 +59,43 @@
 body {
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
-    background-color: black;
+    background-color: whitesmoke;
 }
 header {
-    font-family: 'RocknRoll One', sans-serif;
-    height: 4rem;
-    background-color: rgb(199, 220, 226);
+    font-family: 'Source Sans Pro', sans-serif;
+    height: 3rem;
+    background-color: rgba(0, 0, 0);
 }
 h1 {
-    letter-spacing: 4px;
-    font-weight: 700;
+    letter-spacing: 0px;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: white;
 }
 #product-menu {
     position: absolute;
-    top: 4rem;
+    top: 3rem;
     left: 0;
 }
-#nav-menu {    
+/* #nav-menu {    
     position: absolute;
     top: 4rem;
     right: 0;
-}
+} */
 .product-menu {
-    height: calc(100vh - 4rem);
-    width: 12.5rem;
-    background-color: rgb(199, 220, 226);
+    height: calc(100vh - 3rem);
+    width: 15rem;
+    background-color: whitesmoke;
     overflow-x: scroll;
 }
 #block-content {
-    width: calc(100vw - 25rem);
+    width: calc(100vw - 15rem);
     position: absolute;
-    top: 4rem;
-    right: 12.5rem;
-    height: calc(100vh - 4rem);
+    top: 3rem;
+    right: 0;
+    height: calc(100vh - 3rem);
     overflow-x: scroll;
+    overflow-x: hidden;
 }
 
 /* tablet */
@@ -166,4 +173,8 @@ h1 {
         height: 80%;
         background-color: white;
     }
+}
+
+a {
+    color: rgb(72, 107, 173);
 }

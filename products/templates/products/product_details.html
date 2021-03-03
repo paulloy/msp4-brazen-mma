@@ -11,24 +11,29 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <style>
+        .active-size {
+            border: 0.25rem solid orange;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
 
 
-<div class="w-100">
-    <h2></h2>
+<div class="w-100 header pt-4">
+    <nav aria-label="breadcrumb" class="col-12">
+        <ol class="breadcrumb p-0">
+            <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ product.category }}">{{ product.category }}</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a href="{% url 'products' %}?category={{ product.category }}&product_type={{ product.product_type }}">{{ product.product_type }}</a></li>                  
+            <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>                  
+        </ol>
+    </nav>
 </div>
 
-<div class="container w-90">
+<div class="container">
     <div class="row px-3 position-relative">
         <h3 class="col-12 text-center my-4"><strong>{{ product.name }}</strong></h3>
-        <nav aria-label="breadcrumb" class="col-12">
-            <ol class="breadcrumb p-0">
-                <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ product.category }}">{{ product.category }}</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="{% url 'products' %}?category={{ product.category }}&product_type={{ product.product_type }}">{{ product.product_type }}</a></li>                  
-            </ol>
-        </nav>
         <hr class="w-100 my-2">
         <div class="col-12 col-xl-6 col-lg-12 col-md-6 product-img-container p-0 pr-2 position-relative">
             <img class="p-3" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
@@ -88,6 +93,7 @@
                                 <input id="quantity" name="quantity" type="number" min="1" max="99" value="1" class="text-center" required>
                                 <button id="quantity-add" class="btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-right"></i></button>
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                <input id="size_input" type="hidden" name="size" value="false">
                                 
                                 <button type="submit" class="btn btn-primary add-to-bag ml-auto">Add to <br><i class="fas fa-shopping-bag"></i> bag</button>
                             </div>

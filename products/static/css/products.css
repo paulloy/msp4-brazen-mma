@@ -11,6 +11,10 @@
         object-fit: scale-down;
         top: 0;
     }
+    .dropdown-style {
+        background-color: rgb(148,201,61);
+        font-size: 1rem;
+    }
     button {
         bottom: 0;
         right: 0;
@@ -109,4 +113,10 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+/* rename */
+.header {
+    background-color: rgba(86, 160, 170, 0.1);
+    height: 5rem;
 }
