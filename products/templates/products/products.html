@@ -63,10 +63,14 @@
                     Sort Products
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a href="{% url 'sort_products'%}?sort=price&direction=asc"
-                    class="dropdown-item">Price (low > high)</a>
+                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=asc"
+                    class="dropdown-item">By Price (low > high)</a>
                     <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=desc"
-                    class="dropdown-item">Price (high > low)</a>
+                    class="dropdown-item">By Price (high > low)</a>
+                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=asc"
+                    class="dropdown-item">By Name (A > Z)</a>
+                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=desc"
+                    class="dropdown-item">By Name (Z > A)</a>
                 </div>
             </div>
         <!-- end filters -->

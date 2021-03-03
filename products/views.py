@@ -12,26 +12,19 @@ def all_products(request):
     query = None
     sort = None
     direction = None
+    current_sorting = None
 
     if request.GET:
-        if 'sort' in request.GET:
-            sortkey = request.GET['sort']
-            sort = sortkey
-            if 'direction' in request.GET:
-                direction = request.GET['direction']
-                if direction == 'desc':
-                    sortkey = f'-{sortkey}'
-            products = products.order_by(sortkey)
 
         if 'category' and 'product_type' in request.GET:
             category = request.GET['category']
             product_type = request.GET['product_type']
-            products = products.filter(category__name__contains=category)
+            products = products.filter(category__contains=category)
             products = products.filter(
-                product_type__name__contains=product_type)
+                product_type__contains=product_type)
         elif 'category' in request.GET:
             category = request.GET['category']
-            products = products.filter(category__name__contains=category)
+            products = products.filter(category__contains=category)
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -40,17 +33,27 @@ def all_products(request):
                 #     request, "You didn't enter any search criteria!")
                 return redirect(reverse('products'))
 
-            queries = Q(name__icontains=query)
+            queries = Q(name__icontains=query) \
+                | Q(category__icontains=query) \
+                | Q(product_type__icontains=query)
             products = products.filter(queries)
 
-    current_sorting = f'{sort} {direction}'
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            products = products.order_by(sortkey)
+            current_sorting = f'{sort} {direction}'
 
     context = {
         'products': products,
         'category': category,
         'product_type': product_type,
         'search_term': query,
-        'current_sorting': current_sorting
+        'current_sorting': current_sorting,
     }
 
     return render(request, 'products/products.html', context)
