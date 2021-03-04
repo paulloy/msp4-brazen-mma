@@ -60,31 +60,34 @@
                                 <div id="size">
                                     <p class="w-100">SIZES <a class="ml-auto" href="#">see size chart</a></p>
                                     <div class="d-flex flex-wrap">
-                                        {% for x in sizes %}
-                                            {% if x.stock < 1 %}
-                                                <p class="btn btn-danger out-of-stock size"><strong>{{ x.size }}</strong></p>
-                                            {% elif x.stock < 5 %}                                    
-                                                <p class="btn btn-warning size"><strong>{{ x.size }}</strong></p>
-                                            {% else %}
-                                                <p class="btn btn-primary size"><strong>{{ x.size }}</strong></p>
-                                            {% endif %}
+                                        {% if sizes.count > 1 %}
+                                            {% for x in sizes %}
+                                                {% if x.stock < 1 %}
+                                                    <p class="btn btn-danger out-of-stock size"><strong>{{ x.size }}</strong></p>
+                                                {% elif x.stock < 5 %}                                    
+                                                    <p class="btn btn-warning size"><strong>{{ x.size }}</strong></p>
+                                                {% else %}
+                                                    <p class="btn btn-primary size"><strong>{{ x.size }}</strong></p>
+                                                {% endif %}
 
-                                            {% if forloop.counter >= sizes.count %}
-                                                <div class="d-flex flex-column w-100">
-                                                    {% if low_stock == True %}
-                                                        <span class="my-1"><i class="fas fa-circle text-warning"></i> low stock!</span>
-                                                    {% endif %}
-                                                    {% if no_stock == True %}
-                                                        <span class="my-1"><i class="fas fa-circle text-danger"></i> out of stock :(</span>
-                                                    {% endif %}
-                                                </div>
-                                            {% endif %}
-                                        {% endfor %}
+                                                {% if forloop.counter >= sizes.count %}
+                                                    <div class="d-flex flex-column w-100">
+                                                        {% if low_stock == True %}
+                                                            <span class="my-1"><i class="fas fa-circle text-warning"></i> low stock!</span>
+                                                        {% endif %}
+                                                        {% if no_stock == True %}
+                                                            <span class="my-1"><i class="fas fa-circle text-danger"></i> out of stock :(</span>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <p id="please-select-size" class="text-danger">Please select a size.</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             {% endif %}                       
                         </div>
-                        <form method="POST" action="{% url 'add_to_bag' product.product_id %}"
+                        <form id="add-to-bag-form" method="POST" action="{% url 'add_to_bag' product.product_id %}"
                          class="d-flex flex-column col-12 my-3">
                             {% csrf_token %}
                             <div class="w-100 my-3 d-flex align-items-center">
@@ -95,7 +98,7 @@
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                 <input id="size_input" type="hidden" name="size" value="false">
                                 
-                                <button type="submit" class="btn btn-primary add-to-bag ml-auto">Add to <br><i class="fas fa-shopping-bag"></i> bag</button>
+                                <button id="add-to-bag-submit" type="submit" class="btn btn-primary add-to-bag ml-auto">Add to <br><i class="fas fa-shopping-bag"></i> bag</button>
                             </div>
                         </form>
                     </div>

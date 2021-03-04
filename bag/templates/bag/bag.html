@@ -10,11 +10,85 @@
 {% endblock %}
 
 {% block css %}
+    <style>
+        .img-container {
+            height: 8rem;
+            width: 8rem;
+            object-fit: scale-down;
+            border: 1px solid black;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
-    <h2>Hello Bag</h2>
+    <h2 class="mx-auto py-3 text-center bg-white">My Bag</h2>
+    <table class="container-fluid bg-white">
+        <tr class="row py-3">
+            <th class="col-3 text-center">Image</th>
+            <th class="col-3 text-center">Name</th>
+            <th class="col-3 text-center">Quantity</th>
+            <th class="col-3 text-center">Price</th>
+        </tr>  
+    {% if product_count == 0 %}
+        <div class="container-fluid bg-white">
+            <h4 class="text-center py-3">Your bag is empty</h4>
+        </div>
+    {% else %}
+        {% for item in bag_items %}
+            <tr class="table-row row py-2">
+                <td class="col-3 d-flex justify-content-center"><a href="{% url 'product_details' item.product.product_id %}"><img class="img-container" src="{% static '' %}{{ item.product.image }}" alt="{{ item.product.name }}"></a></td>
+                <td class="col-3 d-flex align-items-center justify-content-center">
+                    <strong>
+                        <a href="{% url 'product_details' item.product.product_id %}">{{ item.product.name }}</a>{% if item.size != 'false' %}<br>
+                        <p>Size: {{ item.size }}</p>{% endif %}
+                        <span class="parse-size d-none">{{ item.size }}</span>
+                    </strong>
+                </td>
+                <td class="col-3 d-flex align-items-center justify-content-center">
+                    <span class="parse-quantity">{{ item.quantity.product_size }}</span>
+                    <!-- <br><a href="{% url 'remove_from_bag' item.product.product_id %}">remove</a> -->
+                </td>
+                <td class="col-3 d-flex align-items-center justify-content-center">£{{ item.product.price }}</td>
+            </tr>
+        {% endfor %}
+            <tr class="row py-4">
+                <td class="col-3"></td>
+                <td class="col-3"></td>
+                <td class="col-3"></td>
+                <td class="col-3 text-center"><strong class="mr-3">SUB-TOTAL</strong>£{{ total }}</td>
+            </tr>
+        </table>  
+
+        <div class="d-flex justify-content-end bg-white py-3">        
+            <a class="btn btn-secondary my-3 mr-5" href="{% url 'products' %}">Keep Shopping</a><br>
+            <a class="btn btn-primary my-3 mr-5" href="#"><i class="fas fa-lock"></i> Checkout</a>
+        </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block js %}
+    <script>
+        /* 
+        display quantity of a product size. 
+        This is a temporary fix. Ideally this should
+        be fixed with Django templates
+        */     
+        $(function() {
+            let getQuantityClass = document.getElementsByClassName('parse-quantity');
+            let getSizeClass = document.getElementsByClassName('parse-size');
+            let i;
+            for (i=0; i<getQuantityClass.length; i++) {
+                /* 
+                get {item.quantity.product_size} and replace ' with " so that 
+                JSON can parse the string.
+                */
+                let getString = getQuantityClass[i].innerText.replace(/'/g, '"');
+                let parseString = JSON.parse(getString);
+                let getSize = getSizeClass[i].innerText;
+                getQuantityClass[i].innerText = parseString[getSize];
+            }
+            $('.parse-quantity').show();
+        });
+    </script>
 {% endblock %}
