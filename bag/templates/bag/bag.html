@@ -37,16 +37,22 @@
         {% for item in bag_items %}
             <tr class="table-row row py-2">
                 <td class="col-3 d-flex justify-content-center"><a href="{% url 'product_details' item.product.product_id %}"><img class="img-container" src="{% static '' %}{{ item.product.image }}" alt="{{ item.product.name }}"></a></td>
-                <td class="col-3 d-flex align-items-center justify-content-center">
+                <td class="col-3 d-flex align-items-center justify-content-start">
                     <strong>
                         <a href="{% url 'product_details' item.product.product_id %}">{{ item.product.name }}</a>{% if item.size != 'false' %}<br>
                         <p>Size: {{ item.size }}</p>{% endif %}
                         <span class="parse-size d-none">{{ item.size }}</span>
                     </strong>
                 </td>
-                <td class="col-3 d-flex align-items-center justify-content-center">
-                    <span class="parse-quantity">{{ item.quantity.product_size }}</span>
-                    <!-- <br><a href="{% url 'remove_from_bag' item.product.product_id %}">remove</a> -->
+                <td class="col-3 d-flex align-items-center flex-column py-4">
+                    <span class="parse-quantity mb-2">{{ item.quantity.product_size }}</span>
+                    <span>
+                        <form method="POST" action="{% url 'remove_from_bag' item.product_id %}">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ item.size }}" name="size">
+                            <button type="submit" href="{% url 'remove_from_bag' item.product_id %}">remove</button>
+                        </form>
+                    </span>
                 </td>
                 <td class="col-3 d-flex align-items-center justify-content-center">£{{ item.product.price }}</td>
             </tr>
