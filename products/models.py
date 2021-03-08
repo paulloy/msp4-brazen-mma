@@ -54,7 +54,7 @@ class Product(models.Model):
         default="SELECT CATEGORY")
     product_type = models.CharField(
         max_length=20, choices=PRODUCT_TYPE_CHOICES, default="SELECT TYPE")
-    image = models.ImageField(upload_to='product_img/',
+    image = models.ImageField(upload_to='product_images/',
                               blank=False, null=False,
                               default='products/static/ \
                                   product_img/placeholder.jpg')
