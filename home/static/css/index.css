@@ -1,0 +1,30 @@
+.carousel-cell {
+    display: flex;
+    flex-direction: column;
+}
+.img-container {
+    width: 15rem;
+    height: 15rem;
+    overflow: hidden;
+}
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+.loading {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: whitesmoke;
+    font-size: 2rem;
+}
+.title {
+    background-color: rgba(53, 122, 139, 0.1);
+}
+.display-none {
+    display: none;
+}
+.display-none:first-of-type {
+    display: block;
+}

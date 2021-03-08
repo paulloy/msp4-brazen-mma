@@ -9,6 +9,93 @@
  - Home
 {% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+{% endblock %}
+
 {% block content %}
-    
+    <div id="bjj-list" class="display-none">
+      <div class="row bjj-product-row">
+
+      </div>  
+    </div>
+    <div id="mma-list" class="display-none">
+      <div class="row mma-product-row">
+          
+      </div> 
+    </div>
+    <div id="equipment-list" class="display-none">
+      {% include 'includes/equipment.html' %}
+    </div>
+    <div id="muay-thai-list" class="display-none">
+      {% include 'includes/muay_thai.html' %}
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    <!-- inline script -->    
+    <script>
+
+        function ajaxCall(category, product_type) {                       
+
+            $.ajax({
+                method: "GET",
+                url: `{% url 'ajax_request' %}?category=${category}&product_type=${product_type}`,
+                async: true,
+                success: function(response) {
+                    var product = JSON.parse(response);
+
+                    var row = `<div class="px-5 col-12">
+                            <div class="d-flex align-items-center title">
+                                <h4 class="my-3 ml-3 text-capitalize">${product_type}</h4>
+                                <a href="{% url 'products' %}?category=${category}&product_type=${product_type}" class="ml-auto mr-3 my-3">view all</a>
+                            </div>
+                            <hr class="m-0 mb-3">
+                        </div>
+                        <div class="col-12 px-5">
+                            <div class="row contains-four ${category}-product-column">
+                            </div>
+                            <hr class="m-0 mt-3">
+                        </div>`;
+                     $(`.${category}-product-row`).append(row); 
+                    
+                    for (var i=0; i<4; i++) {
+                        if (product[i].fields.price != product[i].fields.rrp) {
+                            // using django url in href won't work for linking to product pages, so the below is used instead
+                            var column = `<a href="products/${ product[i].pk }" class="col-xl-3 col-lg-6 carousel-cell d-flex flex-column align-items-center">                            
+                                            <div class="img-container">
+                                                <img src="media/${ product[i].fields.image }" alt="${ product[i].fields.name }">
+                                            </div>
+                                            <p class="my-2">${ product[i].fields.name }</p>
+                                            <div class="d-flex my-2">
+                                                <strike class="mr-2 text-muted">£${ product[i].fields.rrp }</strike>
+                                                <p class="mx-2">£${ product[i].fields.price } <i class="fas fa-tags"></i></p>
+                                            </div>
+                                        </a>`;
+                        } else {
+                            var column = `<a href="products/${ product[i].pk }" class="col-xl-3 col-lg-6 carousel-cell d-flex flex-column align-items-center">                            
+                                            <div class="img-container">
+                                                <img src="media/${ product[i].fields.image }" alt="${ product[i].fields.name }">
+                                            </div>
+                                            <p class="my-2">${ product[i].fields.name }</p>
+                                            <p class="my-2">£${ product[i].fields.price }</p>
+                                        </a>`;
+                            }
+                        $(`.${category}-product-column`).last().append(column);
+                    }
+                    $('.loader').remove();                  
+                }
+            }); 
+        }               
+
+        ajaxCall('bjj', 'gi');
+        ajaxCall('bjj', 'belts');
+        ajaxCall('bjj', 'rash guards');
+        ajaxCall('bjj', 'shorts');
+        ajaxCall('bjj', 'spats');
+        ajaxCall('mma', 'gloves');
+    </script>
+
 {% endblock %}
