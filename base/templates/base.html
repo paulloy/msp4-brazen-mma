@@ -25,6 +25,10 @@
 
 <body class="position-relative">
 
+    <!-- <div id="background-image">
+        <img src="https://thumbs.gfycat.com/AbandonedAnguishedCatfish-max-1mb.gif" alt="">
+    </div> -->
+
     <header class="w-100 d-none d-lg-flex align-items-center px-5">
         <a class="btn h-100 mr-auto d-flex p-0 align-items-center" href="{% url 'home' %}"><h1 class="mb-0">Brazen Martial Arts</h1></a>
         <!-- <nav class="h-100">
@@ -47,53 +51,8 @@
     <!-- alternate menus -->
     {% include 'includes/tablet/menu.html' %}
 
-    <div class="container-fluid px-0 d-flex">
-        <nav id="product-menu" class="product-menu d-none d-lg-block p-0">
-            <ul class="list-unstyled">
-                <li id="mma-products" class="display-none">
-                    <ul class="list-unstyled d-flex flex-column align-items-center">
-                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=shin guards">Shin Guards</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=mouth guards">Mouth Guards</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=mma&product_type=hand wrap">Handwrap</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=mma">ALL MMA</a></li>
-                    </ul>
-                </li>
-                <li id="bjj-products" class="display-none">
-                    <ul class="list-unstyled d-flex flex-column align-items-center">
-                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=gi">GI</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=belts">Belts</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=rashguards">Rashguards</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=spats">Spats</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=bjj&product_type=shorts">Shorts</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=bjj">ALL BJJ</a></li>
-                    </ul>
-                </li>
-                <li id="muay-thai-products" class="display-none">
-                    <ul class="list-unstyled d-flex flex-column align-items-center">
-                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=shorts">Shorts</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=gloves">Gloves</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=shin guards">Shin Guards</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=mouth guards">Mouth Guards</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=hand wrap">Handwrap</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai&product_type=groin guard">Groin Guard</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=muay thai">ALL MUAY THAI</a></li>
-                    </ul>
-                </li>
-                <li id="equipment-products" class="display-none">                    
-                    <ul class="list-unstyled d-flex flex-column align-items-center">
-                        <li class="my-3"><a href="{% url 'products' %}?category=equipment&product_type=kick shield">Kick Shields</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=equipment&product_type=belly pads">Belly Pads</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=equipment&product_type=punch bags">Punch Bags</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=equipment&product_type=grappling dummies">Grappling Dummies</a></li>
-                        <li class="my-3"><a href="{% url 'products' %}?category=equipment">ALL EQUIPMENT</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div class="container-fluid px-0 d-flex flex-column">       
         <div id="block-content" class="p-0">
-            <!-- <img style="position: absolute; z-index:-1; bottom: 0; width:100%; height: 100%; opacity: 0.2; object-fit: fill;" src="https://thumbs.gfycat.com/BriskFlawlessKiwi-size_restricted.gif" alt="fire png"> -->
             {% block content %}{% endblock %}
         </div>
         
@@ -110,16 +69,28 @@
 
     <div id="bag-menu" class="position-absolute">
         <a id="close-bag-side-menu" href="#" class="w-100 p-3 d-block bg-secondary"><i class="fas fa-long-arrow-alt-left"></i> Continue Shopping</a>
-        <table class="container-fluid">
+        <div class="container-fluid">
             {% for item in bag_items %}
-                <tr class="row">
-                    <td class="col-3"><a href="{% url 'product_details' item.product.product_id %}"><img class="img-container-bag-menu" src="{% static '' %}{{ item.product.image }}" alt="{{ item.product.name }}"></a></td>
-                    <td class="col-3">{{ item.product.name }}</td>
-                    <td class="col-3">{{ item.product.quantity }}</td>
-                    <td class="col-3">£{{ item.product.price }}</td>
-                </tr>
+                <div class="row tr-border-bottom my-2 py-1">
+                    <div class="col-3 p-0 pl-2">
+                        <a href="{% url 'product_details' item.product.product_id %}">
+                            <img class="img-container-bag-menu" src="../media/{{ item.product.image }}" alt="{{ item.product.name }}">
+                        </a>
+                    </div>
+                    <div class="col-9 d-flex flex-column pr-2">                        
+                        <div class="w-100 d-flex flex-column">
+                            <a href="{% url 'product_details' item.product.product_id %}" class="text-left pl-1 w-100">{{ item.product.name }}</a>
+                            {% if item.size != 'false' %}
+                                <p class="m-0 mx-2 d-flex justify-content-between"><span>size: {{ item.size }}</span><span>quantity: {{ item.qty }}</span></p>
+                            {% else %}
+                                <p class="m-0 mx-2 text-right">quantity: {{ item.qty }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="text-right w-100 my-2">£{{ item.product.price }}</div>
+                    </div>
+                </div>
             {% endfor %}
-        </table>
+            </div>
         <a class="listitem btn p-0 w-100 d-block bg-secondary" href="{% url 'view_bag' %}">View Bag</a>
     </div>
 
