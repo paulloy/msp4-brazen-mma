@@ -46,13 +46,11 @@
                 </td>
                 <td class="col-3 d-flex align-items-center flex-column py-4">
                     <span class="mb-2">
-                        <!-- original parse-quantity location ^^ -->
                         <form method="POST" action="{% url 'adjust_bag' item.product_id %}">
                             {% csrf_token %}
-                            <input type="hidden" name="size" value="{{ item.size }}">                            
-                            <input type="hidden" class="parse-quantity" value="{{ item.quantity.product_size }}">
+                            <input type="hidden" name="size" value="{{ item.size }}">
                             <button class="quantity-sub btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-left"></i></button>
-                            <input name="quantity" type="number" min="1" max="99" class="text-center display-quantity" required>
+                            <input name="quantity" type="number" min="1" max="99" value="{{ item.qty }}" class="text-center display-quantity" required>
                             <button class="quantity-add btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-right"></i></button> 
                             
                             <button type="submit">update</button>
@@ -87,48 +85,5 @@
 {% endblock %}
 
 {% block js %}
-    <script>
-        /* 
-        display quantity of a product size. 
-        This is a temporary fix. Ideally this should
-        be fixed with Django templates
-        */     
-        $(function() {
-            let getQuantityClass = document.getElementsByClassName('parse-quantity');
-            let getSizeClass = document.getElementsByClassName('parse-size');
-            let displayQuantity = document.getElementsByClassName('display-quantity');
-            let i;
-            for (i=0; i<getQuantityClass.length; i++) {
-                /* 
-                get {item.quantity.product_size} and replace ' with " so that 
-                JSON can parse the string.
-                */
-                let getString = getQuantityClass[i].value.replace(/'/g, '"');
-                let parseString = JSON.parse(getString);
-                let getSize = getSizeClass[i].innerText;
-                displayQuantity[i].value = parseString[getSize];
-            }
-            $('.parse-quantity').show();
-        });
-
-        var $displayQuantity = $('.display-quantity');
-
-        $('.quantity-add').click(function() {
-            var val = $(this).prev().val();
-            if (val < 99) {
-                val = parseInt(val) + 1;
-                $(this).prev().val(val);
-            }
-        });
-        $('.quantity-sub').click(function() {
-            var val = $(this).next().val();
-            if (val > 1) {
-                val = parseInt(val) - 1;
-                $(this).next().val(val);
-            }
-        });
-
-
-
-    </script>
+    <script src="{% static 'js/bag.js' %}"></script>
 {% endblock %}
