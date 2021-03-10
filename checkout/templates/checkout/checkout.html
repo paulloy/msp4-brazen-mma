@@ -20,6 +20,21 @@
         height: 100%;
         object-fit: scale-down;
     }
+
+    .stripe-style-input {
+        box-sizing: border-box;
+        height: 40px;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        border-radius: 0;
+        background-color: white;
+        box-shadow: 0 1px 3px 0 #e6ebf1;
+        -webkit-transition: box-shadow 150ms ease;
+        transition: box-shadow 150ms ease;
+    }
+    #card-element {
+        border: 1px solid black;
+    }
 </style>
 {% endblock %}
 
@@ -64,7 +79,7 @@
                 </fieldset>
                 <fieldset>
                     <legend>Payment</legend>
-                    <div id="card-element"></div>                   
+                    <div id="card-element" class="my-5 p-3"></div>                   
                     <div id="card-errors"></div>                   
                 </fieldset>
                 <a href="#">Adjust your bag.</a>
@@ -102,4 +117,36 @@
 {% endblock %}
 
 {% block js %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    
+    <script>
+        var stripe_public_key = $('#id_stripe_public_key').text().slice(1, -1);
+        var client_secret = $('#id_client_secret').text().slice(1, -1);
+        var stripe = Stripe(stripe_public_key);
+        var elements = stripe.elements()
+
+        var style = {
+            base: {
+                color: '#32325d',
+                fontFamily: '"Helvetica Neve", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#dc3545',
+                iconColor: '#dc3545'
+            }
+        };
+
+        var card = elements.create('card', {style: style});
+        card.mount('#card-element');
+
+    </script>
+
+    <script src="{% static 'checkout/js/stripe-elements.js' %}"></script>
 {% endblock %}
