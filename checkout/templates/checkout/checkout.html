@@ -80,7 +80,7 @@
                 <fieldset>
                     <legend>Payment</legend>
                     <div id="card-element" class="my-5 p-3"></div>                   
-                    <div id="card-errors"></div>                   
+                    <div id="card-errors" class="my-5 p-3"></div>                   
                 </fieldset>
                 <a href="#">Adjust your bag.</a>
                 <button>Complete Order</button>
@@ -145,6 +145,50 @@
 
         var card = elements.create('card', {style: style});
         card.mount('#card-element');
+
+        // Handle validation errors
+        card.addEventListener('change', function(e) {
+            var errorDiv = document.getElementById('card-errors');
+            if (e.error) {
+                var html = `
+                    <span class="icon text-danger" role="alert">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    <span class="text-danger">${e.error.message}</span>`;
+                errorDiv.innerHTML = html;
+            } else {
+                errorDiv.textContent = '';
+            }
+        });
+
+        // handle form submission
+        var form = document.getElementById('payment-form');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            card.update({'disabled': true});
+            $('#submit-button').attr('disabled', true);
+            stripe.confirmCardPayment(client_secret, {
+                payment_method: {
+                    card: card,
+                }
+            }).then(function(result) {
+                if (result.error) {
+                    var html = `
+                        <span class="icon text-danger" role="alert">
+                            <i class="fas fa-times"></i>
+                        </span>
+                        <span class="text-danger">${result.error.message}</span>`;
+                    errorDiv.innerHTML = html;
+                    card.update({'disabled': false});
+                    $('#submit-button').attr('disabled', false);
+                } else {
+                    if (result.paymentIntent.status === 'succeeded') {
+                        form.submit();
+                    }
+                }
+            });
+        });
 
     </script>
 
