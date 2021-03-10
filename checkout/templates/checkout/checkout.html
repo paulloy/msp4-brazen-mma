@@ -10,9 +10,95 @@
 {% endblock %}
 
 {% block css %}
+<style>
+    .img-summary {
+        width: 5rem;
+        height: 5rem;
+    }
+    .img-summary img {
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
+    <h2 class="mx-auto py-3 text-center bg-white">Checkout</h2>
+    <div class="container">
+        <div class="row">
+            <p class="col-12">Please Fill out the form below.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <form class="col-6" action="{% url 'checkout' %}" method="POST" id="payment-form">
+                {% csrf_token %}
+                <fieldset>
+                    <legend>Details</legend>
+                    {{ order_form.first_name | as_crispy_field }}
+                    {{ order_form.last_name | as_crispy_field }}
+                    {{ order_form.email | as_crispy_field }}
+                </fieldset>
+                <fieldset>
+                    <legend>Delivery</legend>
+                    {{ order_form.phone_number | as_crispy_field }}
+                    {{ order_form.country | as_crispy_field }}
+                    {{ order_form.postcode | as_crispy_field }}                    
+                    {{ order_form.town_or_city | as_crispy_field }}                    
+                    {{ order_form.street_address1 | as_crispy_field }}                    
+                    {{ order_form.street_address2 | as_crispy_field }}                    
+                    {{ order_form.county | as_crispy_field }} 
+                    <div>
+                        {% if user.is_authenticated %}
+                            <label>Save this delivery information</label>
+                            <input type="checkbox">
+                        {% else %}
+                            <label for="">
+                                <a href="#">Create an account</a>
+                                <a href="#">Login</a> to save this information.
+                            </label>
+                        {% endif %}
+                    </div>                
+                </fieldset>
+                <fieldset>
+                    <legend>Payment</legend>
+                    <div id="card-element"></div>                   
+                    <div id="card-errors"></div>                   
+                </fieldset>
+                <a href="#">Adjust your bag.</a>
+                <button>Complete Order</button>
+                <p>you will be charged £ XX.XX</p>
+            </form>
+            <div class="col-6">
+                <p>Order Summary</p>
+                <table>
+                    {% for item in bag_items %}
+                        <tr class="table-row row py-2">
+                            <td class="img-summary col-3 d-flex justify-content-center">
+                                <img class="img-container" src="../media/{{ item.product.image }}" alt="{{ item.product.name }}">
+                            </td>
+                            <td class="col-6 d-flex align-items-center justify-content-start">
+                                <strong>
+                                    {{ item.product.name }}
+                                    {% if item.size != 'false' %}
+                                        <p>Size: {{ item.size }}</p>
+                                    {% endif %}
+                                    <span class="parse-size d-none">{{ item.size }}</span>
+                                </strong>
+                            </td>
+                            <td class="col-1 d-flex align-items-center flex-column py-4">
+                                {{ item.qty }}
+                            </td>
+                            <td class="col-2 d-flex align-items-center justify-content-center">£{{ item.product.price }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block js %}
