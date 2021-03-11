@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Under UX Contruction. Static files and templates may alter substantially during development.
+Refactor pending. -->
+
+{% block meta_description %}
+    <meta name="Description" content="Checkout success page"/>
+{% endblock %}
+
+{% block title %}
+ - Checkout Complete
+{% endblock %}
+
+{% block css %}
+<style>
+    .img-summary {
+        width: 5rem;
+        height: 5rem;
+    }
+    .img-summary img {
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+    }
+
+    .stripe-style-input {
+        box-sizing: border-box;
+        height: 40px;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        border-radius: 0;
+        background-color: white;
+        box-shadow: 0 1px 3px 0 #e6ebf1;
+        -webkit-transition: box-shadow 150ms ease;
+        transition: box-shadow 150ms ease;
+    }
+    #card-element {
+        border: 1px solid black;
+    }
+    body {
+        background-color: rgba(173, 216, 230, 0.459);
+    }
+    #payment-form {
+        background-color: rgb(255, 255, 255);
+        /* box-shadow: inset 4rem 4rem 20rem rgba(173, 216, 230, 0.459); */
+    }
+    .bg-card {
+        background-color: white;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .w-80 {
+        width: 85%;
+    }
+    .stripe-style-input {
+        border: 1px solid black;
+        /* box-shadow: 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.253) inset; */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h2 class="mx-auto py-3 text-center bg-white">Order Successfully placed.</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ order }}
+            </div>
+        </div>
+    </div>     
+        
+
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    
+    <script>
+        var stripe_public_key = $('#id_stripe_public_key').text().slice(1, -1);
+        var client_secret = $('#id_client_secret').text().slice(1, -1);
+        var stripe = Stripe(stripe_public_key);
+        var elements = stripe.elements()
+
+        var style = {
+            base: {
+                color: '#32325d',
+                fontFamily: '"Helvetica Neve", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#dc3545',
+                iconColor: '#dc3545'
+            }
+        };
+
+        var card = elements.create('card', {style: style});
+        card.mount('#card-element');
+
+        // Handle validation errors
+        card.addEventListener('change', function(e) {
+            var errorDiv = document.getElementById('card-errors');
+            if (e.error) {
+                var html = `
+                    <span class="icon text-danger d-inline-block flex-fill text-right mr-2" role="alert">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    <span class="text-danger d-inline-block text-right">${e.error.message}</span>`;
+                errorDiv.innerHTML = html;
+            } else {
+                errorDiv.textContent = '';
+            }
+        });
+
+        // handle form submission
+        var form = document.getElementById('payment-form');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            card.update({'disabled': true});
+            $('#submit-button').attr('disabled', true);
+            stripe.confirmCardPayment(client_secret, {
+                payment_method: {
+                    card: card,
+                }
+            }).then(function(result) {
+                if (result.error) {
+                    var html = `
+                        <span class="icon text-danger" role="alert">
+                            <i class="fas fa-times"></i>
+                        </span>
+                        <span class="text-danger">${result.error.message}</span>`;
+                    errorDiv.innerHTML = html;
+                    card.update({'disabled': false});
+                    $('#submit-button').attr('disabled', false);
+                } else {
+                    if (result.paymentIntent.status === 'succeeded') {
+                        form.submit();
+                    }
+                }
+            });
+        });
+
+    </script>
+
+    <script src="{% static 'checkout/js/stripe-elements.js' %}"></script>
+{% endblock %}
