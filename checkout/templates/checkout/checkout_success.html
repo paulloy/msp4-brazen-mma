@@ -65,10 +65,75 @@ Refactor pending. -->
 {% block content %}
     <h2 class="mx-auto py-3 text-center bg-white">Order Successfully placed.</h2>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                {{ order }}
+    <div class="container p-3 bg-white">
+        <div class="row w-80 mx-auto">
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Order Number</div>
+                <div class="w-50 text-right">{{ order.order_number }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Order Date</div>
+                <div class="w-50 text-right">{{ order.date }}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="row w-80 mx-auto">
+            {% for item in order.lineitems.all %}
+            <div class="w-100 d-flex my-1">
+                <!-- get sizes in -->
+                <div class="w-50">{{ item.product.name }}</div>
+                <div class="w-50 text-right">£ {{ item.product.price }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="row w-80 mx-auto">
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Name</div>
+                <div class="w-50 text-right">{{ order.first_name }} {{ order.last_name }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Address 1</div>
+                <div class="w-50 text-right">{{ order.street_address1 }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Address 2</div>
+                <div class="w-50 text-right">{{ order.street_address2 }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">County</div>
+                <div class="w-50 text-right">{{ order.county }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Town/City</div>
+                <div class="w-50 text-right">{{ order.town_or_city }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Postcode</div>
+                <div class="w-50 text-right">{{ order.postcode }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Country</div>
+                <div class="w-50 text-right">{{ order.country }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Phone Number</div>
+                <div class="w-50 text-right">{{ order.phone_number }}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="row w-80 mx-auto">
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Order Total</div>
+                <div class="w-50 text-right">£ {{ order.order_total }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Delivery Cost</div>
+                <div class="w-50 text-right">£ {{ order.delivery }}</div>
+            </div>
+            <div class="w-100 d-flex my-1">
+                <div class="w-50">Grand Total</div>
+                <div class="w-50 text-right">£ {{ order.grand_total }}</div>
             </div>
         </div>
     </div>     

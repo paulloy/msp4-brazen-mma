@@ -98,6 +98,7 @@ def checkout_success(request, order_number):
         del request.session['bag']
 
     template = 'checkout/checkout_success.html'
+
     context = {
         'order': order,
     }
