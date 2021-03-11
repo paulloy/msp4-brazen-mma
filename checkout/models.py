@@ -36,9 +36,9 @@ class Order(models.Model):
         return uuid.uuid4().hex.upper()
 
     def update_total(self):
-        self.order_total = self.inlineitems.aggregate(Sum(
-            'lineitem_total'))['lineitem_total__sum']
-        self.grand_total = self.order_total
+        self.order_total = self.lineitems.aggregate(Sum(
+            'lineitem_total'))['lineitem_total__sum'] or 0
+        self.grand_total = self.order_total + self.delivery_cost
         self.save()
 
     def save(self, *args, **kwargs):
@@ -51,9 +51,9 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
-    Order = models.ForeignKey(
+    order = models.ForeignKey(
         Order, null=False, blank=False,
-        on_delete=models.CASCADE, related_name='lineitem')
+        on_delete=models.CASCADE, related_name='lineitems')
     product = models.ForeignKey(
         Product, null=False, blank=False, on_delete=models.CASCADE)
     product_size = models.CharField(
@@ -64,8 +64,8 @@ class OrderLineItem(models.Model):
         null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
-        self.lineitem_total = self.product_price * self.quantity
+        self.lineitem_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.product.product_id
+        return f'{self.product.product_id} in order {self.order.order_number}'
