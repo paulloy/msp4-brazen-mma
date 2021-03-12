@@ -28,10 +28,6 @@ def all_products(request):
 
         if 'q' in request.GET:
             query = request.GET['q']
-            if not query:
-                # messages.error(
-                #     request, "You didn't enter any search criteria!")
-                return redirect(reverse('products'))
 
             queries = Q(name__icontains=query) \
                 | Q(category__icontains=query) \
@@ -52,7 +48,7 @@ def all_products(request):
             if filters == 'MEN' or 'WOMEN':
                 products = products.filter(
                     Q(gender__iexact=filters) | Q(gender__iexact='UNISEX'))
-            elif filters == 'UNISEX':
+            else:
                 products = products.filter(gender__iexact=filters)
 
     context = {

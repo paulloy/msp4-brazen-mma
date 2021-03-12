@@ -1,7 +1,9 @@
 from django.test import TestCase, RequestFactory, Client
-from .models import (Product, ProductCategory,
-                     ProductType, ProductGender, ProductSizesStock)
-from .views import product_details, all_products
+from django.shortcuts import HttpResponse
+from django.urls import reverse
+from . import models
+from . import views
+import random
 
 
 class TestViews(TestCase):
@@ -10,61 +12,63 @@ class TestViews(TestCase):
         # Some tests need access to the request factory.
         self.factory = RequestFactory()
 
-    def test_get_products_view(self):
+    # all_products()
+
+    def test_all_products_view(self):
         response = self.client.get('/products/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'products/products.html')
 
-    def test_get_product_details_view(self):
-        item = Product.objects.create(
-            name='Test product details view', rrp='0.00', price='0.00')
-        response = self.client.get(f'/products/{item.product_id}')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'products/product_details.html')
-
     def test_category_and_product_type_in_get_request(self):
-        category = ProductCategory.objects.create(name='Test Category')
-        product_type = ProductType.objects.create(name='Test Product Type')
-        item = Product.objects.create(
-            name='Test Category and Product_Type in GET Request',
-            category=category, product_type=product_type,
-            rrp='0.00', price='0.00')
-        response = self.client.get(
-            f'/products/?category={item.category}&\
-                product_type={item.product_type}')
+        c = Client()
+        category = random.sample(models.PRODUCT_CATEGORY_CHOICES, k=1)[0][0]
+        product_type = random.sample(models.PRODUCT_TYPE_CHOICES, k=1)[0][0]
+        response = c.get(
+            f'/products/?category={category}&product_type={product_type}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'products/products.html')
+
+    def test_category_in_get_request(self):
+        c = Client()
+        category = random.sample(models.PRODUCT_CATEGORY_CHOICES, k=1)[0][0]
+        response = c.get(f'/products/?category={category}')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'products/products.html')
 
     def test_q_in_get_request(self):
-        q = 'test q in GET request'
-        response = self.client.get(f'/products/?q={q}')
+        c = Client()
+        response = c.get('/products/?q=user_custom_value')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'products/products.html')
 
-    def test_save_subtraction(self):
-        item = Product.objects.create(
-            name='Test Save Subtraction',
-            rrp='25.00', price='15.00')
-        request = self.factory.get(f'/products/{item.product_id}')
-        response = product_details(request, item.product_id)
-        self.assertEqual(response.status_code, 200)
-
-    def test_all_products(self):
-        category = ProductCategory.objects.create(name='Test Category')
-        product_type = ProductType.objects.create(name='Test Product Type')
-        item = Product.objects.create(
-            name='Test Category and Product_Type in GET Request',
-            category=category, product_type=product_type,
-            rrp='0.00', price='0.00')
+    def test_sort_and_direction_in_get_request(self):
         c = Client()
-        response = c.get('/products/', {
-            'category': item.category, 'product_type': item.product_type})
-        self.assertEqual(response.status_code, 200)
+        sort = ['price', 'name']
+        direction = ['asc', 'desc']
+        for sortkey in sort:
+            for directionkey in direction:
+                response = c.get(
+                    f'/products/?sort={sortkey}&direction={directionkey}')
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, 'products/products.html')
 
-    def test_q_not_in_get_request(self):
+    def test_filters_in_get_request(self):
         c = Client()
-        response = c.get('/products/', {'q': ''})
-        self.assertRedirects(response, '/products/', status_code=302,
-                             target_status_code=200,
-                             fetch_redirect_response=True)
+        filters = ['MEN', 'WOMEN', 'UNISEX']
+        for filter_key in filters:
+            response = c.get(f'/products/?filters={filter_key}')
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'products/products.html')
 
+    # product_details()
+
+    def test_product_details_view(self):
+        product = models.Product.objects.create(
+            name='Test Product', price='0.00', rrp='1.00')
+        sizes_no_stock = models.ProductSizesStock.objects.create(
+            product_id=product, size='Test Size Stock 0', stock=0)
+        sizes_less_than_five = models.ProductSizesStock.objects.create(
+            product_id=product, size='Test Size Stock < 5', stock=3)
+        response = self.client.get(f'/products/{product.product_id}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'products/product_details.html')
