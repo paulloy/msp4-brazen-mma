@@ -1,22 +1,9 @@
 from django.test import TestCase
-from .models import (Product, ProductCategory,
-                     ProductType, ProductGender, ProductSizesStock)
+from .models import Product, ProductSizesStock
 import random
 
 
 class TestModels(TestCase):
-
-    def test_productcategory_string_method_returns_name(self):
-        item = ProductCategory.objects.create(name='Test String Method')
-        self.assertEqual(str(item), 'Test String Method')
-
-    def test_producttype_string_method_returns_name(self):
-        item = ProductType.objects.create(name='Test String Method')
-        self.assertEqual(str(item), 'Test String Method')
-
-    def test_productgender_string_method_returns_name(self):
-        item = ProductGender.objects.create(name='Test String Method')
-        self.assertEqual(str(item), 'Test String Method')
 
     def test_product_string_method_returns_name(self):
         item = Product.objects.create(
