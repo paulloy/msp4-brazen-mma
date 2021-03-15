@@ -45,14 +45,35 @@
             </ul>
         </nav>
     </header>
+    
+            <img id="base-img" src="https://scitechdaily.com/images/Burning-Coals.gif" alt="">
     <!-- alternate headers -->
     {% include 'includes/tablet/header.html' %}
     {% include 'includes/mobile/header.html' %}
     <!-- alternate menus -->
     {% include 'includes/tablet/menu.html' %}
 
-    <div class="container-fluid px-0 d-flex flex-column">       
-        <div id="block-content" class="p-0">
+    <div class="container-fluid px-0 d-flex">   
+        <div id="product-menu2">
+            <ul class="d-flex flex-column list-unstyled w-100 h-75 m-0 justify-content-center">
+                <li class="ml-3 text-left w-100"><a href="{% url 'home' %}" class="open-product-list">BJJ</a></li>
+                <!-- <ul>
+                    <li><small>shorts</small></li>
+                    <li><small>gi</small></li>
+                    <li><small>belts</small></li>
+                    <li><small>rashguards</small></li>
+                    <li><small>spats</small></li>
+                </ul> -->
+                <li class="ml-3 text-left w-100"><a href="{% url 'home' %}" class="open-product-list">MMA</a></li>
+                <li class="ml-3 text-left w-100"><a href="{% url 'home' %}" class="open-product-list">MUAY THAI</a></li>
+                <li class="ml-3 text-left w-100"><a href="{% url 'home' %}" class="open-product-list">EQUIPMENT</a></li>
+                <li class="ml-3 text-left w-100"><a href="{% url 'products' %}">ALL PRODUCTS</a></li>
+            </ul>
+            <!-- <footer class="d-flex justify-content-end">
+                <p class="text-right">A website by Paul Loy</p>
+            </footer> -->
+        </div>    
+        <div id="block-content" class="p-0 mx-auto">
             {% block content %}{% endblock %}
         </div>
         
@@ -101,6 +122,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- flickity -->    
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
     <!-- Custom JavaScript -->
     <script src="{% static 'js/base.js' %}"></script>
     {% block js %}{% endblock %}

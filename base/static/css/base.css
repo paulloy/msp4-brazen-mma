@@ -32,6 +32,12 @@
 a {
     color: (148,201,61);
 }
+.text-capitalize {
+    text-transform: capitalize;
+}
+.tr-border-bottom {
+    border-bottom: 1px solid black;
+}
 /* -------------- */
 
 /* scroll bar styling */
@@ -58,13 +64,24 @@ a {
 
 body {
     font-family: 'Montserrat', sans-serif;
-    overflow: hidden;
-    background-color: whitesmoke;
+    /* background-color: black; */
+    background-color: black;
+}
+#background-image {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+#background-image img {
+    width: 100%;
+    object-fit: cover;
 }
 header {
     font-family: 'Source Sans Pro', sans-serif;
     height: 3rem;
-    background-color: rgba(0, 0, 0);
+    background-color: rgba(200, 222, 230, 0.2);
 }
 h1 {
     letter-spacing: 0px;
@@ -74,8 +91,24 @@ h1 {
 }
 #product-menu {
     position: absolute;
+    top: 6rem;
+    left: 0;
+}
+#product_menu {
+    height: 3rem;
+    background-color: rgba(200, 222, 230, 0.2);
+    position: absolute;
     top: 3rem;
     left: 0;
+    width: 100vw;
+}
+#product_menu ul {    
+}
+#mma,#bjj,#muay_thai,#equipment {
+    display: none;
+}
+.active-menu {
+    display: block !important;
 }
 /* #nav-menu {    
     position: absolute;
@@ -83,19 +116,57 @@ h1 {
     right: 0;
 } */
 .product-menu {
-    height: calc(100vh - 3rem);
+    height: calc(100vh - 6rem);
     width: 15rem;
     background-color: whitesmoke;
     overflow-x: scroll;
 }
 #block-content {
-    width: calc(100vw - 15rem);
+    width: calc(100vw - 320px);
     position: absolute;
-    top: 3rem;
     right: 0;
-    height: calc(100vh - 3rem);
+    top: 3rem;
+    /* right: 0; */
+    height: calc(100vh - 6rem);
     overflow-x: scroll;
     overflow-x: hidden;
+    margin-top: 3rem;
+    /* background-color: rgb(0, 0, 0); */
+    background-color: rgba(200, 222, 230, 0.2);
+}
+#base-img {
+    position: fixed;
+    top: 6rem;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    object-fit: cover;
+    pointer-events: none;
+}
+.side-menu {
+    width: 320px;
+    height: calc(100vh - 6rem);
+    background-color: rgba(128, 128, 128, 0.39);
+    position: absolute;
+    bottom: 0;
+}
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+   
+#product-menu2 {
+    width: 320px;
+    height: calc(100vh - 6rem);
+    position: absolute;
+    top: 6rem;
+    left: 0;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 2.6rem;       
+    color: rgb(105, 153, 243);
+    background-color: rgba(200, 222, 230, 0.2);
+}
+#product-menu2 ul li a {
+    
+    color: rgb(171, 200, 255);
 }
 
 /* tablet */
@@ -177,4 +248,25 @@ h1 {
 
 a {
     color: rgb(72, 107, 173);
+}
+
+/* bag menu */
+#bag-menu {
+    top: 0;
+    right: -320px;
+    z-index: 10;
+    height: 100vh;
+    width: 320px;
+    background-color: whitesmoke;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: none;
+}
+.img-container-bag-menu {
+    height: 5rem;
+    width: 5rem;
+    object-fit: scale-down;
+}
+.parse-quantity {
+    display: none;
 }
