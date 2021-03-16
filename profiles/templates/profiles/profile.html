@@ -18,8 +18,18 @@ Refactor pending. -->
 
 {% block content %}
 
-    <h2>Riser Friends Profile Page</h2>
-    {{ profile }}
+    <div class="w-75 mx-auto bg-white row p-5">
+        <form class="col-6" action="{% url 'profile' %}" method="POST" id="profile-update-form">
+            <h4>Default Delivery Information</h4>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Update information</button>
+        </form>
+        <div class="col-6">
+            <h4>Order History</h4>
+            {{ orders }}
+        </div>
+    </div>
 
 {% endblock %}
 
