@@ -53,7 +53,11 @@ def checkout(request):
         }
         order_form = OrderForm(form_data)
         if order_form.is_valid():
-            order = order_form.save()
+            order = order_form.save(commit=False)
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = pid
+            order.original_bag = json.dumps(bag)
+            order.save()
             for product_id, item_data in bag.items():
                 try:
                     product = Product.objects.get(product_id=product_id)
@@ -65,11 +69,11 @@ def checkout(request):
                         )
                         order_line_item.save()
                     else:
-                        for size, quantity in item_data['product_size'].items():
+                        for size, qty in item_data['product_size'].items():
                             order_line_item = OrderLineItem(
                                 order=order,
                                 product=product,
-                                quantity=quantity,
+                                quantity=qty,
                                 product_size=size,
                             )
                             order_line_item.save()
