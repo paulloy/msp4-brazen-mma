@@ -68,7 +68,7 @@
                     <div>
                         {% if user.is_authenticated %}
                             <label>Save this delivery information</label>
-                            <input type="checkbox">
+                            <input name="save-info" type="checkbox">
                         {% else %}
                             <label for="">
                                 <a href="#">Create an account</a>
@@ -83,7 +83,7 @@
                     <div id="card-errors" class="my-5 p-3"></div>                   
                 </fieldset>
                 <a href="#">Adjust your bag.</a>
-                <button>Complete Order</button>
+                <button type="submit" id="submit-form">Complete Order</button>
                 <p>you will be charged £ XX.XX</p>
             </form>
             <div class="col-6">
@@ -122,9 +122,9 @@
     {{ client_secret|json_script:"id_client_secret" }}
     
     <script>
-        var stripe_public_key = $('#id_stripe_public_key').text().slice(1, -1);
-        var client_secret = $('#id_client_secret').text().slice(1, -1);
-        var stripe = Stripe(stripe_public_key);
+        var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
+        var clientSecret = $('#id_client_secret').text().slice(1, -1);
+        var stripe = Stripe(stripePublicKey);
         var elements = stripe.elements()
 
         var style = {
@@ -167,8 +167,8 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             card.update({'disabled': true});
-            $('#submit-button').attr('disabled', true);
-            stripe.confirmCardPayment(client_secret, {
+            $('#submit-form').attr('disabled', true);
+            stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: card,
                 }
@@ -181,7 +181,7 @@
                         <span class="text-danger">${result.error.message}</span>`;
                     errorDiv.innerHTML = html;
                     card.update({'disabled': false});
-                    $('#submit-button').attr('disabled', false);
+                    $('#submit-form').attr('disabled', false);
                 } else {
                     if (result.paymentIntent.status === 'succeeded') {
                         form.submit();
