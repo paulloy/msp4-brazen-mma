@@ -270,3 +270,20 @@ a {
 .parse-quantity {
     display: none;
 }
+
+/* Allauth form Formatting */
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.login > * {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.login button {
+    width: 12.5rem;
+    display: inline-block;
+}
