@@ -1,0 +1,1 @@
+web: gunicorn brazen_mma.wsgi:application
