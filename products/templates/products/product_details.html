@@ -20,8 +20,8 @@
 
 {% block content %}
 
-
-<div class="w-100 header pt-4">
+<!-- breadcrumbs -->
+<!-- <div class="w-100 header pt-4">
     <nav aria-label="breadcrumb" class="col-12">
         <ol class="breadcrumb p-0">
             <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ product.category }}">{{ product.category }}</a></li>
@@ -29,37 +29,44 @@
             <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>                  
         </ol>
     </nav>
-</div>
+</div> -->
 
 <div class="container">
     <div class="row px-3 position-relative">
         <h3 class="col-12 text-center my-4"><strong>{{ product.name }}</strong></h3>
+        {% if request.user.is_superuser %}
+            <div class="bg-warning p-5 w-100">
+                <a class="btn btn-primary" href="{% url 'edit_product' product.product_id %}">Edit Product</a>
+                <a class="btn btn-danger" href="{% url 'delete_product' product.product_id %}">Delete Product</a>
+            </div>
+        {% endif %}
         <hr class="w-100 my-2">
+        <!-- product image -->
         <div class="col-12 col-xl-6 col-lg-12 col-md-6 product-img-container p-0 pr-2 position-relative">
-            <img class="p-3" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
+            <img class="p-3" src="../../media/{{ product.image }}" alt="{{ product.name }}">
         </div>
         <div class="col-12 col-xl-6 col-lg-12 col-md-6 p-0 pl-2"> 
             <div class="container-fluid">
                 <div class="row">
                     <!-- product price -->
                     {% if product.sale %}
-                        <div class="d-flex my-2 col-12">
-                            <h4><strike class="mr-2 text-muted pl-4 pr-1">£{{ product.rrp }}</strike></h4>
-                            <h4 class="mx-2 pr-4 pl-1">£{{ product.price }} <i class="fas fa-tags"></i></h4>
-                            <h4 class="mr-auto ml-2"><small>Save £{{ save }}</small></h4>
+                        <div class="d-flex my-2 col-12 w-100 justify-content-between">
+                            <h4 class="d-inline-block mx-auto"><strike class="mr-2 text-muted pl-4 pr-1">£{{ product.rrp }}</strike></h4>
+                            <h4 class="mx-2 d-inline-block mx-auto pr-4 pl-1">£{{ product.price }} <i class="fas fa-tags"></i></h4>
+                            <h4 class="mr-auto ml-2 d-inline-block mx-auto"><small>Save £{{ save }}</small></h4>
                         </div>
                     {% else %}
                         <h4 class="my-2 p-4 col-12">£{{ product.price }}</h4>
                     {% endif %}
                     <!-- product description -->
-                        <p class="text-justify p-1 p-md-4 col-12">{{ product.description }}</p>
+                        <p class="text-justify bg-text p-1 p-md-4 col-12">{{ product.description }}</p>
                     <!-- product sizes -->
                         <div id="cart-size" class="d-flex col-12 flex-column mt-5">
                             <hr class="w-100">
                             {% if sizes.count > 1 %}
                                 <div id="size">
                                     <p class="w-100">SIZES <a class="ml-auto" href="#">see size chart</a></p>
-                                    <div class="d-flex flex-wrap">
+                                    <div class="d-flex flex-wrap justify-content-center">
                                         {% if sizes.count > 1 %}
                                             {% for x in sizes %}
                                                 {% if x.stock < 1 %}
@@ -71,17 +78,22 @@
                                                 {% endif %}
 
                                                 {% if forloop.counter >= sizes.count %}
-                                                    <div class="d-flex flex-column w-100">
+                                                    <div class="d-flex justify-content-start w-100 m-0 w-100 mb-3 p-3">
                                                         {% if low_stock == True %}
-                                                            <span class="my-1"><i class="fas fa-circle text-warning"></i> low stock!</span>
+                                                            <span class="my-1 mx-2"><i class="fas fa-circle text-warning"></i> low stock!</span>
                                                         {% endif %}
                                                         {% if no_stock == True %}
-                                                            <span class="my-1"><i class="fas fa-circle text-danger"></i> out of stock :(</span>
+                                                            <span class="my-1 mx-2"><i class="fas fa-circle text-danger"></i> out of stock :(</span>
                                                         {% endif %}
                                                     </div>
                                                 {% endif %}
                                             {% endfor %}
                                             <p id="please-select-size" class="text-danger">Please select a size.</p>
+                                            {% if messages %}
+                                                    {% for message in messages %}
+                                                        <strong class="text-success">{{ message }}</strong>
+                                                    {% endfor %}
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>
