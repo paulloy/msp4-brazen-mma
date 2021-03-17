@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}
+    <meta name="Description" content="Add product page"/>
+{% endblock %}
+
+{% block title %}
+ - Add Product
+{% endblock %}
+
+{% block css %}
+    <style>
+        /* .hide {
+            display: none;
+            pointer-events: none;
+        } */
+        /* add script that will display correct product type for selected category */
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container bg-white">
+        <div class="row">
+            <h2>Product Management</h2>
+            <form class="d-flex flex-column w-100 p-5" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- name -->
+                <label for="name">Name</label>
+                <input id="name" type="text" required>
+                <!-- description -->
+                <label for="description">Description</label>
+                <textarea id="description" cols="30" rows="10"></textarea>
+                <!-- Select Category -->
+                <select id="category">
+                    <option value="Select Category" selected>Select Category</option>
+                    <option value="BJJ">BJJ</option>
+                    <option value="MMA">MMA</option>
+                    <option value="Muay Thai">Muay Thai</option>
+                    <option value="Equipment">Equipment</option>
+                </select>
+                <!-- Select Product Type -->
+                <select id="product-type">
+                    <option value="" selected>Select Product Type</option>
+                    <optgroup id="bjj-pt" class="hide" label="BJJ Product Types">
+                        <option value="GI">GI</option>
+                        <option value="Belts">Belts</option>
+                        <option value="Rash Guards">Rash Guards</option>
+                        <option value="Spats">Spats</option>
+                        <option value="Shorts">Shorts</option>
+                    </optgroup>
+                    <optgroup id="mma-pt" class="hide" label="MMA Product Types">
+                        <option value="Gloves">Gloves</option>
+                        <option value="Shorts">Shorts</option>
+                        <option value="Shin Guards">Shin Guards</option>
+                        <option value="Handwraps">Handwraps</option>
+                        <option value="Groin Guards">Groin Guards</option>
+                    </optgroup>
+                    <optgroup id="mt-pt" class="hide" label="Muay Thai Product Types">
+                        <option value="Gloves">Gloves</option>
+                        <option value="Shorts">Shorts</option>
+                        <option value="Shin Guards">Shin Guards</option>
+                        <option value="Handwraps">Handwraps</option>
+                        <option value="Groin Guards">Groin Guards</option>
+                    </optgroup>
+                    <optgroup id="eqt-pt" class="hide" label="Equipment Product Types">
+                        <option value="Mouth Guards">Mouth Guards</option>
+                        <option value="Kick Shields">Kick Shields</option>
+                        <option value="Belly Pads">Belly Pads</option>
+                        <option value="Punch Bags">Punch Bags</option>
+                        <option value="Grappling Dummies">Grappling Dummies</option>
+                        <option value="Joint Support">Joint Support</option>
+                    </optgroup>
+                </select>
+                <!-- select Gender -->
+                <select id="gender">
+                    <option value="Select Category" selected>Select Gender</option>
+                    <option value="WOMEN">WOMEN</option>
+                    <option value="MEN">MEN</option>
+                    <option value="UNISEX">UNISEX</option>
+                </select>
+                <!-- pricing -->
+                <label for="sale">Sale</label>
+                <input type="checkbox">
+                <label for="rrp">Recommended Retail Price (RRP)</label>
+                <input id="rrp" type="text" required>
+                <label for="price">Price</label>
+                <input id="price" type="text" required>
+                <!-- image -->
+                <label for="image">Product Image</label>
+                <input id="image" type="image">
+
+                <small>Product ID is created upon submission</small>
+                <a class="btn btn-secondary" href="{% url 'products' %}">Cancel</a>
+                <button class="btn btn-primary" type="submit">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $('#category option').click(function() {
+            console.log($('#category option[selected]').val());
+        });
+    </script>
+{% endblock %}

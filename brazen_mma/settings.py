@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'home',
-    'base',
     'products',
     'bag',
     'checkout',

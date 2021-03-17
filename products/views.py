@@ -92,3 +92,10 @@ def product_details(request, product_id):
     }
 
     return render(request, 'products/product_details.html', context)
+
+
+def add_product(request):
+
+    template = 'products/add_product.html'
+    
+    return render(request, template)
