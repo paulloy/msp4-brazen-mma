@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}
+    <meta name="Description" content="Add product page"/>
+{% endblock %}
+
+{% block title %}
+ - Add Product
+{% endblock %}
+
+{% block css %}
+    <style>
+        /* .hide {
+            display: none;
+            pointer-events: none;
+        } */
+        /* add script that will display correct product type for selected category */
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container bg-white">
+        <div class="row">
+            <h2>Product Management</h2>
+            <form class="d-flex flex-column w-100 p-5" method="POST" action="{% url 'edit_product' product.product_id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit">Update product</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $('#category option').click(function() {
+            console.log($('#category option[selected]').val());
+        });
+    </script>
+{% endblock %}
