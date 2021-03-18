@@ -175,7 +175,7 @@ MEDIA_URL = '/media/'
 if 'USE_AWS' in os.environ:
     # Cache Control
     AWS_S3_OBJECT_PARAMETERS = {
-        'Expires': 'Thu, 31 Dec 2099 30:00:00 GMT',
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
         'CacheControl': 'max-age=94608000',
     }
 
