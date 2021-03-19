@@ -16,6 +16,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=RocknRoll+One&family=Stick&display=swap" rel="stylesheet">
+    <!-- Toastr -->
+    <!-- https://github.com/CodeSeven/toastr -->
+    <link href="{% static 'css/toastr.css' %}" rel="stylesheet"/>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block css %}{% endblock %}
@@ -25,9 +28,13 @@
 
 <body class="position-relative">
 
-    <!-- <div id="background-image">
-        <img src="https://thumbs.gfycat.com/AbandonedAnguishedCatfish-max-1mb.gif" alt="">
-    </div> -->
+    <!-- Message Toasts -->
+    {% for message in messages %}
+        <!-- hidden inputs store message & tag for toastr-settings.js -->
+        <input id="message-value" type="hidden" value="{{ message }}">
+        <input id="message-tag" type="hidden" value="{{ message.tags }}">
+    {% endfor %}
+
 
     <header class="w-100 d-none d-lg-flex align-items-center px-5">
         <a class="btn h-100 mr-auto d-flex p-0 align-items-center" href="{% url 'home' %}"><h1 class="mb-0">Brazen Martial Arts</h1></a>
@@ -122,10 +129,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- flickity -->    
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <!-- Toastr -->
+    <script src="{% static 'js/toastr.js' %}"></script>
     <!-- Stripe -->
     <script src="https://js.stripe.com/v3/"></script>
     <!-- Custom JavaScript -->
     <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/toastr-settings.js' %}"></script>
     {% block js %}{% endblock %}
 </body>
 </html>
