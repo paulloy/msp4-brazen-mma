@@ -24,16 +24,40 @@ $('#product-menu-tablet ul li').click(function() {
     $(this).find('.product-menu-submenu').toggle();
 });
 
-// bag menu
-$('#open-bag-side-menu').click(function() {
-    $('#bag-menu').show().animate({
-        right: 0
-    }, 300);
+
+
+// toggle menus within header
+var toggleAccountOpen = false;
+var toggleBagMenuOpen = false;
+
+$('#toggle-account').click(function() {
+    if (toggleAccountOpen) {
+        $('#account').slideUp();
+        toggleAccountOpen = false;
+        if (!(toggleAccountOpen && toggleBagMenuOpen)) {
+            $('#product-menu').fadeIn();
+        }
+    } else {
+        $('#account').slideDown();
+        $('#bag-menu').fadeOut();
+        $('#product-menu').fadeOut();
+        toggleAccountOpen = true;
+        toggleBagMenuOpen = false;
+    }
 });
-$('#close-bag-side-menu').click(function() {
-    $('#bag-menu').animate({
-        right: '-320px'
-    }, 300, function() {
-        $('#bag-menu').hide();
-    });
+
+$('#toggle-bag-menu').click(function() {    
+    if (toggleBagMenuOpen) {
+        $('#bag-menu').slideUp();
+        toggleBagMenuOpen = false;
+        if (!(toggleAccountOpen && toggleBagMenuOpen)) {
+            $('#product-menu').fadeIn();
+        }
+    } else {
+        $('#bag-menu').slideDown();
+        $('#account').fadeOut();
+        $('#product-menu').fadeOut();
+        toggleBagMenuOpen = true;
+        toggleAccountOpen = false;
+    }
 });
