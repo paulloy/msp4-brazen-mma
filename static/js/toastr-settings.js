@@ -1,6 +1,17 @@
 
-var messageValue = document.getElementById('message-value').value;
-var messageTag = document.getElementById('message-tag').value;
+try {
+    var messageValue = document.getElementById('message-value').value;
+    var messageTag = document.getElementById('message-tag').value;
+} catch(err) {
+    /*
+        This "try" will prevent the following console error from being logged:
+
+        "Uncaught TypeError: Cannot read property 'value' of null"
+
+        When there are no messages, the #message-value and #message-tag elements are
+        not rendered by Django, so the above error gets logged to the console.
+    */
+}
 
 $(function() {
     if (messageTag === 'success') {
@@ -14,14 +25,26 @@ $(function() {
     }
 });
 
-// Toastr settings come from:
-// https://github.com/CodeSeven/toastr
+/*
+    Toastr settings come from:
+    https://github.com/CodeSeven/toastr
+    https://codeseven.github.io/toastr/demo.html
+*/
 
-    // add a close button to toast
-    toastr.options.closeButton = true;
-
-    // prevent duplicate toasts
-    toastr.options.preventDuplicates = true;
-
-    // add a progress bar
-    toastr.options.progressBar = true;
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
