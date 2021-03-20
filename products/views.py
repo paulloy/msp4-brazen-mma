@@ -4,6 +4,9 @@ from .models import Product, ProductSizesStock
 from .forms import ProductForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.core import serializers
+import random
 
 
 def all_products(request):
@@ -166,3 +169,25 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, 'Product deleted')
     return redirect(reverse('products'))
+
+
+def ajax_q_request(request):
+
+    all_products = Product.objects.all()
+    product_preview = None
+
+    if request.GET:
+        if 'q' in request.GET:
+            query = request.GET['q']
+
+            queries = Q(name__icontains=query) \
+                | Q(category__icontains=query) \
+                | Q(product_type__icontains=query)
+            products = all_products.filter(queries)
+
+            if len(products) > 4:
+                products = random.sample(list(products), 4)
+
+            product_preview = serializers.serialize("json", products)
+
+    return JsonResponse(product_preview, safe=False)

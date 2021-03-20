@@ -40,7 +40,7 @@
         <div class="d-flex flex-column position-relative">
             <a class="btn mx-auto" href="{% url 'home' %}"><h1 class="mt-2 m-0">Brazen Martial Arts</h1></a>        
             <form method="GET" action="{% url 'products' %}" class="mx-auto mt-3 w-75 search-form d-flex">
-                <input name="q" class="px-2" type="text" placeholder="Search Products...">
+                <input id="q" name="q" class="px-3" type="text" placeholder="Search Products...">
                 <button class="px-2" type="submit"><i class="fas fa-search"></i></button>
             </form>
             <nav id="nav-menu" class="d-none pb-3 mt-3 d-lg-block">            
@@ -97,8 +97,21 @@
             </ul>
         </nav>
     </header>
+
+    <div id="overlay-menu" class="position-fixed container-fluid m-0">
+        <div id="search-header" class="row child">
+
+        </div>
+        <div id="view-full-results">
+            
+        </div>
+        <div id="product-row" class="row child">
+
+        </div>
+    </div>
     
-            <img id="base-img" src="https://scitechdaily.com/images/Burning-Coals.gif" alt="">
+    <img id="base-img" src="https://scitechdaily.com/images/Burning-Coals.gif" alt="">
+
     <!-- alternate headers -->
     {% include 'includes/tablet/header.html' %}
     {% include 'includes/mobile/header.html' %}

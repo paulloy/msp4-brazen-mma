@@ -8,4 +8,5 @@ urlpatterns = [
     path('edit/<uuid:product_id>', views.edit_product, name='edit_product'),
     path('delete/<uuid:product_id>',
          views.delete_product, name='delete_product'),
+    path('ajax_q/', views.ajax_q_request, name='ajax_q_request')
 ]
