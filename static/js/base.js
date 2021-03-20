@@ -25,6 +25,67 @@ $('#product-menu-tablet ul li').click(function() {
 });
 
 
+// toggle includes/header.html menus
+var searchMenuSmOpen = false;
+var bagSmMenuOpen = false;
+var sideNavOpen = false;
+
+$('#toggle-sm-search').click(function() {
+    if (searchMenuSmOpen) {
+        $('#search-menu-sm').fadeOut();
+        searchMenuSmOpen = false;
+        if (!(bagSmMenuOpen && sideNavOpen)) {
+            $('#block-content').fadeIn();
+        }
+    } else {
+        $('#search-menu-sm').fadeIn();
+        searchMenuSmOpen = true;
+        $('#block-content').fadeIn();
+        $('#bag-sm-menu').fadeOut();
+        bagSmMenuOpen = false;
+        $('#side-nav').fadeOut();
+        sideNavOpen = false;
+    }
+});
+$('#toggle-sm-bag').click(function() {
+    if (bagSmMenuOpen) {
+        $('#bag-sm-menu').fadeOut();
+        bagSmMenuOpen = false;
+        if (!(bagSmMenuOpen && sideNavOpen)) {
+            $('#block-content').fadeIn();
+        }
+    } else {
+        $('#bag-sm-menu').fadeIn();
+        bagSmMenuOpen = true;
+        $('#block-content').fadeOut();
+        $('#search-menu-sm').fadeOut();
+        searchMenuSmOpen = false;
+        $('#side-nav').fadeOut();
+        sideNavOpen = false;
+    }
+});
+$('#toggle-side-nav').click(function() {
+    if (sideNavOpen) {
+        $('#side-nav').fadeOut();
+        sideNavOpen = false;
+        if (!(bagSmMenuOpen && sideNavOpen)) {
+            $('#block-content').fadeIn();
+        }
+    } else {
+        $('#side-nav').fadeIn();
+        sideNavOpen = true;
+        $('#block-content').fadeOut();
+        $('#search-menu-sm').fadeOut();
+        searchMenuSmOpen = false;
+        $('#bag-sm-menu').fadeOut();
+        bagSmMenuOpen = false;
+    }
+});
+$('#block-content').click(function() {
+    $('#search-menu-sm').fadeOut();
+    searchMenuSmOpen = false;
+});
+/* ------------------------------------- */
 
 // toggle menus within header
 var toggleAccountOpen = false;
@@ -61,6 +122,8 @@ $('#toggle-bag-menu').click(function() {
         toggleAccountOpen = false;
     }
 });
+
+
 
 // search query
 let $q = $('#q');

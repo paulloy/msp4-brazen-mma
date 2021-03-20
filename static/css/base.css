@@ -213,7 +213,7 @@ h1 {
 }
 
 
-@media only screen and (max-width: 992px) {
+/* @media only screen and (max-width: 992px) {
     .listitem {
         font-size: 1.3rem;
     }
@@ -278,7 +278,7 @@ h1 {
         height: 80%;
         background-color: white;
     }
-}
+} */
 
 a {
     color: rgb(72, 107, 173);

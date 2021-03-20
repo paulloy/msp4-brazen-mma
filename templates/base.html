@@ -21,6 +21,7 @@
     <link href="{% static 'css/toastr.css' %}" rel="stylesheet"/>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base-sm.css' %}">
     {% block css %}{% endblock %}
 
     <title>Brazen MMA{% block title %}{% endblock %}</title>
@@ -36,7 +37,7 @@
     {% endfor %}
 
 
-    <header id="lg-header" class="d-none d-md-flex flex-column">
+    <header id="lg-header" class="d-none d-lg-flex flex-column">
         <div class="d-flex flex-column position-relative">
             <a class="btn mx-auto" href="{% url 'home' %}"><h1 class="mt-2 m-0">Brazen Martial Arts</h1></a>        
             <form method="GET" action="{% url 'products' %}" class="mx-auto mt-3 w-75 search-form d-flex">
@@ -112,11 +113,8 @@
     
     <img id="base-img" src="https://scitechdaily.com/images/Burning-Coals.gif" alt="">
 
-    <!-- alternate headers -->
-    {% include 'includes/tablet/header.html' %}
-    {% include 'includes/mobile/header.html' %}
-    <!-- alternate menus -->
-    {% include 'includes/tablet/menu.html' %}
+    <!-- small screen width header and menus -->
+    {% include 'includes/header.html' %}
 
     <!-- block content -->
     <div id="block-content" class="p-0 mx-auto">
