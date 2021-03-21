@@ -10,76 +10,79 @@
 {% endblock %}
 
 {% block css %}
-    <style>
-        .img-container {
-            height: 8rem;
-            width: 8rem;
-            object-fit: scale-down;
-            border: 1px solid black;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/bag.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h2 class="mx-auto py-3 text-center bg-white">My Bag</h2>
-    <table class="container w-75 mx-auto bg-white">
-        <tr class="row py-3">
+    <h2 class="mx-auto py-3 text-center text-white">My Shopping Bag</h2>
+    <table class="mx-auto">  
+        <tr class="row w-100 m-0 py-2 bg-pale-black">
+            <td class="col-md-3 col-12 p-0 d-flex justify-content-center"><a class="button btn float-md-left btn-light w-75 my-3 mx-0 ml-md-5" href="{% url 'products' %}">Keep Shopping</a></td>
+            <td class="col-md-3 p-0"></td>
+            <td class="col-md-3 p-0"></td>
+            <td class="col-md-3 col-12 p-0 d-flex justify-content-center"><a class="button btn float-md-right btn-primary w-75 my-3 mx-0 mr-md-5" href="{% url 'checkout' %}"><i class="fas fa-lock"></i> Checkout</a></td>
+        </tr>
+        <tr class="d-md-flex justify-content-between row d-none py-3">
             <th class="col-3 text-center">Image</th>
             <th class="col-3 text-center">Name</th>
             <th class="col-3 text-center">Quantity</th>
             <th class="col-3 text-center">Price</th>
         </tr>  
     {% if product_count == 0 %}
-        <div class="container-fluid bg-white">
-            <h4 class="text-center py-3">Your bag is empty</h4>
-        </div>
+        <tr class="d-flex justify-content-center p-3 bg-white">
+            <td class="h4 text-center p-3">Your bag is empty</td>
+        </tr>
     {% else %}
         {% for item in bag_items %}
-            <tr class="table-row row py-2">
-                <td class="col-3 d-flex justify-content-center"><a href="{% url 'product_details' item.product.product_id %}"><img class="img-container" src="../media/{{ item.product.image }}" alt="{{ item.product.name }}"></a></td>
-                <td class="col-3 d-flex align-items-center justify-content-start">
-                    <strong>
-                        <a href="{% url 'product_details' item.product.product_id %}">{{ item.product.name }}</a>{% if item.size != 'false' %}<br>
-                        <p>Size: {{ item.size }}</p>{% endif %}
-                        <span class="parse-size d-none">{{ item.size }}</span>
+            <tr class="table-row row py-2 border-md-bottom">
+                <td class="col-md-3 col-12 mt-3 mt-md-0 d-flex justify-content-center">
+                    <a href="{% url 'product_details' item.product.product_id %}">
+                        <img class="img-container" src="../media/{{ item.product.image }}" alt="{{ item.product.name }}">
+                    </a>
+                </td>
+                <td class="col-md-3 mt-3 mt-md-0 col-12 d-flex align-items-center justify-content-center justify-content-md-start">
+                    <strong class="d-flex align-items-center flex-column">
+                        <a href="{% url 'product_details' item.product.product_id %}">{{ item.product.name }}</a>
+                        {% if item.size != 'false' %}
+                            <p class="text-md-left text-center w-100">Size: {{ item.size }}</p>
+                        {% endif %}
                     </strong>
                 </td>
-                <td class="col-3 d-flex align-items-center flex-column py-4">
-                    <span class="mb-2">
-                        <form method="POST" action="{% url 'adjust_bag' item.product_id %}">
-                            {% csrf_token %}
+                <td class="col-md-3 col-12 d-flex justify-content-center flex-column align-items-center py-4">
+                    <form method="POST" action="{% url 'adjust_bag' item.product_id %}">
+                        {% csrf_token %}
+                        <div class="w-100 d-flex justify-content-center">
                             <input type="hidden" name="size" value="{{ item.size }}">
                             <button class="quantity-sub btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-left"></i></button>
                             <input name="quantity" type="number" min="1" max="99" value="{{ item.qty }}" class="text-center display-quantity" required>
                             <button class="quantity-add btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-right"></i></button> 
-                            
-                            <button type="submit">update</button>
-                        </form>
-                        
-                    </span>
-                    <span>
-                        <form method="POST" action="{% url 'remove_from_bag' item.product_id %}">
-                            {% csrf_token %}
-                            <input type="hidden" value="{{ item.size }}" name="size">
-                            <button type="submit">remove</button>
-                        </form>
-                    </span>
+                        </div>
+                        <div class="w-100 d-flex mt-md-1 mt-3 justify-content-center">
+                            <button class="btn text-primary button-action" type="submit">update</button>
+                        </div>                            
+                    </form>    
+                    <form method="POST" action="{% url 'remove_from_bag' item.product_id %}">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ item.size }}" name="size">
+                        <button class="btn mt-2 mt-md-0 text-danger button-action" type="submit">remove</button>
+                    </form>
                 </td>
-                <td class="col-3 d-flex align-items-center justify-content-center">£{{ item.product.price }}</td>
+                <td class="col-md-3 col-12 d-flex mb-3 my-md-0 align-items-start pt-4 product-price justify-content-center">£{{ item.product.price }}</td>
             </tr>
         {% endfor %}
             <tr class="row py-4">
-                <td class="col-3"></td>
-                <td class="col-3"></td>
-                <td class="col-3"></td>
-                <td class="col-3 text-center"><strong class="mr-3">SUB-TOTAL</strong>£{{ total }}</td>
+                <td class="d-none"></td>
+                <td class="d-none"></td>
+                <td class="d-none"></td>
+                <td class="col-12 text-right product-price"><strong class="mr-3">SUB-TOTAL</strong>£{{ total }}</td>
+            </tr>
+            <tr class="row w-100 m-0 py-2 bg-pale-black">
+                <td class="col-md-3 col-12 p-0 d-flex justify-content-center"><a class="button btn float-md-left btn-light w-75 my-3 mx-0 ml-md-5" href="{% url 'products' %}">Keep Shopping</a></td>
+                <td class="col-md-3 p-0"></td>
+                <td class="col-md-3 p-0"></td>
+                <td class="col-md-3 col-12 p-0 d-flex justify-content-center"><a class="button btn float-md-right btn-primary w-75 my-3 mx-0 mr-md-5" href="{% url 'checkout' %}"><i class="fas fa-lock"></i> Checkout</a></td>
             </tr>
         </table>  
-
-        <div class="d-flex justify-content-end bg-white py-3">        
-            <a class="btn btn-secondary my-3 mr-5" href="{% url 'products' %}">Keep Shopping</a><br>
-            <a class="btn btn-primary my-3 mr-5" href="#"><i class="fas fa-lock"></i> Checkout</a>
-        </div>
     {% endif %}
 
 {% endblock %}
