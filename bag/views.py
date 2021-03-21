@@ -60,13 +60,6 @@ def adjust_bag(request, product_id):
         messages.error(request, '403 Forbidden')
         return redirect(reverse('home'))
 
-    """ Check that product exists in database """
-    try:
-        product = Product.objects.get(pk=product_id)
-    except Exception:
-        messages.error(request, 'Bad request: Product ID is invalid.')
-        return redirect(reverse('view_bag'))
-
     """ Check that quantity is of type 'int' """
     try:
         quantity = int(request.POST.get('quantity'))
