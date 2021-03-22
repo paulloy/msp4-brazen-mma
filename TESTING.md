@@ -34,18 +34,23 @@
 
 | ID | Event | Expected Response | Pass / Fail ? |
 | ---- | ----- | --------------- |    :-----:    |
-| 2.01 | Anonymous User can checkout | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Fail |
+| 2.01 | Anonymous User can checkout | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass [2] |
 | 2.02 | Submit form with empty required fields | Notify user to fill in required fields. | Pass |
 | 2.03 | Submit form with empty payment field | Display error within the card div. | Pass |
 | 2.04 | Submit form with empty optional fields | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass |
 | 2.05 | Submit form with empty optional fields | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass |
 | 2.06 | Submit form as a logged in user. | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass |
-| 2.07 | Return to checkout after successful checkout. | Redirect to {% url 'home %} | Fail |
+| 2.07 | Return to checkout after successful checkout. | Redirect to {% url 'home %} | Pass [2] |
 | 2.08 | Checkout with info saved. | Info should be auto filled for next checkout. | Pass |
 | 2.09 | Select login as an anonymous user. | Direct user to {% url 'accounts_login' %} | Pass |
 | 2.10 | Select 'adjust bag' button. | Direct user to {% url 'view_bag' %} | Pass |
 | 2.11 | Select 'view order summary' button. | Toggle the order summary. (For small screen widths where order summary is hidden) | Pass |
-| 2.12 | Access {% url 'checkout' %} by url with an empty bag. | Redirect the user to {% url 'home %} and display an error. | Fail |
-| 2.13 | Access {% url 'checkout_success' %} by url with invalid order ID. | Redirect the user to {% url 'home %} and display an error. | Fail |
-| 2.14 | Access {% url 'cache_checkout_data' %} by url. | Redirect the user to {% url 'home %} and display an error. | Fail |
-| 2.15 | Access {% url 'wh' %} by url. | Redirect the user to {% url 'home %} and display an error. | Fail |
+| 2.12 | Access {% url 'checkout' %} by url with an empty bag. | Redirect the user to {% url 'home %} and display an error. | Pass [2] |
+| 2.13 | Access {% url 'checkout_success' %} by url with invalid order ID. | Redirect the user to {% url 'home %} and display an error. | Pass [2] |
+| 2.14 | Access {% url 'cache_checkout_data' %} by url. | Display 405 error. | Pass |
+| 2.15 | Access {% url 'wh' %} by url. | Display 405 error. | Pass |
+| 2.16 | Checkout with Stripe test card number: 4000002500003155. Fail authentication. | Display error within the card div. | Pass |
+
+ - [2]: As of commit *7b5923e*, these tests now Pass.
+ - The patch to 2.12 fixed 2.07.
+ - The expected response of test 2.14 & 2.15 was incorrect and has been updated. 
