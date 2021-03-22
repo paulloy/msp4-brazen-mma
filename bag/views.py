@@ -105,6 +105,7 @@ def remove_from_bag(request, product_id):
     """ Try delete bag item. Return error if item does not exist """
     try:
         del bag[product_id]['product_size'][size]
+        del bag[product_id]
     except Exception:
         messages.error(
             request, 'Product cannot be removed. \

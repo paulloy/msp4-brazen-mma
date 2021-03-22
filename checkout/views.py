@@ -36,6 +36,10 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
+    if len(request.session.get('bag', {})) == 0:
+        messages.error(request, 'You cannot checkout with an empty bag.')
+        return redirect(reverse('home'))
+
     if request.method == 'POST':
         bag = request.session.get('bag', {})
 
@@ -77,7 +81,8 @@ def checkout(request):
                             )
                             order_line_item.save()
                 except Product.DoesNotExist:
-                    messages.error(request, 'product doesn not exist in database')
+                    messages.error(
+                        request, 'product does not exist in database.')
                     order.delete()
                     return redirect(reverse('view_bag'))
 
@@ -93,7 +98,7 @@ def checkout(request):
             messages.error(request, 'Your bag is currently empty.')
 
         current_bag = bag_contents(request)
-        total = current_bag['total']
+        total = current_bag['total'] + settings.DEFAULT_DELIVERY_CHARGE
         stripe_total = round(total * 100)
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(
@@ -133,11 +138,19 @@ def checkout(request):
 def checkout_success(request, order_number):
     """ Handle successful checkouts """
     save_info = request.session.get('save_info')
-    order = Order.objects.get(order_number=order_number)
 
-    profile = UserProfile.objects.get(user=request.user)
-    order.user_profile = profile
-    order.save()
+    try:
+        order = Order.objects.get(order_number=order_number)
+    except Exception:
+        messages.error(request, 'Order does not exist.')
+        return redirect(reverse('home'))
+
+    if not request.user.is_anonymous:
+        profile = UserProfile.objects.get(user=request.user)
+        order.user_profile = profile
+        order.save()
+    else:
+        order.user_profile = None
 
     if save_info:
         profile_data = {
