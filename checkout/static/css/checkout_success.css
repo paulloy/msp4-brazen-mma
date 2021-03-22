@@ -1,0 +1,30 @@
+
+.w-80 {
+    width: 80%;
+}
+#order-details {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+h5 {
+    font-weight: 600;
+}
+div {
+    font-size: 1rem;
+}
+.word-wrap {
+    word-wrap: break-word;
+}
+
+@media only screen and (max-width: 1200px) {
+    div {
+        font-size: 0.9rem;
+    }
+} 
+@media only screen and (max-width: 768px) {
+    div {
+        font-size: 0.8rem;
+    }
+    .w-80 {
+        width: 98%;
+    }
+}
