@@ -2,7 +2,8 @@
 .w-80 {
     width: 80%;
 }
-#order-details {
+#order-details,
+#anonymous-user {
     background-color: rgba(255, 255, 255, 0.8);
 }
 h5 {

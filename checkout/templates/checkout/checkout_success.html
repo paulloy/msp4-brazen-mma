@@ -17,6 +17,12 @@
     <h2 class="mx-auto py-3 text-center text-white">Order Successfully placed.</h2>
     <h4 class="mx-auto py-3 text-center text-white">Confirmation email sent to {{ order.email }}</h4>
 
+    {% if request.user.is_anonymous %}
+        <div id="anonymous-user" class="mb-4 w-80 mx-auto p-3">
+            <p class="text-center">You do not have an account with Brazen Martial Arts.</p>
+            <p class="text-center"><a href="{% url 'account_signup' %}">Register an account now</a> to save your delivery information for future purchases and stay up to date with the latest offers from Brazen Martial Arts.</p>
+        </div>
+    {% endif %}
     <div id="order-details" class="container p-3">
         <div class="row w-80 mx-auto">            
             <h5 class="text-center w-100">Order Details</h5>
