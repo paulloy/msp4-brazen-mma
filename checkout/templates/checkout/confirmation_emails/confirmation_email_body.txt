@@ -1,23 +1,22 @@
-Hello {{ order.first_name }}
+Hello {{ order.full_name }}
 
-This is a confirmation of your order at Brazen Martial Arts. Your order informations is displayed below:
+This is a confirmation of your order at Brazen Martial Arts. Your order information is displayed below:
 
 Order Number: {{ order.order_number }}
 Order Date: {{ order.date }}
 
 Order Total: {{ order.order_total }}
-Delivery: {{ order.delivery_cost }}
+Delivery: £3.50
 Grand Total: {{ order.grand_total }}
 
 Your Order will be shipped to:
+{{ order.full_name }}
 {{ order.street_address1 }}
 {{ order.street_address2 }}
 {{ order.town_or_city }}
 {{ order.postcode }}
 {{ order.county }}
 {{ order.country }}
-
-If you have any questions, please contact us at info@bmma.com
 
 Thanks for ordering with us.
 
