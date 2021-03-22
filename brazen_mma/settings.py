@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from decimal import Decimal
 import os
 import dj_database_url
 
@@ -212,3 +213,5 @@ else:
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 
 DEFAULT_FROM_EMAIL = 'brazenmma@example.com'
+
+DEFAULT_DELIVERY_CHARGE = Decimal(3.50)

@@ -4,6 +4,7 @@ from django.db.models import Sum
 from products.models import Product
 from django_countries.fields import CountryField
 from profiles.models import UserProfile
+from django.conf import settings
 
 
 class Order(models.Model):
@@ -30,7 +31,8 @@ class Order(models.Model):
     date = models.DateTimeField(
         auto_now_add=True)
     delivery_cost = models.DecimalField(
-        max_digits=6, decimal_places=2, null=False, default=0)
+        max_digits=6, decimal_places=2, null=False,
+        default=settings.DEFAULT_DELIVERY_CHARGE)
     order_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0)
     grand_total = models.DecimalField(

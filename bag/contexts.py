@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.shortcuts import get_object_or_404
 from products.models import Product
+from django.conf import settings
 
 
 def bag_contents(request):
@@ -9,6 +10,7 @@ def bag_contents(request):
     total = 0
     product_count = 0
     bag = request.session.get('bag', {})
+    delivery_charge = settings.DEFAULT_DELIVERY_CHARGE
 
     for product_id, product_data in bag.items():
         if isinstance(product_data, int):
@@ -38,6 +40,8 @@ def bag_contents(request):
         'bag_items': bag_items,
         'total': total,
         'product_count': product_count,
+        'delivery_charge': delivery_charge,
+        'grand_total': total + delivery_charge,
     }
 
     return context
