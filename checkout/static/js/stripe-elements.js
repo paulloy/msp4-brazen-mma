@@ -42,6 +42,9 @@ var form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
+
+    $('#checkout-loader').fadeIn();
+
     card.update({'disabled': true});
     $('#submit-form').attr('disabled', true);
 
@@ -59,7 +62,7 @@ form.addEventListener('submit', function(e) {
             payment_method: {
                 card: card,
                 billing_details: {
-                    name: $.trim(form.first_name.value),
+                    name: $.trim(form.full_name.value),
                     phone: $.trim(form.phone_number.value),
                     email: $.trim(form.email.value),
                     address: {
@@ -72,7 +75,7 @@ form.addEventListener('submit', function(e) {
                 }
             },
             shipping: {
-                name: $.trim(form.first_name.value),
+                name: $.trim(form.full_name.value),
                 phone: $.trim(form.phone_number.value),
                 address: {
                     line1: $.trim(form.street_address1.value),
@@ -84,6 +87,7 @@ form.addEventListener('submit', function(e) {
                 }
             },
         }).then(function(result) {
+            var errorDiv = document.getElementById('card-errors');
             if (result.error) {
                 var html = `
                     <span class="icon text-danger" role="alert">
@@ -93,6 +97,7 @@ form.addEventListener('submit', function(e) {
                 errorDiv.innerHTML = html;
                 card.update({'disabled': false});
                 $('#submit-form').attr('disabled', false);
+                $('#checkout-loader').fadeOut();
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
                     form.submit();
