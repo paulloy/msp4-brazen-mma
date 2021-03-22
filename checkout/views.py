@@ -40,8 +40,7 @@ def checkout(request):
         bag = request.session.get('bag', {})
 
         form_data = {
-            'first_name': request.POST['first_name'],
-            'last_name': request.POST['last_name'],
+            'full_name': request.POST['full_name'],
             'email': request.POST['email'],
             'phone_number': request.POST['phone_number'],
             'country': request.POST['country'],
@@ -106,8 +105,7 @@ def checkout(request):
             try:
                 profile = UserProfile.objects.get(user=request.user)
                 order_form = OrderForm(initial={
-                    'first_name': profile.default_first_name,
-                    'last_name': profile.default_last_name,
+                    'full_name': profile.default_full_name,
                     'email': profile.default_email,
                     'phone_number': profile.default_phone_number,
                     'country': profile.default_country,
@@ -143,6 +141,8 @@ def checkout_success(request, order_number):
 
     if save_info:
         profile_data = {
+            'default_full_name': order.full_name,
+            'default_email': order.email,
             'default_phone_number': order.phone_number,
             'default_country': order.country,
             'default_postcode': order.postcode,
@@ -155,7 +155,8 @@ def checkout_success(request, order_number):
         if user_profile_form.is_valid():
             user_profile_form.save()
 
-    messages.success(request, f'Order successful, Your order number is {order_number}')
+    messages.success(
+        request, f'Order successful, Your order number is {order_number}')
 
     if 'bag' in request.session:
         del request.session['bag']
