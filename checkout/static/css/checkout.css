@@ -1,0 +1,93 @@
+.img-summary {
+    width: 5rem;
+    height: 5rem;
+}
+
+.img-summary img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+
+.stripe-style-input {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid black;
+    border-radius: 0;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+#card-element {
+    border: 1px solid black;
+}
+.bg-checkout {
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 98%;
+}
+
+#checkout-loader {
+    display: none;
+    z-index: 20;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    font-size: 5rem;
+}
+#submit-form {
+    background-color: #febd69;
+}
+.button {
+    width: 14rem;
+    font-size: 1rem;
+}
+#buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 1450px) {
+    #buttons {
+        flex-direction: column;
+    }
+    #buttons * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* form .col-6,
+    div .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    } */
+}
+@media only screen and (max-width: 1200px) {
+    #order-summary {
+        display: none;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .row-border {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+}
+@media only screen and (max-width: 600px) {
+    #checkout-loader {
+        font-size: 2rem;
+    }
+    #checkout-loader div div h2 {
+        font-size: 1rem;
+        text-align: center;
+    }
+}
+ @media only screen and (max-width: 500px) {
+     .flex-column-media {
+         flex-direction: column;
+         align-items: center;
+         margin-bottom: 1rem;
+     }
+}
