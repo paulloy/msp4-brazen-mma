@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from products.views import Product
+from django.shortcuts import get_object_or_404
 
 
 def view_bag(request):
@@ -51,6 +52,7 @@ def add_to_bag(request, product_id):
 def adjust_bag(request, product_id):
     """ update quantity of products in bag """
 
+    product = get_object_or_404(Product, pk=product_id)
     bag = request.session.get('bag', {})
 
     """ Check that the product exists in bag """
