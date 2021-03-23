@@ -36,7 +36,14 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
-    if len(request.session.get('bag', {})) == 0:
+    test_if_bag_is_empty = request.session.get('bag', {})
+    product_count = 0
+
+    for product_id, product_data in test_if_bag_is_empty.items():
+        for size, quantity in product_data['product_size'].items():
+            product_count += quantity
+
+    if product_count == 0:
         messages.error(request, 'You cannot checkout with an empty bag.')
         return redirect(reverse('home'))
 
