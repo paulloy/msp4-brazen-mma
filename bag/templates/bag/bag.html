@@ -14,13 +14,13 @@
 {% endblock %}
 
 {% block content %}
-    <h2 class="mx-auto py-3 text-center text-white">My Shopping Bag</h2>
-    <table class="mx-auto">  
+    <h2 class="title mx-auto my-0 py-lg-4 py-2 text-center">My Shopping Bag</h2>
+    <!-- <table class="h-100 w-100 mx-auto">  
         <tr class="row w-100 m-0 py-2 bg-pale-black">
             <td class="col-md-3 col-12 p-0 d-flex justify-content-center"><a class="button btn float-md-left btn-light w-75 my-3 mx-0 ml-md-5" href="{% url 'products' %}">Keep Shopping</a></td>
             <td class="col-md-3 p-0"></td>
             <td class="col-md-3 p-0"></td>
-            <td class="col-md-3 col-12 p-0 d-flex justify-content-center"><a class="button btn float-md-right btn-primary w-75 my-3 mx-0 mr-md-5" href="{% url 'checkout' %}"><i class="fas fa-lock"></i> Checkout</a></td>
+            <td class="col-md-3 col-12 p-0 d-flex justify-content-center"><a class="{% if product_count == 0 %} d-none {% endif %} button btn float-md-right btn-primary w-75 my-3 mx-0 mr-md-5" href="{% url 'checkout' %}"><i class="fas fa-lock"></i> Checkout</a></td>
         </tr>
         <tr class="d-md-flex justify-content-between row d-none py-3">
             <th class="col-3 text-center">Image</th>
@@ -82,8 +82,78 @@
                 <td class="col-md-3 p-0"></td>
                 <td class="col-md-3 col-12 p-0 d-flex justify-content-center"><a class="button btn float-md-right btn-primary w-75 my-3 mx-0 mr-md-5" href="{% url 'checkout' %}"><i class="fas fa-lock"></i> Checkout</a></td>
             </tr>
-        </table>  
-    {% endif %}
+    </table>  
+    {% endif %} -->
+
+    <div id="shopping-bag" class="mx-auto">
+        {% if product_count == 0 %}
+        <div>
+            <h5 class="mt-3 text-center">Your Shopping Bag is empty</h5>
+        </div>
+        {% endif %}
+        {% for item in bag_items %}
+        <div class="product-container d-flex position-relative p-3 bg-white">
+            <!-- image container ---------------------------------------------------------------------------->
+            <div class="product-thumbnail">
+                <a href="{% url 'product_details' item.product.product_id %}">
+                    <img src="{% url 'home' %}media/{{ item.product.image }}" alt="{{ item.product.name }}">
+                </a>
+            </div>
+            <!------------------------------------------------------------------------------------------------>
+            <div class="pl-3 product-details d-flex flex-fill flex-column">
+                <!-- remove item from bag ----------------------------------------------------------------------------------------------->
+                <form method="POST" action="{% url 'remove_from_bag' item.product_id %}">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ item.size }}" name="size">
+                    <button class="font-small btn mt-md-0 text-danger float-right p-0 mb-2 button-action" type="submit">remove</button>
+                </form>
+                <!------------------------------------------------------------------------------------------------------------------------>
+                <!-- item name and size ----------------------------------------------------------------------------------------->
+                <strong>
+                    <a class="font-small" href="{% url 'product_details' item.product.product_id %}">{{ item.product.name }}</a>
+                    {% if item.size != 'false' %}
+                        <p class="text-left font-small w-100">Size: {{ item.size }}</p>
+                    {% endif %}
+                </strong>
+                <!--------------------------------------------------------------------------------------------------------------->
+                <!-- adjust item quantity -------------------------------------------------------------------------------------------------------------------->
+                <form class="d-flex justify-content-between align-items-center p-2 update-form" method="POST" action="{% url 'adjust_bag' item.product_id %}">
+                    {% csrf_token %}
+                    <h6 class="m-0 mr-3 font-small">Quantity</h6>
+                    <div class="d-flex align-items-center">
+                        <input type="hidden" name="size" value="{{ item.size }}">
+                        <button class="quantity-sub btn btn-secondary quantity-selector" type="button"><i class="fas fa-chevron-left"></i></button>
+                        <input name="quantity" type="number" min="1" max="99" value="{{ item.qty }}" class="text-center display-quantity" required>
+                        <button class="quantity-add btn btn-secondary quantity-selector" type="button"><i class="fas fa-chevron-right"></i></button> 
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <button class="btn font-small text-primary button-action" type="submit">update</button>
+                    </div>                            
+                </form>   
+                <!-------------------------------------------------------------------------------------------------------------------------------------------->
+                <!-- item price ----------------------------------------------------------->
+                <p class="m-0 mt-3 product-price text-right">£{{ item.product.price }}</p> 
+                <!------------------------------------------------------------------------->       
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- sub-total / checkout btn / continue chopping btn ------------------------------------------->
+    <div id="sub-total" class="mx-auto p-3">
+        <div class="d-flex justify-content-between">
+            <p>{{ product_count }} items in your shopping bag.</p>
+            <p><strong class="mr-3">SUB-TOTAL</strong>£{{ total }}</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'products' %}" class="btn-size btn btn-secondary">Continue Shopping</a>
+            {% if product_count != 0 %}
+            <a href="{% url 'checkout' %}" class="btn-size btn btn-purchase">Checkout</a>
+            {% endif %}
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------>
+    
 
 {% endblock %}
 
