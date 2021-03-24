@@ -1,31 +1,26 @@
 from django.shortcuts import render
-from django.db.models import Q
-from django.http import JsonResponse
-from django.core import serializers
-import random
+
 from products.views import Product
+
+import random
 
 
 def index(request):
     """ A view to return the index page """
 
-    return render(request, 'home/index.html')
+    products = Product.objects.all()
 
+    products_bjj = random.sample(
+        list(products.filter(category__contains='bjj')), 6)
+    products_mma = random.sample(
+        list(products.filter(category__contains='mma')), 6)
+    products_muay_thai = random.sample(
+        list(products.filter(category__contains='muay thai')), 6)
 
-def ajax_request(request):
+    context = {
+        'products_bjj': products_bjj,
+        'products_mma': products_mma,
+        'products_muay_thai': products_muay_thai,
+    }
 
-    all_products = Product.objects.all()
-    product_preview = None
-
-    if request.GET:
-        category = request.GET['category']
-        product_type = request.GET['product_type']
-
-        product_preview = all_products.filter(category__contains=category)
-        product_preview = product_preview.filter(
-            product_type__contains=product_type)
-        product_preview = random.sample(list(product_preview), 4)
-
-        product_preview = serializers.serialize("json", product_preview)
-
-    return JsonResponse(product_preview, safe=False)
+    return render(request, 'home/index.html', context)

@@ -11,89 +11,217 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .product-row {
+            width: 100%;
+            height: 40%;
+            flex-wrap: wrap;
+        }
+        #hero-image {
+            max-height: 60vh;
+            height: fit-content;
+            width: 100%;
+            overflow: hidden;
+        }
+        #hero-image img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .cover {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .hero-description {
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-description div button {
+            width: 10rem;
+            font-size: 1rem;
+        }
+        .product-row {
+            background-color: rgba(0, 0, 0, 0.5);
+            margin: 0;
+            height: auto;
+        }
+        .carousel-header {
+            background-color: rgba(245, 245, 245, 0.8);
+            font-weight: 600;
+        }
+        .carousel-cell {
+            width: 25%;
+            height: 18rem;
+        }
+        .btn-button {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: whitesmoke;
+            padding: 0.5rem;
+        }
+        #shop-now {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        #hero-image-container {
+            min-height: 25rem;
+        }
+        .product-style {
+            background-color: whitesmoke;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            align-items: center;
+            width: 18rem;
+            display: inline-flex;
+        }
+        .position-absolute {
+            bottom: 0;
+        }
+        .img-container {
+            width: 10rem;
+            height: 10rem;
+        }
+        .img-container img {
+            height: 100% !important;
+            width: 100% !important;
+            object-fit: scale-down;
+        }
+        .product-style:hover,
+        .product-style:focus {
+            background-color: rgb(222, 245, 242);
+        }
+        @media only screen and (max-width: 650px) {
+            #shop-buttons {
+                display: flex;
+                flex-direction: column;
+            } 
+            #shop-buttons button {
+                margin-bottom: 1rem;
+                font-size: 0.8rem;
+            }    
+            .hero-description p {
+                font-size: 0.9rem !important;
+            }    
+            #shop-now h4 {
+                font-size: 1rem;
+            }
+        }
+        @media only screen and (max-width: 540px) { 
+            .carousel-header {
+                font-size: 1rem !important;
+            }        
+        }
+    </style>
+
+    <!-- flickity -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 {% endblock %}
 
 {% block content %}
-    <div id="bjj-list" class="display-none">
-      <div class="row bjj-product-row">
+<!-- hero image -->
+<div id="hero-image" class="position-relative">
+    <div id="hero-image-container">
+        <img src="https://www.verywellfit.com/thmb/rYgOA5OFD9-eca1GmrnS8g4NJis=/3000x2002/filters:no_upscale():max_bytes(150000):strip_icc()/heavy-bag-work-mrbig_photography-58f7d4f75f9b581d5982bd51.jpg" alt="">
+    </div>
+    <div class="cover"></div>
+    <div class="hero-description text-white flex-column d-flex justify-content-center align-items-center">
+        <p class="h3 text-center px-3 bold">Welcome to Brazen Martial Arts!</p>
+        <p class="h4 text-center px-3">We work with industry leading suppliers to get you the best gear... at the best price!</p>
+        <div id="shop-now" class="d-flex flex-column p-3 mt-3">
+            <div>
+                <h4 class="text-center bold mb-3">SHOP NOW</h4>
+            </div>
+            <div id="shop-buttons">
+                <button class="mx-3 btn btn-primary">BJJ</button>
+                <button class="mx-3 btn btn-primary">MMA</button>
+                <button class="mx-3 btn btn-primary">Muay Thai</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-      </div>  
-    </div>
-    <div id="mma-list" class="display-none">
-      <div class="row mma-product-row">
-          
-      </div> 
-    </div>
-    <div id="equipment-list" class="display-none">
-    </div>
-    <div id="muay-thai-list" class="display-none">
-    </div>
+<!-- BJJ carousel -->
+<div class="carousel-header w-100 h3 m-0 p-3 d-flex align-items-center justify-content-center"><a class="btn-button  text-center" href="{% url 'products' %}?category=bjj">Brazilian Jiu Jitsu <i class="far fa-hand-pointer"></i><small class="h6 bold ml-1"> VIEW ALL</small></a></div>
+<div class="product-row carousel">    
+    {% for product in products_bjj %}
+        <a href="{% url 'product_details' product.product_id %}" class="p-2 carousel-cell product-style d-flex flex-column">
+            <div class="img-container p-0 d-flex justify-content-center">                    
+                <img class="img-thumbnail" src="../media/{{ product.image }}" alt="{{ product.name }}">
+            </div>
+            <strong class="my-2 w-100 product-name text-center mb-4">{{ product.name }}</strong>
+            <div class="position-absolute">
+                {% if product.sale %}
+                    <div class="d-flex my-2">
+                        <p class="mx-2 bold my-0 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></p>
+                        <strike class="mr-2 bold my-0 text-muted">£{{ product.rrp }}</strike>
+                    </div>
+                {% else %}
+                    <p class="my-2 bold text-dark">£{{ product.price }}</p>
+                {% endif %}
+            </div>
+            </a>
+    {% endfor %}
+</div>
+
+<!-- Muay Thai carousel -->
+<div class="carousel-header w-100 h3 m-0 p-3 d-flex align-items-center justify-content-center"><a class="btn-button text-center" href="{% url 'products' %}?category=muay thai">Muay Thai <i class="far fa-hand-pointer"></i><small class="h6 bold ml-1"> VIEW ALL</small></a></div>
+<div class="product-row carousel2">    
+    {% for product in products_muay_thai %}
+        <a href="{% url 'product_details' product.product_id %}" class="p-2 carousel-cell product-style d-flex flex-column">
+            <div class="img-container p-0 d-flex justify-content-center">                    
+                <img class="img-thumbnail" src="../media/{{ product.image }}" alt="{{ product.name }}">
+            </div>
+            <strong class="my-2 w-100 product-name text-center mb-4">{{ product.name }}</strong>
+            <div class="position-absolute">
+                {% if product.sale %}
+                    <div class="d-flex my-2">
+                        <p class="mx-2 bold my-0 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></p>
+                        <strike class="mr-2 bold my-0 text-muted">£{{ product.rrp }}</strike>
+                    </div>
+                {% else %}
+                    <p class="my-2 bold text-dark">£{{ product.price }}</p>
+                {% endif %}
+            </div>
+            </a>
+    {% endfor %}
+</div>
+
+<!-- MMA carousel -->
+<div class="carousel-header w-100 h3 m-0 p-3 d-flex align-items-center justify-content-center"><a class="btn-button text-center" href="{% url 'products' %}?category=mma">Mixed Martial Arts <i class="far fa-hand-pointer"></i><small class="h6 bold ml-1"> VIEW ALL</small></a></div>
+<div class="product-row carousel3">    
+    {% for product in products_mma %}
+        <a href="{% url 'product_details' product.product_id %}" class="p-2 carousel-cell product-style d-flex flex-column">
+            <div class="img-container p-0 d-flex justify-content-center">                    
+                <img class="img-thumbnail" src="../media/{{ product.image }}" alt="{{ product.name }}">
+            </div>
+            <strong class="my-2 w-100 product-name text-center mb-4">{{ product.name }}</strong>
+            <div class="position-absolute">
+                {% if product.sale %}
+                    <div class="d-flex my-2">
+                        <p class="mx-2 bold my-0 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></p>
+                        <strike class="mr-2 bold my-0 text-muted">£{{ product.rrp }}</strike>
+                    </div>
+                {% else %}
+                    <p class="my-2 bold text-dark">£{{ product.price }}</p>
+                {% endif %}
+            </div>
+            </a>
+    {% endfor %}
+</div>
+
 {% endblock %}
 
 {% block js %}
+    <script src="{% static 'js/index.js' %}"></script>
 
-    <!-- inline script -->    
-    <script>
+    <!-- flickity -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
-        function ajaxCall(category, product_type) {                       
-
-            $.ajax({
-                method: "GET",
-                url: `{% url 'ajax_request' %}?category=${category}&product_type=${product_type}`,
-                async: true,
-                success: function(response) {
-                    var product = JSON.parse(response);
-
-                    var row = `<div class="px-5 col-12">
-                            <div class="d-flex align-items-center title">
-                                <h4 class="my-3 ml-3 text-capitalize">${product_type}</h4>
-                                <a href="{% url 'products' %}?category=${category}&product_type=${product_type}" class="ml-auto mr-3 my-3">view all</a>
-                            </div>
-                            <hr class="m-0 mb-3">
-                        </div>
-                        <div class="col-12 px-5">
-                            <div class="row contains-four ${category}-product-column">
-                            </div>
-                            <hr class="m-0 mt-3">
-                        </div>`;
-                     $(`.${category}-product-row`).append(row); 
-                    
-                    for (var i=0; i<4; i++) {
-                        if (product[i].fields.price != product[i].fields.rrp) {
-                            // using django url in href won't work for linking to product pages, so the below is used instead
-                            var column = `<a href="products/${ product[i].pk }" class="col-xl-3 col-lg-6 carousel-cell d-flex flex-column align-items-center">                            
-                                            <div class="img-container">
-                                                <img src="media/${ product[i].fields.image }" alt="${ product[i].fields.name }">
-                                            </div>
-                                            <p class="my-2">${ product[i].fields.name }</p>
-                                            <div class="d-flex my-2">
-                                                <strike class="mr-2 text-muted">£${ product[i].fields.rrp }</strike>
-                                                <p class="mx-2">£${ product[i].fields.price } <i class="fas fa-tags"></i></p>
-                                            </div>
-                                        </a>`;
-                        } else {
-                            var column = `<a href="products/${ product[i].pk }" class="col-xl-3 col-lg-6 carousel-cell d-flex flex-column align-items-center">                            
-                                            <div class="img-container">
-                                                <img src="media/${ product[i].fields.image }" alt="${ product[i].fields.name }">
-                                            </div>
-                                            <p class="my-2">${ product[i].fields.name }</p>
-                                            <p class="my-2">£${ product[i].fields.price }</p>
-                                        </a>`;
-                            }
-                        $(`.${category}-product-column`).last().append(column);
-                    }
-                    $('.loader').remove();                  
-                }
-            }); 
-        }               
-
-        ajaxCall('bjj', 'gi');
-        ajaxCall('bjj', 'belts');
-        ajaxCall('bjj', 'rash guards');
-        ajaxCall('bjj', 'shorts');
-        ajaxCall('bjj', 'spats');
-        ajaxCall('mma', 'gloves');
-    </script>
-
+    <script src="{% static 'js/flickity.js' %}"></script>
 {% endblock %}

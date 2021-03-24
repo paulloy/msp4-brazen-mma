@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&display=swap');
 .carousel-cell {
     display: flex;
     flex-direction: column;
 }
 .img-container {
-    width: 15rem;
-    height: 15rem;
+    width: 12.5rem;
+    height: 12.5rem;
+    padding: 0.5rem;
     overflow: hidden;
 }
 .img-container img {
@@ -12,19 +14,76 @@
     height: 100%;
     object-fit: scale-down;
 }
-.loading {
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-    background-color: whitesmoke;
-    font-size: 2rem;
-}
 .title {
-    background-color: rgba(53, 122, 139, 0.1);
+    /* background-color: rgb(200, 222, 230); */
+    /* box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.212); */
+}
+.product {
+    /* background-color: rgba(255, 255, 255, 0.274); */
+}
+.product p,
+.product div {
+    background-color: white;
+    margin: 0;
+    width: 18rem;
+    padding: 0.5rem;
+    color: black;
+    font-weight: 500;
+}
+.price {
+    font-size: 1.2rem;
 }
 .display-none {
     display: none;
 }
 .display-none:first-of-type {
     display: block;
+}
+.hero-image {
+    width: 100vh;
+    height: calc(100vh - 6rem);
+}
+#carousel {
+    width: 100vh;
+    height: calc(100vh - 6rem);
+}
+.carousel-container {
+    width: 100vh;
+    height: calc(100vh - 6rem);
+}
+.carousel-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.text-capitalize small {
+    border-left: 1px solid rgb(167, 233, 255);
+}
+.text-capitalize small:first-of-type {
+    border-left: 1px solid rgba(195, 255, 104, 0.85);
+}
+#bjj-list {
+    width: calc(100vw - 320px);
+}
+.product-type {
+    color: rgb(224, 255, 177);
+    font-weight: 300;
+    font-family: 'Blinker', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+}
+.product-type p {
+    /* background-color: rgba(195, 255, 104, 0.1); */
+}
+.product-type small {
+    background-color: rgba(167, 233, 255, 0.1);
+}
+.product-type small a {
+    color: rgb(167, 233, 255);
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+hr {
+    border: 6px double rgba(195, 255, 104, 0.5);
 }
