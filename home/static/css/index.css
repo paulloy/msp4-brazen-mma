@@ -30,6 +30,112 @@
     color: black;
     font-weight: 500;
 }
+
+        .product-row {
+            width: 100%;
+            height: 40%;
+            flex-wrap: wrap;
+        }
+        #hero-image {
+            max-height: 60vh;
+            height: fit-content;
+            width: 100%;
+            overflow: hidden;
+        }
+        #hero-image img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .cover {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .hero-description {
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-description div button {
+            width: 10rem;
+            font-size: 1rem;
+        }
+        .product-row {
+            background-color: rgba(0, 0, 0, 0.5);
+            margin: 0;
+            height: auto;
+        }
+        .carousel-header {
+            background-color: rgba(245, 245, 245, 0.8);
+            font-weight: 600;
+        }
+        .carousel-cell {
+            width: 25%;
+            height: 18rem;
+        }
+        .btn-button {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: whitesmoke;
+            padding: 0.5rem;
+        }
+        #shop-now {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        #hero-image-container {
+            min-height: 25rem;
+        }
+        .product-style {
+            background-color: whitesmoke;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            align-items: center;
+            width: 18rem;
+            display: inline-flex;
+        }
+        .position-absolute {
+            bottom: 0;
+        }
+        .img-container {
+            width: 10rem;
+            height: 10rem;
+        }
+        .img-container img {
+            height: 100% !important;
+            width: 100% !important;
+            object-fit: scale-down;
+        }
+        .product-style:hover,
+        .product-style:focus {
+            background-color: rgb(222, 245, 242);
+        }
+        @media only screen and (max-width: 650px) {
+            #shop-buttons {
+                display: flex;
+                flex-direction: column;
+            } 
+            #shop-buttons button {
+                margin-bottom: 1rem;
+                font-size: 0.8rem;
+            }    
+            .hero-description p {
+                font-size: 0.9rem !important;
+            }    
+            #shop-now h4 {
+                font-size: 1rem;
+            }
+        }
+        @media only screen and (max-width: 540px) { 
+            .carousel-header {
+                font-size: 1rem !important;
+            }        
+        }
 .price {
     font-size: 1.2rem;
 }
