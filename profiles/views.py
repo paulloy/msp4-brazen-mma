@@ -7,23 +7,39 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def profile(request):
-    """ Display user profile """
+def profile_delivery_info(request):
+    """ Display user delivery information """
 
     profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
-        form = UserProfile(request.POST, instance=profile)
+        form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Profile updated.')
+            messages.success(
+                request, 'Default delivery information updated successfully.')
 
     form = UserProfileForm(instance=profile)
-    orders = profile.orders.all()
 
-    template = 'profiles/profile.html'
+    template = 'profiles/delivery-info.html'
     context = {
         'form': form,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def profile_order_history(request):
+    """ Display user order history """
+
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    orders = profile.orders.all()
+
+    template = 'profiles/order-history.html'
+
+    context = {
         'orders': orders,
     }
 

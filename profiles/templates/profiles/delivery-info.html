@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}
+    <meta name="Description" content="A form where a user can update their default delivery and billing information for a faster checkout."/>
+{% endblock %}
+
+{% block title %}
+ - Profile | Update Delivery Information
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div id="delivery-details" class="mx-auto bg-white row p-2 p-md-5">
+        <form class="col-12 flex-column d-flex justify-content-center" action="{% url 'profile_delivery_info' %}" method="POST" id="profile-update-form">
+            <h4 class="text-center p-3">Default Delivery Information</h4>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn my-3 btn-primary">Update information</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}

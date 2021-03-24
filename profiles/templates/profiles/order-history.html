@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}
+    <meta name="Description" content="Displays user order history and links to individual order summaries."/>
+{% endblock %}
+
+{% block title %}
+ - Profile | Order History
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div id="order-history" class="bg-white d-flex flex-column mx-auto bg-white p-2 p-md-5">
+        <h4 class="text-center p-3">My Order History</h4>
+        {% if product_count == 0 %}
+        <div class="d-flex justify-content-between">
+            <span>Order Number</span>
+            <span>Order Date</span>
+            <span>Toggle</span>
+        </div>
+        <div>
+        {% for order in orders %}           
+            <div class="border-bottom d-flex py-3 justify-content-between">
+                <a href="{% url 'order_history' order.order_number %}" title="{{ order.order_number }}">{{ order.order_number|truncatechars:6 }}</a>
+                <p class="m-0">{{ order.date }}</p>
+                <button class="toggle-order-details"><i class="fas fa-chevron-down"></i></button>
+            </div>
+            <!-- order-details - Hidden --------------------------------------------------------------->
+            <div class="order-details bg-lightblue p-3 border-bottom">  
+                <div class="bg-white d-flex justify-content-end mb-3 p-2">
+                    <a href="{% url 'order_history' order.order_number %}">View Order Summary</a> 
+                </div>  
+                <p class="bold">Ordered Products</p>            
+            {% for item in order.lineitems.all %}
+                <a href="{% url 'product_details' item.product_id %}">{{ item.product.name }}<br></a>
+                <p>
+                    {% if item.product_size != 'false' %}
+                        Size: {{ item.product_size }}<br>
+                    {% endif %}
+                </p>
+            {% endfor %}
+                <p class="text-right bg-white p-2 bold">Grand-total: £{{ order.grand_total }}</p>
+            </div> 
+            <!------------------------------------------------------------------------------------------>           
+        {% endfor %}
+        </div>
+        {% else %}
+        <h5 class="text-center p-3">You have not placed any orders yet</h5>
+        <a href="{% url 'products' %}" class="btn btn-secondary">Continue Shopping</a>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+
+
