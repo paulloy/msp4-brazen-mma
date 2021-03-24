@@ -38,10 +38,12 @@
                 <p class="bold">Ordered Products</p>            
             {% for item in order.lineitems.all %}
                 <a href="{% url 'product_details' item.product_id %}">{{ item.product.name }}<br></a>
-                <p>
+                <p class="m-0">
                     {% if item.product_size != 'false' %}
-                        Size: {{ item.product_size }}<br>
+                        Size: {{ item.product_size }}
                     {% endif %}
+                </p>
+                <p>Qty: {{ item.quantity }}
                 </p>
             {% endfor %}
                 <p class="text-right bg-white p-2 bold">Grand-total: £{{ order.grand_total }}</p>
