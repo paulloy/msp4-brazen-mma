@@ -2,6 +2,9 @@
 
 ## bag
 
+templates:
+ - [Bag](bag/templates/bag/bag.html)
+
 ### Test events 
 *21/03/21*
 
@@ -28,6 +31,10 @@
 
 
 ## checkout
+
+templates:
+ - [Checkout Success](checkout/templates/checkout/checkout_success.html)
+ - [Checkout](checkout/templates/checkout/checkout.html)
 
 ### Test events
 *22/03/21*
