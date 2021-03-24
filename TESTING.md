@@ -29,6 +29,24 @@ templates:
 
  - [1]: As of commit *695f495*, these tests now Pass.
 
+### Validation
+
+#### CSS
+
+stylesheets:
+ - [bag.css](bag/static/css/bag.css)
+
+*24/03/21*: 
+ - All stylesheets passed validation.
+
+#### JS
+
+scripts:
+ - [bag.js](bag/static/js/bag.js)
+
+*24/03/21*: 
+ - One undefined variable: $
+ - One unused variable: $displayQuantity
 
 ## checkout
 
@@ -63,6 +81,33 @@ templates:
  - The patch to 2.12 fixed 2.07.
  - The expected response of test 2.14 & 2.15 was incorrect and has been updated. 
 
+### Validation
+
+#### CSS
+
+stylesheets:
+ - [checkout_success.css](checkout/static/css/checkout_success.css)
+ - [checkout.css](checkout/static/css/checkout.css)
+
+*24/03/21*: 
+ - All stylesheets passed validation.
+
+#### JS
+
+scripts:
+ - [bag.js](bag/static/js/bag.js)
+ - [stripe-elements.js](bag/static/js/stripe-elements.js)
+
+*24/03/21*:
+ - bag.js:
+    - One undefined variable: $
+
+ - stripe-elements.js
+    - Missing semicolon.
+    - 'template literal syntax' is only available in ES6 (use 'esversion: 6').
+    - undefined variable: $
+    - undefined variable: Stripe
+
 ## profiles
 
 templates:
@@ -84,3 +129,23 @@ templates:
 | 3.08 | Navigate to {% url 'profile_order_history' %} after updating default delivery info. | All the same orders should be displayed to the user. | Pass |
 | 3.09 | Navigate to {% url 'checkout' %} after updating default delivery info. | Only the filled in fields should be automatically filled on the checkout form. | Pass |
 | 3.10 | With no delivery info saved, place an order at the checkout and select 'save this delivery information' checkbox. | Default Delivery Info should now be autofilled upon returning to {% url 'profile_delivery_info %}. | Pass |
+
+### Validation
+
+#### CSS
+
+stylesheets:
+ - [profile.css](profiles/static/css/profile.css)
+
+*24/03/21*: 
+ - All stylesheets passed validation.
+
+#### JS
+
+scripts:
+ - [profile.js](profiles/static/js/profile.js)
+
+*24/03/21*:
+- 'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+- Unnecessary semicolon.
+- undefined variable: $

@@ -1,4 +1,5 @@
-var $displayQuantity = $('.display-quantity');
+/*globals $:false */
+/*jshint esversion: 6 */
 
 $('.quantity-add').click(function() {
     var val = $(this).prev().val();
