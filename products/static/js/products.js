@@ -24,17 +24,34 @@ $('.size').click(function() {
 });
 
 // check if a size has been selected
+let add = `Add to bag <i class="fas fa-shopping-bag"></i>`;
+let spinner = `ADDING TO BAG <i class="fas fa-spinner fa-pulse"></i>`;
 $('#add-to-bag-submit').click(function(e) {
     e.preventDefault();
-    if ($('#please-select-size').length != 0) {
-        if ($('#size_input').val() == 'false') {
-            $('#please-select-size').show();
+    $(this).html(spinner);
+    setTimeout(function(){
+        if ($('#please-select-size').length != 0) {
+            if ($('#size_input').val() == 'false') {
+                $('#please-select-size').show(); 
+                $('#add-to-bag-submit').html(add);  
+            } else {
+                $('#please-select-size').hide();
+                $('#add-to-bag-form').submit(); 
+            }
         } else {
-            $('#please-select-size').hide();
-            $('#add-to-bag-form').submit();
-        }
-    } else {
-        // If product has no sizes, then submit
-        $('#add-to-bag-form').submit();        
-    }
+            // If product has no sizes, then submit
+            $('#add-to-bag-form').submit();     
+        }        
+        $('#add-to-bag-submit').html(add);
+    }, 300);
+});
+
+// deleting product 
+$('#confirm-delete').click(function() {
+    $('#update-delete-product').hide();
+    $('#delete-product').show();
+});
+$('#cancel-delete').click(function() {
+    $('#update-delete-product').show();
+    $('#delete-product').hide();
 });

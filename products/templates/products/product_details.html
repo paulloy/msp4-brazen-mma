@@ -15,98 +15,118 @@
 
 {% block content %}
 
-<!-- breadcrumbs -->
-<div id="breadcrumbs" class="w-100 header">
+<!-- breadcrumbs ------------------------------------------------------------------------------------------->
+<div id="breadcrumbs" class="mx-auto header">
     <nav aria-label="breadcrumb" class="col-12 h-100 d-flex align-items-center py-lg-0 px-lg-5 px-2">
-        <ol class="breadcrumb p-0 m-0 w-100">
-            <span class="d-flex">
+        <ol class="breadcrumb d-flex flex-column p-0 m-0 w-100">
+            <span class="d-flex justify-content-center">
                 <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ product.category }}">{{ product.category }}</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a href="{% url 'products' %}?category={{ product.category }}&product_type={{ product.product_type }}">{{ product.product_type }}</a></li> 
             </span>                 
-            <li class="breadcrumb-item active ml-2" aria-current="page">/ {{ product.name }}</li>                  
+            <li class="mx-auto breadcrumb-item active m-0" aria-current="page">/ {{ product.name }}</li>                  
         </ol>
     </nav>
 </div>
+<!---------------------------------------------------------------------------------------------------------->
 
-<div class="container h-100 w-100 p-0">
-    <div id="product-display" class="row p-lg-3 p-0 mx-lg-3 mx-0 mt-5 position-relative">
-        {% if request.user.is_superuser %}
-            <div class="bg-warning p-5 w-100">
-                <a class="btn btn-primary" href="{% url 'edit_product' product.product_id %}">Edit Product</a>
-                <a class="btn btn-danger" href="{% url 'delete_product' product.product_id %}">Delete Product</a>
+<!-- product management ----------------------------------------------------------------------------------->
+{% if request.user.is_superuser %}
+    <div id="product-management" class="p-3 mx-auto">
+        <h4 class="text-center pb-3">Product Management</h4>
+        <div id="update-delete-product">
+            <div class="d-flex justify-content-center p-3">
+                <a class="mx-3 button-width btn btn-primary" href="{% url 'edit_product' product.product_id %}">Update Product</a>
+                <button id="confirm-delete" class="mx-3 button-width btn btn-danger">Delete Product</button>
             </div>
-        {% endif %}
-        <!-- product image -->
-        <div class="col-xl-6 col-lg-12 product-img-container p-0 pr-2 position-relative">
-            <img class="p-3" src="{% url 'home' %}media/{{ product.image }}" alt="{{ product.name }}">
         </div>
-        <div id="product-details" class="col-xl-6 col-lg-12"> 
-            <div>                    
-                <h3 class="w-100 text-center my-md-4 my-0"><strong>{{ product.name }}</strong></h3>
-                <!-- product price -->
-                {% if product.sale %}
-                    <div class="d-flex py-3 m-0 col-12 w-100 flex-md-row flex-column justify-content-between">
-                        <h4 class="my-md-0 mb-2 d-inline-block mx-auto price"><strike class="mr-2 text-muted pl-md-4 pr-md-1 p-0">£{{ product.rrp }}</strike></h4>
-                        <h4 class="my-md-0 my-2 d-inline-block mx-auto price">Save £{{ save }}</h4>
-                        <h4 class="my-md-0 my-2 d-inline-block mx-auto pr-md-4 pl-md-1 px-0 price">£{{ product.price }} <i class="fas fa-tags"></i></h4>
-                    </div>
-                {% else %}
-                    <h4 class="m-0 p-4 my-md-0 my-2 text-center col-12 price">£{{ product.price }}</h4>
-                {% endif %}
-                <!-- product description -->
-                    <p class="text-justify bg-text p-1 p-md-4 m-0 col-12">{{ product.description }}</p>
-            </div> 
-            <div id="cart-size" class="d-flex flex-column mt-3 p-3">
-                {% if sizes.count > 1 %}
-                    <div id="size">
-                        <p class="w-100">SIZES <a class="text-white float-right" href="#">see size chart</a></p>
-                        <div class="d-flex flex-wrap justify-content-center">
-                            {% if sizes.count > 1 %}
-                                {% for x in sizes %}
-                                    {% if x.stock < 1 %}
-                                        <p class="btn btn-danger out-of-stock size"><strong>{{ x.size }}</strong></p>
-                                    {% elif x.stock < 5 %}                                    
-                                        <p class="btn btn-warning size"><strong>{{ x.size }}</strong></p>
-                                    {% else %}
-                                        <p class="btn btn-primary size"><strong>{{ x.size }}</strong></p>
-                                    {% endif %}
-
-                                    {% if forloop.counter >= sizes.count %}
-                                        <div class="d-flex justify-content-center w-100 m-0 w-100">
-                                            {% if low_stock == True %}
-                                                <span class="my-1 mx-2"><i class="fas fa-circle text-warning"></i> low stock!</span>
-                                            {% endif %}
-                                            {% if no_stock == True %}
-                                                <span class="my-1 mx-2"><i class="fas fa-circle text-danger"></i> out of stock</span>
-                                            {% endif %}
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                                <p id="please-select-size" class="text-danger">Please select a size.</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endif %}                       
-            </div>                
-            <!-- product sizes -->            
-            <form id="add-to-bag-form" method="POST" action="{% url 'add_to_bag' product.product_id %}"
-            class="d-flex col-12 mb-3 justify-content-between">
-                {% csrf_token %}
-                <div class="my-3 d-flex align-items-center">
-                    <label for="quantity" class="mr-2 my-0">QUANTITY</label>
-                    <button id="quantity-sub" class="btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-left"></i></button>
-                    <input id="quantity" name="quantity" type="number" min="1" max="99" value="1" class="text-center" required>
-                    <button id="quantity-add" class="btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-right"></i></button>
-                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    <input id="size_input" type="hidden" name="size" value="false">                    
+        <div id="delete-product">
+            <div class="d-flex flex-column p-3 justify-content-center">
+                <h6 class="w-100 text-center">Are you sure you want to delete this product?</h6>
+                <div class="d-flex p-3 justify-content-center">
+                    <button id="cancel-delete" class="mx-3 button-width btn btn-secondary">Cancel</button>
+                    <a class="mx-3 button-width btn btn-danger" href="{% url 'delete_product' product.product_id %}">Confirm Delete</a>
                 </div>
-                <div>
-                    <button id="add-to-bag-submit" type="submit" class="btn btn-primary add-to-bag my-3 ml-auto">Add to <br><i class="fas fa-shopping-bag"></i> bag</button>
-                </div>
-            </form>       
+            </div>
         </div>
     </div>
+{% endif %}
+<!--------------------------------------------------------------------------------------------------------->
+
+<!-- product container --------------------------------------------------------------------------------------------------------------------------------------------------->
+
+<div id="product-display" class="d-flex mx-auto p-3">        
+    <!-- product image -->
+    <div class="mx-auto product-img-container p-0 d-block">
+        <img src="{% url 'home' %}media/{{ product.image }}" alt="{{ product.name }}">
+    </div>
+    <!-- product details -->
+    <div id="product-details" class="p-3 mx-auto"> 
+        <div>   
+            <!-- product name -->
+            <h5 class="text-center bg-white p-3"><strong>{{ product.name }}</strong></h5>                      
+            <!-- product price -->  
+        {% if product.sale %}
+            <p class="text-center p-2 bg-white bold mt-3"><span class="mr-3 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></span> <span class="mr-1 text-muted" title="Recommended Retail Price">RRP:</span><strike class="p-0 text-muted">£{{ product.rrp }}</strike></p>    
+        {% else %}
+            <p class="p-2 mt-3 bold bg-white text-center price">£{{ product.price }}</p>
+        {% endif %}
+            <!-- product description -->
+            <div class="d-flex mt-3 bg-white p-3 flex-column">
+                <strong class="text-center w-100">Product Description</strong>
+                <p class="text-justify m-0 mt-2">{{ product.description }}</p>
+            </div>
+        </div> 
+        <div id="cart-size" class="d-flex bg-white flex-column mt-3 p-3">
+            {% if sizes.count > 1 %}
+                <div>
+                    <p class="w-100"><span class="bold">SIZES</span> <a class="float-right" href="#">see size chart</a></p>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        {% if sizes.count > 1 %}
+                            {% for x in sizes %}
+                                {% if x.stock < 1 %}
+                                    <p class="btn btn-danger out-of-stock size"><strong>{{ x.size }}</strong></p>
+                                {% elif x.stock < 5 %}                                    
+                                    <p class="btn btn-warning size"><strong>{{ x.size }}</strong></p>
+                                {% else %}
+                                    <p class="btn btn-primary size"><strong>{{ x.size }}</strong></p>
+                                {% endif %}
+                                {% if forloop.counter >= sizes.count %}
+                                    <div class="d-flex justify-content-center w-100 m-0 w-100">
+                                        {% if low_stock == True %}
+                                            <span class="my-1 mx-2"><i class="fas fa-circle text-warning"></i> low stock!</span>
+                                        {% endif %}
+                                        {% if no_stock == True %}
+                                            <span class="my-1 mx-2"><i class="fas fa-circle text-danger"></i> out of stock</span>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <p id="please-select-size" class="text-danger bold m-0 mt-3">Please select a size.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}                       
+        </div>                
+        <!-- product sizes -->            
+        <form id="add-to-bag-form" method="POST" action="{% url 'add_to_bag' product.product_id %}"
+        class="d-flex bg-white mx-auto flex-column justify-content-between">
+            {% csrf_token %}
+            <label for="quantity" class="mx-auto bold my-0">QUANTITY</label>
+            <div class="my-3 mx-auto d-flex align-items-center">
+                <button id="quantity-sub" class="btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-left"></i></button>
+                <input id="quantity" name="quantity" type="number" min="1" max="99" value="1" class="text-center" required>
+                <button id="quantity-add" class="btn btn-primary quantity-selector" type="button"><i class="fas fa-chevron-right"></i></button>
+                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                <input id="size_input" type="hidden" name="size" value="false">                    
+            </div>
+            <div class="px-3">
+                <button id="add-to-bag-submit" type="submit" class="my-3 btn btn-primary w-100">Add to bag <i class="fas fa-shopping-bag"></i></button>
+            </div>
+        </form>       
+    </div>
 </div>
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 
 {% endblock %}
 
