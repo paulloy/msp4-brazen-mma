@@ -45,12 +45,35 @@
 | 2.09 | Select login as an anonymous user. | Direct user to {% url 'accounts_login' %} | Pass |
 | 2.10 | Select 'adjust bag' button. | Direct user to {% url 'view_bag' %} | Pass |
 | 2.11 | Select 'view order summary' button. | Toggle the order summary. (For small screen widths where order summary is hidden) | Pass |
-| 2.12 | Access {% url 'checkout' %} by url with an empty bag. | Redirect the user to {% url 'home %} and display an error. | Pass [2] |
+| 2.12 | Access {% url 'checkout' %} by url with an empty bag. | Redirect the user to {% url 'home %} and display an error. | Pass [3] |
 | 2.13 | Access {% url 'checkout_success' %} by url with invalid order ID. | Redirect the user to {% url 'home %} and display an error. | Pass [2] |
 | 2.14 | Access {% url 'cache_checkout_data' %} by url. | Display 405 error. | Pass |
 | 2.15 | Access {% url 'wh' %} by url. | Display 405 error. | Pass |
 | 2.16 | Checkout with Stripe test card number: 4000002500003155. Fail authentication. | Display error within the card div. | Pass |
 
  - [2]: As of commit *7b5923e*, these tests now Pass.
+ - [3]: As of commit *2486c93*, this test now Passes.
  - The patch to 2.12 fixed 2.07.
  - The expected response of test 2.14 & 2.15 was incorrect and has been updated. 
+
+## profiles
+
+templates:
+ - [Profile Delivery Info](profiles/templates/profiles/delivery-info.html)
+ - [Profile Order History](profiles/templates/profiles/order-history.html)
+
+### Test events
+*24/03/21*
+
+| ID | Event | Expected Response | Pass / Fail ? |
+| ---- | ----- | --------------- |    :-----:    |
+| 3.01 | Selecting an order number | Direct user to {% url 'order_history' <order_numer> %} and display an info-message that this is a past order confirmation. | Pass |
+| 3.02 | Selecting an order toggle button | Display a link to {% url 'order_history' <order_numer> %} titled 'View Order Summary.' Display a list of all products ordered. Display grand total of order. | Pass |
+| 3.03 | Selecting 'View Order Summary.' | Direct user to {% url 'order_history' <order_numer> %} and display an info-message that this is a past order confirmation. | Pass |
+| 3.04 | Selecting 'View Order Summary.' | Direct user to {% url 'order_history' <order_numer> %} and display an info-message that this is a past order confirmation. | Pass |
+| 3.05 | Select a product name | Direct user to {% url 'product_details' <product_id> %} | Pass |
+| 3.06 | Submit empty form. | Page should reload with the form containing no values. | Pass |
+| 3.07 | Submit form with values added. | Page should reload with submitted fields autofilled. | Pass |
+| 3.08 | Navigate to {% url 'profile_order_history' %} after updating default delivery info. | All the same orders should be displayed to the user. | Pass |
+| 3.09 | Navigate to {% url 'checkout' %} after updating default delivery info. | Only the filled in fields should be automatically filled on the checkout form. | Pass |
+| 3.10 | With no delivery info saved, place an order at the checkout and select 'save this delivery information' checkbox. | Default Delivery Info should now be autofilled upon returning to {% url 'profile_delivery_info %}. | Pass |
