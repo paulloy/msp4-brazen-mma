@@ -10,6 +10,9 @@
     height: 2.5rem;
     width: 15rem;
 }
+.bold {
+    font-weight: 600;
+}
 .search-form input {
     border: 0;
     width: calc(100% - 3rem);
@@ -64,7 +67,7 @@ a {
 
     body {
         font-family: 'Montserrat', sans-serif;
-        background-color: rgb(0, 0, 0);
+        background-color: rgb(0, 0, 0) !important;
         overflow: hidden;
     }
     #lg-header {
@@ -212,6 +215,12 @@ h1 {
     z-index: 1;
 }
 
+@media only screen and (max-width: 992px) {
+    #block-content {
+        width: 100vw;
+        right: 0;
+    }
+}
 
 /* @media only screen and (max-width: 992px) {
     .listitem {

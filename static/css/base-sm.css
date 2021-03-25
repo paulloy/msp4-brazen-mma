@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
- 
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+.font-oswald {
+    font-family: 'Oswald', sans-serif;
+}
 
 /* lg width */
 @media only screen and (max-width: 960px) {
@@ -8,7 +12,7 @@
     }
     header {
         height: 3rem;
-        background-color: rgba(173, 216, 230, 0.2);
+        background-color: rgba(0, 0, 0, 0.5);
         width: 100vw;
         position: absolute;
         top: 0;
@@ -16,13 +20,16 @@
         font-size: 1.2rem;
         display: flex;
         align-items: center;
+        border-bottom: 1px solid grey;
     }
     header a {
-        font-family: 'Exo 2', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 300;
+        letter-spacing: 2px;
     }
     header button {
         border: 0;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     #block-content {
         height: calc(100vh - 3rem);
@@ -43,6 +50,9 @@
         z-index: 1;
         width: calc(100vw - 10px);
     }
+    .scroll {
+        overflow: scroll;
+    }
     #bag-sm-menu {
         height: calc(100vh - 3rem);
         width: 100vw;
@@ -51,12 +61,23 @@
         top: 3rem;
         left: 0;
         background-color: rgba(173, 216, 230, 0.2);
-        overflow-y: scroll;
+        overflow-y: hidden;
         overflow-x: hidden;
         display: none;
     }
     #bag-sm-menu div {
         width: 98%;
+    }
+    #bag-sm-menu div p {
+        font-weight: 700;
+        letter-spacing: 1px;
+        white-space: nowrap;
+        
+    }
+    #bag-sm-menu div p span {
+        font-weight: 700;
+        white-space: nowrap;   
+        font-size: 0.8rem;     
     }
     #bag-sm-menu div a {
         width: 45%;
@@ -76,7 +97,21 @@
         overflow-y: scroll;
         display: none;
     }
+    #side-nav div {
+        background-color: rgba(173, 216, 230, 0.2);
+    }
+    #side-nav div a {        
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
     #side-nav hr {
         border: 1px solid white;
+    }
+    #side-nav nav {
+        background-color: rgba(0, 0, 0, 0.2);
+        height: calc(100vh - 136px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
