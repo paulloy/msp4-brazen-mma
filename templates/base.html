@@ -44,6 +44,7 @@
                 <input id="q" name="q" class="px-3" type="text" placeholder="Search Products...">
                 <button class="px-2" type="submit"><i class="fas fa-search"></i></button>
             </form>
+            <!-- nav menu -->
             <nav id="nav-menu" class="d-none pb-3 mt-3 d-lg-block">            
                 <ul class="list-unstyled d-flex mb-0 align-items-center justify-content-between px-5 w-100">
                     <li><a class="listitem btn p-0" href="{% url 'home' %}" title="Home Page"><i class="fas fa-home"></i></a></li>
@@ -51,18 +52,24 @@
                     <li id="toggle-bag-menu" class="listitem" title="bag"><i class="fas fa-shopping-bag"></i></li>
                 </ul>
             </nav>
-            <div id="account" class="position-absolute w-100">
-                {% if request.user.is_authenticated %}
-                    {% if request.user.is_superuser %}
-                        <a href="#" class="w-100 text-center m-0 p-3 text-white h3">Product Management</a>
-                    {% endif %}
-                    <a href="{% url 'profile' %}" class="w-100 text-center m-0 p-3 text-white h3">My Profile</a>
-                    <a href="{% url 'account_logout' %}" class="w-100 text-center m-0 p-3 text-white h3">Logout</a>
-                {% else %}
-                    <a href="{% url 'account_signup' %}" class="w-100 text-center m-0 p-3 text-white h3">Register</a>
-                    <a href="{% url 'account_login' %}" class="w-100 text-center m-0 p-3 text-white h3">Login</a>
-                {% endif %}
-            </div>
+
+<!---------- account menu ----------------------------------------------------------------------------------------------------------------------->
+        <div id="account" class="position-absolute w-100">
+        {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
+                <a href="#" class="w-100 text-center m-0 p-3 text-white h3">Product Management</a>
+            {% endif %}
+                <a href="{% url 'profile_order_history' %}" class="w-100 text-center m-0 p-3 text-white h3">Order History</a>
+                <a href="{% url 'profile_delivery_info' %}" class="w-100 text-center m-0 p-3 text-white h3">Update Delivery Info</a>
+                <a href="{% url 'account_logout' %}" class="w-100 text-center m-0 p-3 text-white h3">Logout</a>
+        {% else %}
+                <a href="{% url 'account_signup' %}" class="w-100 text-center m-0 p-3 text-white h3">Register</a>
+                <a href="{% url 'account_login' %}" class="w-100 text-center m-0 p-3 text-white h3">Login</a>
+        {% endif %}
+        </div>
+<!------------------------------------------------------------------------------------------------------------------------------------------------>
+
+            <!-- bag menu  -->
             <div id="bag-menu" class="position-absolute px-2">
                 <a class="listitem text-center p-2 mt-2 w-100 d-block btn btn-primary" href="{% url 'view_bag' %}">View Bag</a>
                 <p class="text-white m-0 p-3 text-center h5"><span class="mr-4">Sub-Total</span> £{{ total }}</p>

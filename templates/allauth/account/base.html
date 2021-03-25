@@ -1,11 +1,26 @@
 {% extends "base.html" %}
 
+{% block css %}
+<style>
+    .responsive-width {
+        width: 80%;
+    }
+    @media only screen and (max-width: 768px) {
+        .responsive-width {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 
-<div class="bg-white w-75 mx-auto p-5">
-    {% block inner_content %}
+<div class="w-100 d-flex justify-content-center h-100 align-items-center mx-auto p-0">
+    <div class="d-block bg-white p-md-5 p-2 h-auto responsive-width">
+        {% block inner_content %}
 
-    {% endblock %}
+        {% endblock %}
+    </div>
 </div>
 
 {% endblock %}
