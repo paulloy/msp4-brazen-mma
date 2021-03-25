@@ -41,8 +41,16 @@
             {% for item in order.lineitems.all %}
             <div class="w-100 d-flex my-1">
                 <!-- get sizes in -->
-                <div class="w-50">{{ item.product.name }}</div>
-                <div class="w-50 text-right">£ {{ item.product.price }}</div>
+                <div class="w-50">
+                    <p>{{ item.product.name }}<br> Size: <span>{{ item.product_size }}</span><br>Qty: <span>{{ item.quantity }}</span></p>
+                    
+                </div>
+                <div class="w-50 text-right">
+                    {% if item.quantity > 1 %}
+                        £{{ item.product.price }} each</div>
+                    {% else %}
+                        £{{ item.product.price }}</div>
+                    {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -50,7 +58,7 @@
         <div class="row w-80 mx-auto">            
             <h5 class="text-center w-100">Delivery Details</h5>
             <div class="w-100 d-flex my-1">
-                <div class="w-50">Name</div>
+                <div class="w-50">Full Name</div>
                 <div class="w-50 text-right">{{ order.full_name }}</div>
             </div>
             <div class="w-100 d-flex my-1">
@@ -97,11 +105,10 @@
                 <div class="w-50">Grand Total</div>
                 <div class="w-50 text-right">£{{ order.grand_total }}</div>
             </div>
-        </div>
-    </div>     
+        </div>   
 
     {% if from_profile %}
-        <a href="{% url 'profile' %}" class="btn btn-primary">Return to Profile</a>
+        <a href="{% url 'profile_order_history' %}" class="btn btn-primary">Return to Order History</a>
     {% endif %}
         
 

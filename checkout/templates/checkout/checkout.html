@@ -61,10 +61,9 @@
                     <label>Save this delivery information</label>
                     <input id="id-save-info" name="save-info" type="checkbox">
                     {% else %}
-                    <label for="">
-                        <a href="#">Create an account</a>
-                        <a href="#">Login</a> to save this information.
-                    </label>
+                    <div>
+                        <a href="{% url 'account_login' %}">Login</a> to save this information.
+                    </div>
                     {% endif %}
                 </div>
             </fieldset>
