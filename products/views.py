@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.db.models import Q
-from .models import Product, ProductSizesStock
-from .forms import ProductForm
+from django.forms.models import inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core import serializers
+
+from .models import Product, ProductSizesStock
+from .forms import ProductForm, ProductSizesStockForm
+
 import random
 
 
@@ -107,21 +110,35 @@ def add_product(request):
         messages.error(request, 'sorry this page is private')
         return redirect(reverse('home'))
 
+    ProductSizesStockFormSet = inlineformset_factory(
+        Product, ProductSizesStock, ProductSizesStockForm)
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
+        product = form.save()
+
         if form.is_valid():
-            form.save()
-            messages.success(request, 'product added')
-            return redirect(reverse('add_product'))
+            formset = ProductSizesStockFormSet(request.POST, instance=product)
+
+            if formset.is_valid():
+                formset.save()
+
+                messages.success(request, 'product added')
+                return redirect('add_product')
+            else:
+                messages.error(request, 'product failed to add')
+
         else:
             messages.error(request, 'product failed to add')
     else:
         form = ProductForm()
+        formset = ProductSizesStockFormSet()
 
     template = 'products/add_product.html'
 
     context = {
         'form': form,
+        'formset': formset,
     }
 
     return render(request, template, context)
