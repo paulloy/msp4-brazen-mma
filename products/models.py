@@ -67,7 +67,7 @@ class ProductSizesStock(models.Model):
     product_sizes_quantity_id = models.AutoField(primary_key=True)
     product_id = models.ForeignKey(
         'Product', on_delete=models.CASCADE, null=True)
-    size = models.CharField(max_length=254)
+    size = models.CharField(max_length=254, null=True)
     stock = models.PositiveIntegerField()
 
     def __str__(self):
@@ -75,4 +75,4 @@ class ProductSizesStock(models.Model):
         return ' | '.join(my_tuple)
 
     class Meta:
-        verbose_name_plural = 'Product Sizes & Quantities'
+        verbose_name_plural = 'Product Sizes and Stock'

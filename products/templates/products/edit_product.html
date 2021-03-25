@@ -2,15 +2,34 @@
 {% load static %}
 
 {% block meta_description %}
-    <meta name="Description" content="Add product page"/>
+    <meta name="Description" content="Update product page"/>
 {% endblock %}
 
 {% block title %}
- - Add Product
+ - Update Product: {{ product.name }}
 {% endblock %}
 
 {% block css %}
     <style>
+        #product-management {
+            background-color: whitesmoke;
+            width: 38rem;
+        }
+        #product-management h2 {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .bold,
+        label {
+            font-weight: 600;
+        }
+        button {
+            font-size: 1rem;
+        }
+        .border-top {
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
         .btn-file {
             position: relative;
             overflow: hidden;
@@ -33,28 +52,46 @@
             border-color: #dc3545;
             border-radius: 0;
         }
+        .input-width {
+            width: 100%;
+        }
+        .form-group {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0 !important;
+        }
+        @media only screen and (max-width: 992px) {
+            #product-management {
+                width: 100%;
+            }
+        }
+
     </style>
 {% endblock %}
 
 {% block content %}
 
-    <div class="container bg-white">
-        <div class="row">
-            <h2>Product Management</h2>
-            <form class="d-flex flex-column w-100 p-5" method="POST" action="{% url 'edit_product' product.product_id %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% for field in form %}
-                    {% if field.name != 'image' %}
-                        {{ field | as_crispy_field }}
-                    {% else %}
-                        {{ field }}
-                    {% endif %}
-                {% endfor %}
-                <button type="submit">Update product</button>
-            </form>
 
+        <div id="product-management" class="mx-auto">
+            <h2 class="text-center bold p-3 m-0">Product Management</h2>
+            <h5 class="text-center bold p-3 m-0">UPDATE PRODUCT</h5>
+            <form class="d-flex flex-column w-100 p-md-5 p-2" method="POST" action="{% url 'edit_product' product.product_id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}             
+                <div id="inline-form" class="d-flex flex-column">   
+                    {{ formset.management_form }}
+                    {% for inlineform in formset %}
+                    <div class="d-flex justify-content-around align-items-center">
+                        {{ inlineform|crispy }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="border-top pt-3">
+                    <button id="add-new-product-submit" class="btn my-3 w-100 btn-primary" type="submit">Update Product</button>
+                </div>
+            </form>
         </div>
-    </div>
+
 
 {% endblock %}
 
@@ -64,6 +101,5 @@
             var file = $('#new-image')[0].files[0];
             $('#filename').text(`Image will be set to: ${file.name}`);
         });
-
     </script>
 {% endblock %}

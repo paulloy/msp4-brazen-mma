@@ -18,3 +18,10 @@ class ProductSizesStockForm(forms.ModelForm):
     class Meta:
         model = ProductSizesStock
         exclude = ('product_id',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'input-width'
+            self.fields[field].required = False

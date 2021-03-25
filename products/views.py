@@ -111,7 +111,7 @@ def add_product(request):
         return redirect(reverse('home'))
 
     ProductSizesStockFormSet = inlineformset_factory(
-        Product, ProductSizesStock, ProductSizesStockForm)
+        Product, ProductSizesStock, ProductSizesStockForm, extra=5)
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
@@ -152,23 +152,35 @@ def edit_product(request, product_id):
         return redirect(reverse('home'))
 
     product = get_object_or_404(Product, pk=product_id)
+    ProductSizesStockFormSet = inlineformset_factory(
+        Product, ProductSizesStock, ProductSizesStockForm, extra=2)
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
+
         if form.is_valid():
             form.save()
-            messages.success(request, 'product updated')
-            return redirect(reverse(
-                'product_details', args=[product.product_id]))
+            formset = ProductSizesStockFormSet(request.POST, instance=product)
+
+            if formset.is_valid():
+                formset.save()
+                messages.success(
+                    request, f'{product.name} successfully updated')
+                return redirect(reverse(
+                    'product_details', args=[product.product_id]))
+            else:
+                messages.error(request, f'Failed to update {product.name}')
         else:
-            messages.error(request, 'failed to update product')
+            messages.error(request, f'Failed to update {product.name}')
     else:
         form = ProductForm(instance=product)
-        messages.info(request, 'You are editing a product')
+        formset = ProductSizesStockFormSet(instance=product)
+        messages.info(request, f'You are currently editing {product.name}')
 
     template = 'products/edit_product.html'
     context = {
         'form': form,
+        'formset': formset,
         'product': product,
     }
 
