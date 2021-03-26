@@ -85,6 +85,7 @@ def product_details(request, product_id):
 
     low_stock = False
     no_stock = False
+    has_sizes = True
 
     for size in sizes:
         if size.stock == 0:
@@ -92,12 +93,16 @@ def product_details(request, product_id):
         elif 0 < size.stock <= 5:
             low_stock = True
 
+        if size.size == 'false':
+            has_sizes = False
+
     context = {
         'product': product,
         'sizes': sizes,
         'save': save,
         'low_stock': low_stock,
-        'no_stock': no_stock
+        'no_stock': no_stock,
+        'has_sizes': has_sizes,
     }
 
     return render(request, 'products/product_details.html', context)

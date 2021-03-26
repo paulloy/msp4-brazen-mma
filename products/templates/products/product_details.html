@@ -11,19 +11,29 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <style>
+    /* .bg-white {
+        background-color: whitesmoke !important;
+    }
+    #breadcrumbs,
+    #product-management,
+    #product-display {
+        width: 100% !important;
+    } */
+</style>
 {% endblock %}
 
 {% block content %}
 
 <!-- breadcrumbs ------------------------------------------------------------------------------------------->
-<div id="breadcrumbs" class="mx-auto header">
-    <nav aria-label="breadcrumb" class="col-12 h-100 d-flex align-items-center py-lg-0 px-lg-5 px-2">
+<div id="breadcrumbs" class="mx-auto bg-transparent">
+    <nav aria-label="breadcrumb" class="h-100 d-flex align-items-center bg-white p-0">
         <ol class="breadcrumb d-flex flex-column p-0 m-0 w-100">
-            <span class="d-flex justify-content-center">
+            <span class="d-flex pt-3 px-4 justify-content-center">
                 <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ product.category }}">{{ product.category }}</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a href="{% url 'products' %}?category={{ product.category }}&product_type={{ product.product_type }}">{{ product.product_type }}</a></li> 
-            </span>                 
-            <li class="mx-auto breadcrumb-item active m-0" aria-current="page">/ {{ product.name }}</li>                  
+            </span>   
+            <li class="breadcrumb-item mx-auto px-3 pb-3 active m-0" aria-current="page">/ {{ product.name }}</li>                                
         </ol>
     </nav>
 </div>
@@ -66,7 +76,7 @@
             <h5 class="text-center bg-white p-3"><strong>{{ product.name }}</strong></h5>                      
             <!-- product price -->  
         {% if product.sale %}
-            <p class="text-center p-2 bg-white bold mt-3"><span class="mr-3 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></span> <span class="mr-1 text-muted" title="Recommended Retail Price">RRP:</span><strike class="p-0 text-muted">£{{ product.rrp }}</strike></p>    
+            <p class="text-center p-2 bg-white bold mt-0"><span class="mr-3 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></span> <span class="mr-1 text-muted" title="Recommended Retail Price">RRP:</span><strike class="p-0 text-muted">£{{ product.rrp }}</strike></p>    
         {% else %}
             <p class="p-2 mt-3 bold bg-white text-center price">£{{ product.price }}</p>
         {% endif %}
@@ -77,34 +87,38 @@
             </div>
         </div> 
         <div id="cart-size" class="d-flex bg-white flex-column mt-3 p-3">
-            {% if sizes.count > 1 %}
+            {% if has_sizes %}
                 <div>
-                    <p class="w-100"><span class="bold">SIZES</span> <a class="float-right" href="#">see size chart</a></p>
+                    <p class="w-100"><span class="bold d-block text-center">SIZES</span><!-- <a class="float-right" href="#">see size chart</a>--></p>
                     <div class="d-flex flex-wrap justify-content-center">
-                        {% if sizes.count > 1 %}
-                            {% for x in sizes %}
-                                {% if x.stock < 1 %}
-                                    <p class="btn btn-danger out-of-stock size"><strong>{{ x.size }}</strong></p>
-                                {% elif x.stock < 5 %}                                    
-                                    <p class="btn btn-warning size"><strong>{{ x.size }}</strong></p>
-                                {% else %}
-                                    <p class="btn btn-primary size"><strong>{{ x.size }}</strong></p>
-                                {% endif %}
-                                {% if forloop.counter >= sizes.count %}
-                                    <div class="d-flex justify-content-center w-100 m-0 w-100">
-                                        {% if low_stock == True %}
-                                            <span class="my-1 mx-2"><i class="fas fa-circle text-warning"></i> low stock!</span>
-                                        {% endif %}
-                                        {% if no_stock == True %}
-                                            <span class="my-1 mx-2"><i class="fas fa-circle text-danger"></i> out of stock</span>
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-                            <p id="please-select-size" class="text-danger bold m-0 mt-3">Please select a size.</p>
-                        {% endif %}
+                        {% for select_size in sizes %}
+                            {% if select_size.stock < 1 %}
+                                <button class="btn btn-danger m-1 out-of-stock size"><strong class="user-select-none">{{ select_size.size }}</strong></button>
+                            {% elif select_size.stock <= 5 %}                                    
+                                <button class="btn btn-warning m-1 size"><strong class="user-select-none">{{ select_size.size }}</strong></button>
+                            {% else %}
+                                <button class="btn btn-primary m-1 size"><strong class="user-select-none">{{ select_size.size }}</strong></button>
+                            {% endif %}
+                            {% if forloop.counter >= sizes.count %}
+                                <div class="d-flex justify-content-center w-100 mt-3 m-0 w-100">
+                                    {% if low_stock == True %}
+                                        <span class="my-1 mx-2"><i class="fas fa-circle text-warning"></i> Low Stock!</span>
+                                    {% endif %}
+                                    {% if no_stock == True %}
+                                        <span class="my-1 mx-2"><i class="fas fa-circle text-danger"></i> Out of Stock</span>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <p id="please-select-size" class="text-danger bold m-0 mt-3">Please select a size.</p>
                     </div>
                 </div>
+            {% else %}
+                {% if no_stock == True %}
+                    <p class="text-danger text-center bold m-0 mt-3">Out of Stock.</p>
+                {% elif low_stock == True %}
+                    <p class="text-warning text-center bold m-0 mt-3">Low Stock.</p>
+                {% endif %}
             {% endif %}                       
         </div>                
         <!-- product sizes -->            
