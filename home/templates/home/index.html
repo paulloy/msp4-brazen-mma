@@ -19,7 +19,7 @@
 <!-- hero image -->
 <div id="hero-image" class="position-relative">
     <div id="hero-image-container">
-        <img src="https://www.verywellfit.com/thmb/rYgOA5OFD9-eca1GmrnS8g4NJis=/3000x2002/filters:no_upscale():max_bytes(150000):strip_icc()/heavy-bag-work-mrbig_photography-58f7d4f75f9b581d5982bd51.jpg" alt="">
+        <!-- <img src="https://www.verywellfit.com/thmb/rYgOA5OFD9-eca1GmrnS8g4NJis=/3000x2002/filters:no_upscale():max_bytes(150000):strip_icc()/heavy-bag-work-mrbig_photography-58f7d4f75f9b581d5982bd51.jpg" alt=""> -->
     </div>
     <div class="cover"></div>
     <div class="hero-description text-white flex-column d-flex justify-content-center align-items-center">
@@ -30,9 +30,9 @@
                 <h4 class="text-center bold mb-3">SHOP NOW</h4>
             </div>
             <div id="shop-buttons">
-                <button class="mx-3 btn btn-primary">BJJ</button>
-                <button class="mx-3 btn btn-primary">MMA</button>
-                <button class="mx-3 btn btn-primary">Muay Thai</button>
+                <a href="{% url 'products' %}?category=bjj" class="mx-3 btn btn-primary">BJJ</a>
+                <a href="{% url 'products' %}?category=mma" class="mx-3 btn btn-primary">MMA</a>
+                <a href="{% url 'products' %}?category=muay thai" class="mx-3 btn btn-primary">Muay Thai</a>
             </div>
         </div>
     </div>

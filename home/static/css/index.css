@@ -14,13 +14,7 @@
     height: 100%;
     object-fit: scale-down;
 }
-.title {
-    /* background-color: rgb(200, 222, 230); */
-    /* box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.212); */
-}
-.product {
-    /* background-color: rgba(255, 255, 255, 0.274); */
-}
+   
 .product p,
 .product div {
     background-color: white;
@@ -31,156 +25,142 @@
     font-weight: 500;
 }
 
-        .product-row {
-            width: 100%;
-            height: 40%;
-            flex-wrap: wrap;
-        }
-        #hero-image {
-            max-height: 60vh;
-            height: fit-content;
-            width: 100%;
-            overflow: hidden;
-        }
-        #hero-image img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-        .cover {
-            height: 100%;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .hero-description {
-            z-index: 2;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .hero-description div button {
-            width: 10rem;
-            font-size: 1rem;
-        }
-        .product-row {
-            background-color: rgba(0, 0, 0, 0.5);
-            margin: 0;
-            height: auto;
-        }
-        .carousel-header {
-            background-color: rgba(245, 245, 245, 0.8);
-            font-weight: 600;
-        }
-        .carousel-cell {
-            width: 25%;
-            height: 18rem;
-        }
-        .btn-button {
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            background-color: whitesmoke;
-            padding: 0.5rem;
-        }
-        #shop-now {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-        #hero-image-container {
-            min-height: 25rem;
-        }
-        .product-style {
-            background-color: whitesmoke;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            align-items: center;
-            width: 18rem;
-            display: inline-flex;
-        }
-        .position-absolute {
-            bottom: 0;
-        }
-        .img-container {
-            width: 10rem;
-            height: 10rem;
-        }
-        .img-container img {
-            height: 100% !important;
-            width: 100% !important;
-            object-fit: scale-down;
-        }
-        .product-style:hover,
-        .product-style:focus {
-            background-color: rgb(222, 245, 242);
-        }
-        @media only screen and (max-width: 650px) {
-            #shop-buttons {
-                display: flex;
-                flex-direction: column;
-            } 
-            #shop-buttons button {
-                margin-bottom: 1rem;
-                font-size: 0.8rem;
-            }    
-            .hero-description p {
-                font-size: 0.9rem !important;
-            }    
-            #shop-now h4 {
-                font-size: 1rem;
-            }
-        }
-        @media only screen and (max-width: 540px) { 
-            .carousel-header {
-                font-size: 1rem !important;
-            }        
-        }
-.price {
-    font-size: 1.2rem;
-}
-.display-none {
-    display: none;
-}
-.display-none:first-of-type {
-    display: block;
-}
-.hero-image {
-    width: 100vh;
-    height: calc(100vh - 6rem);
-}
-#carousel {
-    width: 100vh;
-    height: calc(100vh - 6rem);
-}
-.carousel-container {
-    width: 100vh;
-    height: calc(100vh - 6rem);
-}
-.carousel-container img {
+.product-row {
     width: 100%;
+    height: 40%;
+    flex-wrap: wrap;
+}
+#hero-image {
+    max-height: 60vh;
+    height: fit-content;
+    width: 100%;
+    overflow: hidden;
+}
+#hero-image img {
     height: 100%;
+    width: 100%;
     object-fit: cover;
 }
-
-.text-capitalize small {
-    border-left: 1px solid rgb(167, 233, 255);
+.cover {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
-.text-capitalize small:first-of-type {
-    border-left: 1px solid rgba(195, 255, 104, 0.85);
+.hero-description {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
-#bjj-list {
-    width: calc(100vw - 320px);
+.hero-description div a {
+    width: 10rem;
+    font-size: 1rem;
 }
-.product-type {
-    color: rgb(224, 255, 177);
-    font-weight: 300;
-    font-family: 'Blinker', sans-serif;
-    font-size: 2.2rem;
-    letter-spacing: 2px;
+.product-row {
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    height: auto;
 }
-.product-type p {
-    /* background-color: rgba(195, 255, 104, 0.1); */
+.carousel-header {
+    background-color: rgba(245, 245, 245, 0.8);
+    font-weight: 600;
+}
+.carousel-cell {
+    width: 25%;
+    height: 18rem;
+}
+.btn-button {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: whitesmoke;
+    padding: 0.5rem;
+}
+#shop-now {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+#hero-image-container {
+    /* min-height: 25rem; */
+    background-image: url("https://www.verywellfit.com/thmb/rYgOA5OFD9-eca1GmrnS8g4NJis=/3000x2002/filters:no_upscale():max_bytes(150000):strip_icc()/heavy-bag-work-mrbig_photography-58f7d4f75f9b581d5982bd51.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+#hero-image {
+    min-height: 100vh;
+}
+.product-style {
+    background-color: whitesmoke;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    align-items: center;
+    width: 18rem;
+    display: inline-flex;
+}
+.position-absolute {
+    bottom: 0;
+}
+.img-container {
+    width: 10rem;
+    height: 10rem;
+}
+.img-container img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: scale-down;
+}
+.product-style:hover,
+.product-style:focus {
+    background-color: rgb(222, 245, 242);
+}
+@media only screen and (max-width: 650px) {
+    #shop-buttons {
+        display: flex;
+        flex-direction: column;
+    } 
+    #shop-buttons a {
+        margin-bottom: 1rem;
+        font-size: 0.8rem;
+    }    
+    .hero-description p {
+        font-size: 0.9rem !important;
+    }    
+    #shop-now h4 {
+        font-size: 1rem;
+    }
+}
+@media only screen and (max-width: 540px) { 
+    .carousel-header {
+        font-size: 1rem !important;
+    }        
+}
+ #header-md {
+    height: 3rem;
+    background-color: transparent;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    z-index: 5;
+    border: 0 !important;
+}
+#block-content {
+    height: 100vh;
+    top: 0;
+}
+.header-bg-black {
+    background-color: black !important;
+}
+.header-bg-faded-blue {
+    background-color: rgba(200, 222, 230, 0.2) !important;
 }
 .product-type small {
     background-color: rgba(167, 233, 255, 0.1);
@@ -192,4 +172,4 @@
 }
 hr {
     border: 6px double rgba(195, 255, 104, 0.5);
-}
+} 

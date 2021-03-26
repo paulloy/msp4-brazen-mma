@@ -32,19 +32,21 @@ var sideNavOpen = false;
 
 $('#toggle-sm-search').click(function() {
     if (searchMenuSmOpen) {
-        $('#search-menu-sm').fadeOut();
+        $('#search-menu-sm').hide();
         searchMenuSmOpen = false;
         if (!(bagSmMenuOpen && sideNavOpen)) {
             $('#block-content').fadeIn();
+            $('#header-md').removeClass('header-bg-faded-blue');
         }
     } else {
-        $('#search-menu-sm').fadeIn();
+        $('#search-menu-sm').show();
         searchMenuSmOpen = true;
         $('#block-content').fadeIn();
         $('#bag-sm-menu').fadeOut();
         bagSmMenuOpen = false;
         $('#side-nav').fadeOut();
         sideNavOpen = false;
+        $('#header-md').removeClass('header-bg-faded-blue');
     }
 });
 $('#toggle-sm-bag').click(function() {
@@ -53,6 +55,7 @@ $('#toggle-sm-bag').click(function() {
         bagSmMenuOpen = false;
         if (!(bagSmMenuOpen && sideNavOpen)) {
             $('#block-content').fadeIn();
+            $('#header-md').removeClass('header-bg-faded-blue');
         }
     } else {
         $('#bag-sm-menu').fadeIn();
@@ -62,6 +65,7 @@ $('#toggle-sm-bag').click(function() {
         searchMenuSmOpen = false;
         $('#side-nav').fadeOut();
         sideNavOpen = false;
+        $('#header-md').addClass('header-bg-faded-blue');
     }
 });
 $('#toggle-side-nav').click(function() {
@@ -70,6 +74,7 @@ $('#toggle-side-nav').click(function() {
         sideNavOpen = false;
         if (!(bagSmMenuOpen && sideNavOpen)) {
             $('#block-content').fadeIn();
+            $('#header-md').removeClass('header-bg-faded-blue');
         }
     } else {
         $('#side-nav').fadeIn();
@@ -79,6 +84,7 @@ $('#toggle-side-nav').click(function() {
         searchMenuSmOpen = false;
         $('#bag-sm-menu').fadeOut();
         bagSmMenuOpen = false;
+        $('#header-md').addClass('header-bg-faded-blue');
     }
 });
 $('#block-content').click(function() {
@@ -231,3 +237,4 @@ $q.on('blur', function() {
         $('#overlay-menu').fadeOut();
     }
 });
+
