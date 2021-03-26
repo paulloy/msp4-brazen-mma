@@ -16,105 +16,113 @@
 {% block content %}
 
 
-<div class="container-fluid header px-5 pt-4">
-    <div class="row">        
-        <!-- search results -->
-        {% if search_term %}
-            {% if products.count > 1 %}
-                <p class="col-6">{{ products.count }} products found for "{{ search_term }}"</p>
-            {% elif products.count > 0 %}
-                <p class="col-6">{{ products.count }} product found for "{{ search_term }}"</p>
-            {% else %}
-                <p class="col-6">No results found for "{{ search_term }}"</p>
-            {% endif %}
-        {% endif %}
-        <!-- end search results -->
+{% if category and product_type != None %}
+    <div class="w-100 p-3 bg-white">
+        <nav aria-label="breadcrumb" class="h-100 d-flex align-items-center p-0">
+            <ol class="breadcrumb d-flex p-0 m-0 w-100">
+                <li class="breadcrumb-item"><a href="{% url 'products' %}">All Products</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ category }}">{{ category }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><u>{{ product_type }}</u><small><span class="mx-3">|</span>{{ products.count }} Products</small></li>                                
+            </ol>
+        </nav>
+    </div>
+{% elif category != None %}
+    <div class="w-100 p-3 bg-white">
+        <nav aria-label="breadcrumb" class="h-100 d-flex align-items-center p-0">
+            <ol class="breadcrumb d-flex p-0 m-0 w-100">
+                <li class="breadcrumb-item"><a href="{% url 'products' %}">All Products</a></li>
+                <li class="breadcrumb-item active"><u>{{ category }}</u><small><span class="mx-3">|</span>{{ products.count }} Products</small></li>                                
+            </ol>
+        </nav>
+    </div>
+{% else %}
+    {% if search_term is None %}
+        <div class="w-100 p-3 bg-white">
+            <nav aria-label="breadcrumb" class="h-100 d-flex align-items-center p-0">
+                <ol class="breadcrumb d-flex p-0 m-0 w-100">
+                    <li class="breadcrumb-item active"><u>All Products</u><small><span class="mx-3">|</span>{{ products.count }} Products</small></li>                               
+                </ol>
+            </nav>
+        </div>        
+    {% endif %}
+{% endif %} 
 
-        <!-- breadcrumbs -->
-        {% if category and product_type != None %}
-            <nav aria-label="breadcrumb" class="col-6">
-                <ol class="breadcrumb p-0 h-100">
-                    <li class="breadcrumb-item"><a href="{% url 'products' %}">All Products</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ category }}">{{ category }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><u>{{ product_type }}</u><small><span class="mx-3">|</span>{{ products.count }} Products</small></li>                  
-                </ol>
-            </nav>
-        {% elif category != None %}
-            <nav aria-label="breadcrumb" class="col-6">
-                <ol class="breadcrumb p-0">
-                    <li class="breadcrumb-item"><a href="{% url 'products' %}">All Products</a></li>
-                    <li class="breadcrumb-item active"><u>{{ category }}</u><small><span class="mx-3">|</span>{{ products.count }} Products</small></li>              
-                </ol>
-            </nav>
+<!-- search results -->
+<div id="search-results" class="w-100 p-3 bg-white">
+    {% if search_term %}
+        {% if products.count > 1 %}
+            <p class="m-0 bold">{{ products.count }} products found for "{{ search_term }}"</p>
+        {% elif products.count > 0 %}
+            <p class="m-0 bold">{{ products.count }} product found for "{{ search_term }}"</p>
         {% else %}
-            {% if search_term is None %}
-                <nav aria-label="breadcrumb" class="col-6">
-                    <ol class="breadcrumb p-0">
-                        <li class="breadcrumb-item active"><u>All Products</u><small><span class="mx-3">|</span>{{ products.count }} Products</small></li>              
-                    </ol>
-                </nav>            
-            {% endif %}
-        {% endif %}  
-        <!-- end breadcrumbs -->
+            <p class="m-0 bold">No results found for "{{ search_term }}"</p>
+        {% endif %}
+    {% endif %}
+</div>
+<!-- end search results --> 
+   
+        
 
-        <!-- filters -->
-            <div class="show col-3">
-                <a class="btn dropdown-style dropdown-toggle float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort Products
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=asc"
-                    class="dropdown-item">By Price (low > high)</a>
-                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=desc"
-                    class="dropdown-item">By Price (high > low)</a>
-                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=asc"
-                    class="dropdown-item">By Name (A > Z)</a>
-                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=desc"
-                    class="dropdown-item">By Name (Z > A)</a>
-                </div>
-            </div>
-            <div class="show col-3">
-                <a class="btn dropdown-style dropdown-toggle float-right" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filter Products
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
-                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=MEN"
-                    class="dropdown-item">Men</a>
-                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=WOMEN"
-                    class="dropdown-item">Women</a>
-                    <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=UNISEX"
-                    class="dropdown-item">Unisex</a>
-                </div>
-            </div>
-        <!-- end filters -->
+ <!-- filters -->
+ {% if products.count != 0 %}
+<div id="filters" class="w-100 bg-white d-flex justify-content-start p-3">
+    <div>
+        <button class="btn btn-primary mr-3 dropdown-style dropdown-toggle float-right" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort Products
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=asc"
+            class="dropdown-item">By Price (low > high)</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=desc"
+            class="dropdown-item">By Price (high > low)</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=asc"
+            class="dropdown-item">By Name (A > Z)</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=desc"
+            class="dropdown-item">By Name (Z > A)</a>
+        </div> 
+    </div>   
+    <div>
+        <button class="btn btn-primary ml-3 dropdown-style dropdown-toggle float-right" id="dropdownMenuButtonTwo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter Products
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonTwo">
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=MEN"
+            class="dropdown-item">Men</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=WOMEN"
+            class="dropdown-item">Women</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=UNISEX"
+            class="dropdown-item">Unisex</a>
+        </div>
     </div>
 </div>
+{% endif %}
+<!-- end filters -->
 
-<div class="container-fluid bg-transparent">
+<!-- Products --------------------------------------------------------------->
+<div id="products" class="container-fluid">
     <div class="row">
-
         <!-- products -->
         {% for product in products %}
-            <a href="{% url 'product_details' product.product_id %}" class="col-xl-3 col-lg-4 d-flex flex-column">
-                <div class="img-container d-flex justify-content-center">                    
-                    <img class="img-thumbnail my-2" src="{% static '' %}{{ product.image }}" alt="{{ product.name }}">
-                    <!-- {% if product.sale %}
-                        <span class="position-absolute"><span class="mx-1">sale</span><i class="fas fa-tags"></i></span>
-                    {% endif %} -->
+            <a href="{% url 'product_details' product.product_id %}" class="p-2 carousel-cell my-3 mx-auto product-style position-relative d-flex flex-column">
+                <div class="img-container p-0 d-flex justify-content-center">                    
+                    <img class="img-thumbnail" src="../media/{{ product.image }}" alt="{{ product.name }}">
                 </div>
-                <strong class="my-2 w-100 product-name text-center">{{ product.name }}</strong>
-                {% if product.sale %}
-                    <div class="d-flex my-2">
-                        <strike class="mr-2 text-muted">£{{ product.rrp }}</strike>
-                        <p class="mx-2">£{{ product.price }} <i class="fas fa-tags"></i></p>
-                    </div>
-                {% else %}
-                    <p class="my-2">£{{ product.price }}</p>
-                {% endif %}
-                </a>
+                <strong class="my-2 w-100 product-name text-center mb-4">{{ product.name }}</strong>
+                <div class="position-absolute w-100 p-3">
+                    {% if product.sale %}
+                        <div class="d-flex mt-2 justify-content-center">
+                            <p class="mx-2 bold my-0 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></p>
+                            <strike class="mr-2 bold my-0 text-muted">£{{ product.rrp }}</strike>
+                        </div>
+                    {% else %}
+                        <p class="mt-2 mb-0 bold text-center text-dark">£{{ product.price }}</p>
+                    {% endif %}
+                </div>
+            </a>
         {% endfor %}
         <!-- end products -->
     </div>
 </div>
+<!------------------------------------------------------------------------------>
 
 {% endblock %}
