@@ -64,7 +64,7 @@ class Product(models.Model):
 
 
 class ProductSizesStock(models.Model):
-    product_sizes_quantity_id = models.AutoField(primary_key=True)
+    product_sizes_stock_id = models.AutoField(primary_key=True)
     product_id = models.ForeignKey(
         'Product', on_delete=models.CASCADE, null=True)
     size = models.CharField(max_length=254, null=True)
