@@ -10,9 +10,9 @@
     .listitem {
         width: 20%;
     }
-    header {
+    #header-md {
         height: 3rem;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgb(0, 0, 0) !important;
         width: 100vw;
         position: absolute;
         top: 0;
@@ -22,12 +22,12 @@
         align-items: center;
         border-bottom: 1px solid grey;
     }
-    header a {
+    #header-md a {
         font-size: 1.2rem;
         font-weight: 300;
         letter-spacing: 2px;
     }
-    header button {
+    #header-md button {
         border: 0;
         font-size: 1rem;
     }
