@@ -10,6 +10,18 @@
     height: 2.5rem;
     width: 15rem;
 }
+.btn-danger {
+    background-color: #d23430;
+}
+.btn-danger:hover {
+    background-color: #bf2e2b;
+}
+.btn-secondary {
+    background-color: #6c6a63;
+}
+.btn-secondary:hover {
+    background-color: #5a5852;
+}
 .bold {
     font-weight: 600;
 }
