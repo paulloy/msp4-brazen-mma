@@ -101,12 +101,45 @@ a {
     }
     #product-menu {
         color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
     #product-menu ul li {
         border-bottom: 1px solid white;
     }
+    #product-menu ul li span i {
+        font-size: 1rem;
+        margin-left: 0.5rem;
+    }
     #product-menu ul li:hover {
-        background-color: rgba(173, 216, 230, 0.2);
+        background-color: whitesmoke;
+        color: rgb(0, 0, 0) !important;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    #product-menu ul li a:hover {
+        background-color: whitesmoke;
+        color: rgb(0, 0, 0) !important;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    #product-menu ul li ul {
+        display: none;
+    }
+    #product-menu ul li:hover ul {
+        background-color: black;
+        border: 1px solid black;
+    }
+    #product-menu ul li ul li {
+        border: 0;
+    }
+    #product-menu ul li ul li:hover a {
+        color: black !important;
+    }
+    #product-menu ul li ul li a {
+        font-size: 1.2rem;
+        width: 100% !important;
+        height: 100% !important;
     }
     #account {
         top: 189px;

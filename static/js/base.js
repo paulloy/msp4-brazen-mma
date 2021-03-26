@@ -123,6 +123,11 @@ $('#toggle-bag-menu').click(function() {
     }
 });
 
+// toggle product menu lists
+$('.toggle-sub-menu').click(function() {
+    $(this).find('UL').slideToggle();
+});
+
 
 
 // search query

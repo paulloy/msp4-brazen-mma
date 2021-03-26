@@ -21,7 +21,7 @@
     <link href="{% static 'css/toastr.css' %}" rel="stylesheet"/>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base-sm.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base-md.css' %}">
     {% block css %}{% endblock %}
 
     <title>Brazen MMA{% block title %}{% endblock %}</title>
@@ -95,13 +95,45 @@
                 </div>
             </div>
         </div>
+        <!-- Product Menu -->
         <nav id="product-menu" class="p-0">
             <ul class="p-0 list-unstyled w-100">
-                <li class="p-3 m-0 h3 text-center">BJJ</li>
-                <li class="p-3 m-0 h3 text-center">MMA</li>
-                <li class="p-3 m-0 h3 text-center">Muay Thai</li>
-                <li class="p-3 m-0 h3 text-center">Equipment</li>
-                <li class="p-3 m-0 h3 text-center">All Products</li>
+                <li class="p-3 m-0 h3 text-center toggle-sub-menu">
+                    <span class="d-flex align-items-center justify-content-center">BJJ <i class="fas fa-chevron-down"></i></span>
+                    <ul class="list-unstyled mt-3">
+                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=gi">Gi</a></li>
+                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=belts">Belts</a></li>
+                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=rash guards">Rash Guards</a></li>
+                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=spats">Spats</a></li>
+                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=shorts">Shorts</a></li>
+                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj">All Products</a></li>
+                    </ul>
+                </li>
+                <li class="p-3 m-0 h3 text-center toggle-sub-menu">
+                    <span class="d-flex align-items-center justify-content-center">MMA <i class="fas fa-chevron-down"></i></span>
+                    <ul class="list-unstyled mt-3">
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=handwraps">Handwraps</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=shin guards">Shin Guards</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=mouth guards">Mouth Guards</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma">All Products</a></li>
+                    </ul>
+                </li>
+                <li class="p-3 m-0 h3 text-center toggle-sub-menu">
+                    <span class="d-flex align-items-center justify-content-center">Muay Thai <i class="fas fa-chevron-down"></i></span>
+                    <ul class="list-unstyled mt-3">
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=gloves">Gloves</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=shorts">Shorts</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=handwraps">Handwraps</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=shin guards">Shin Guards</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=mouth guards">Mouth Guards</a></li>
+                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai">All Products</a></li>
+                    </ul>
+                </li>
+                <li class="p-3 m-0 h3 text-center">
+                    <span><a class="text-white" href="{% url 'products' %}">All Products</a></span>
+                </li>
             </ul>
         </nav>
     </header>
@@ -121,7 +153,7 @@
     <img id="base-img" src="https://scitechdaily.com/images/Burning-Coals.gif" alt="">
 
     <!-- small screen width header and menus -->
-    {% include 'includes/header.html' %}
+    {% include 'includes/base-md.html' %}
 
     <!-- block content -->
     <div id="block-content" class="p-0 mx-auto">
