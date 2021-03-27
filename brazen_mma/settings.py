@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if 'DEVELOPMENT' in os.environ else False
 
-ALLOWED_HOSTS = ['brazen-martial-arts.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['brazenmartialarts.herokuapp.com', 'localhost']
 
 # Application definition
 
