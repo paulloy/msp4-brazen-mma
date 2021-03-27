@@ -54,11 +54,12 @@ def all_products(request):
 
         if 'filters' in request.GET:
             filters = request.GET['filters']
-            if filters == 'MEN' or 'WOMEN':
+            
+            if filters == 'DISCOUNTED':
+                products = products.filter(sale__exact=True)
+            else:
                 products = products.filter(
                     Q(gender__iexact=filters) | Q(gender__iexact='UNISEX'))
-            else:
-                products = products.filter(gender__iexact=filters)
 
     context = {
         'products': products,

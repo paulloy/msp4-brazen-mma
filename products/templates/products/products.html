@@ -68,32 +68,39 @@
 <div id="filters" class="w-100 bg-white d-flex justify-content-start p-3">
     <div>
         <button class="btn btn-primary mr-3 dropdown-style dropdown-toggle float-right" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort Products
+            {% if sort %}{{ sort }} {{ direction }}{% else %}Sort Products{% endif %}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=asc"
-            class="dropdown-item">By Price (low > high)</a>
-            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=price&direction=desc"
-            class="dropdown-item">By Price (high > low)</a>
-            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=asc"
-            class="dropdown-item">By Name (A > Z)</a>
-            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}&{% endif %}sort=name&direction=desc"
-            class="dropdown-item">By Name (Z > A)</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}&sort=price&direction=asc{% if filters %}&filters={{ filters }}{% endif %}"
+            class="dropdown-item">By Price (low > high) Ascending</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}&sort=price&direction=desc{% if filters %}&filters={{ filters }}{% endif %}"
+            class="dropdown-item">By Price (high > low) Descending</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}&sort=name&direction=asc{% if filters %}&filters={{ filters }}{% endif %}"
+            class="dropdown-item">By Name (A > Z) Ascending</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}&sort=name&direction=desc{% if filters %}&filters={{ filters }}{% endif %}"
+            class="dropdown-item">By Name (Z > A) Descending</a>
         </div> 
     </div>   
     <div>
-        <button class="btn btn-primary ml-3 dropdown-style dropdown-toggle float-right" id="dropdownMenuButtonTwo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Filter Products
+        <button class="btn btn-primary mx-3 dropdown-style dropdown-toggle float-right" id="dropdownMenuButtonTwo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if filters %}{{ filters }}{% else %}Filter Products{% endif %}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonTwo">
-            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=MEN"
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}{% endif %}&filters=MEN"
             class="dropdown-item">Men</a>
-            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=WOMEN"
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}{% endif %}&filters=WOMEN"
             class="dropdown-item">Women</a>
-            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}&{% endif %}filters=UNISEX"
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}{% endif %}&filters=UNISEX"
             class="dropdown-item">Unisex</a>
+            <a href="{% url 'products' %}?{% if search_term != None %}q={{ search_term }}&{% endif %}{% if category != None %}category={{ category }}&{% endif %}{% if product_type != None %}product_type={{ product_type }}{% endif %}{% if sort != None %}&sort={{ sort }}&{% endif %}{% if direction != None %}direction={{ direction }}{% endif %}&filters=DISCOUNTED"
+            class="dropdown-item">Discounted</a>
         </div>
     </div>
+    {% if sort or direction or filters %}
+        <div class="d-inlie-block ml-auto">
+            <a class="btn btn-secondary" href="{% url 'products' %}{% if search_term != None %}?q={{ search_term }}&{% endif %}{% if category != None %}?category={{ category }}{% endif %}{% if product_type != None %}&product_type={{ product_type }}{% endif %}">Disable Sorting/Filters</a>
+        </div>
+    {% endif %}
 </div>
 {% endif %}
 <!-- end filters -->
