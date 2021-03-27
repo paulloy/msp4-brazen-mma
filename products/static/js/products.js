@@ -55,3 +55,12 @@ $('#cancel-delete').click(function() {
     $('#update-delete-product').show();
     $('#delete-product').hide();
 });
+
+// open/close #size-chart 
+
+$('#open-size-chart').click(function() {
+    $('#size-chart').fadeIn();
+});
+$('#close-size-chart').click(function() {
+    $('#size-chart').fadeOut();
+});

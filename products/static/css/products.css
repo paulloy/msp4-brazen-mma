@@ -55,98 +55,96 @@
 }
 
 
+.product-img-container img {
+    max-width: 100%;
+    object-fit: scale-down;
+    top: 0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+#product-details {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.out-of-stock {
+    pointer-events: none;
+    position: relative;
+    overflow: hidden;
+}
+.out-of-stock::after {
+    content: "X";
+    position: absolute;
+    font-size: 5rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.3);
+}
+.breadcrumb {
+    background-color: transparent;
+    border: 0;
+    font-size: 1rem;
+}
+.bold {
+    font-weight: 600
+}
+.bg-text {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+.size {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-
-    .product-img-container img {
-        max-width: 100%;
-        object-fit: scale-down;
-        top: 0;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-    }
-    #product-details {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-    .out-of-stock {
-        pointer-events: none;
-        position: relative;
-        overflow: hidden;
-    }
-    .out-of-stock::after {
-        content: "X";
-        position: absolute;
-        font-size: 5rem;
-        font-weight: 600;
-        color: rgba(0, 0, 0, 0.3);
-    }
-    .breadcrumb {
-        background-color: transparent;
-        border: 0;
-        font-size: 1rem;
-    }
-    .bold {
-        font-weight: 600
-    }
-    .bg-text {
-        color: white;
-        font-size: 0.9rem;
-        font-weight: 400;
-    }
-    .size {
-        width: 3rem;
-        height: 3rem;
-        font-size: 1rem;
-        margin-right: 0.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* products.html */
+/* products.html */
     
-    .product-name {        
-        letter-spacing: 2px;
-        font-weight: 500;
-        font-family: 'Source Sans Pro', sans-serif;
-    }
-    #quantity {
-        width: 2rem;
-        color: #325d88;
-        font-weight: 700;
-        height: 2rem;
-        pointer-events: none;
-    }
-    .quantity-selector {
-        width: 2rem;
-        height: 2rem;
-        font-size: 1rem;
-    }
+.product-name {        
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+#quantity {
+    width: 2rem;
+    color: #325d88;
+    font-weight: 700;
+    height: 2rem;
+    pointer-events: none;
+}
+.quantity-selector {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+}
     
-    .img-thumbnail {
-        width: 18rem;
-        height: 18rem;
-        object-fit: scale-down;
-    }
-    .image-container {
-        position: relative;
-    }
-    .image-container img {
-        height: 100%;
-        width: 100%;
-    }
-    .img-container span {
-        top: 1rem;
-        right: 1.5rem;
-        font-size: 1.8rem;
-        color: black;
-    }
-    .img-container span span {
-        font-size: 1.3rem;
-        letter-spacing: 2px;
-        font-weight: 700;
-    }
-    .breadcrumb-item {
-        font-size: 1rem;
-    }
+.img-thumbnail {
+    width: 18rem;
+    height: 18rem;
+    object-fit: scale-down;
+}
+.image-container {
+    position: relative;
+}
+.image-container img {
+    height: 100%;
+    width: 100%;
+}
+.img-container span {
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.8rem;
+    color: black;
+}
+.img-container span span {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+.breadcrumb-item {
+    font-size: 1rem;
+}
 
 
 /* Chrome, Safari, Edge, Opera */
@@ -169,7 +167,6 @@ input[type=number] {
 #please-select-size {
     display: none;
 }
-
 
 
 #products {
@@ -200,6 +197,26 @@ input[type=number] {
 .product-style div:last-of-type {
     bottom: 0;
     color: black !important;
+}
+
+#size-chart {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    z-index: 5;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+#size-chart table {
+    height: 20rem;
+    width: 30rem;
+}
+#close-size-chart {
+    position: relative;
+    top: 2.7rem;
+    left: 12.5rem;
 }
 
 @media only screen and (max-width: 1350px) {    

@@ -11,16 +11,6 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
-    <style>
-    /* .bg-white {
-        background-color: whitesmoke !important;
-    }
-    #breadcrumbs,
-    #product-management,
-    #product-display {
-        width: 100% !important;
-    } */
-</style>
 {% endblock %}
 
 {% block content %}
@@ -62,12 +52,11 @@
 {% endif %}
 <!--------------------------------------------------------------------------------------------------------->
 
-<!-- product container --------------------------------------------------------------------------------------------------------------------------------------------------->
-
+<!-- product display --------------------------------------------------------------------------------------------------------------------------------------------------->
 <div id="product-display" class="d-flex mx-auto p-3">        
     <!-- product image -->
     <div class="mx-auto product-img-container p-0 d-block">
-        <img src="{% url 'home' %}media/{{ product.image }}" alt="{{ product.name }}">
+        <img src="{% get_media_prefix %}{{ product.image }}" alt="{{ product.name }}">
     </div>
     <!-- product details -->
     <div id="product-details" class="p-3 mx-auto"> 
@@ -76,7 +65,10 @@
             <h5 class="text-center bg-white p-3"><strong>{{ product.name }}</strong></h5>                      
             <!-- product price -->  
         {% if product.sale %}
-            <p class="text-center p-2 bg-white bold mt-0"><span class="mr-3 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></span> <span class="mr-1 text-muted" title="Recommended Retail Price">RRP:</span><strike class="p-0 text-muted">£{{ product.rrp }}</strike></p>    
+            <p class="text-center p-2 bg-white bold mt-0">
+                <span class="mr-3 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></span>
+                <span class="mr-1 text-muted" title="Recommended Retail Price">RRP:</span>
+                <strike class="p-0 text-muted">£{{ product.rrp }}</strike></p>    
         {% else %}
             <p class="p-2 mt-3 bold bg-white text-center price">£{{ product.price }}</p>
         {% endif %}
@@ -89,7 +81,7 @@
         <div id="cart-size" class="d-flex bg-white flex-column mt-3 p-3">
             {% if has_sizes %}
                 <div>
-                    <p class="w-100"><span class="bold d-block text-center">SIZES</span><!-- <a class="float-right" href="#">see size chart</a>--></p>
+                    <p class="pb-3"><span class="bold">SIZES</span><button id="open-size-chart" class="float-right btn btn-primary">see size chart</button></p>
                     <div class="d-flex flex-wrap justify-content-center">
                         {% for select_size in sizes %}
                             {% if select_size.stock < 1 %}
@@ -141,6 +133,47 @@
 </div>
 
 <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+<!-- size chart ------------------------------------------------------------------>
+{% if has_sizes %}
+<div id="size-chart">
+    <div class="d-flex flex-column justify-content-center align-items-center h-100 w-100">
+        <button id="close-size-chart" class="btn btn-primary">Close</button>
+    
+        <table class="sizeChart bg-white" border="1" cellpadding="2">
+            <tbody>
+                <tr>
+                    <td rowspan="2" align="center">&nbsp;</td>
+                    <td colspan="5" align="center"><strong>Size Chart</strong></td>
+                </tr>
+                <tr>
+                    <td align="center"><strong>XS</strong></td>
+                    <td align="center"><strong>S</strong></td>
+                    <td align="center"><strong>M</strong></td>
+                    <td align="center"><strong>L</strong></td>
+                    <td align="center"><strong>XL</strong></td>
+                </tr>
+                <tr>
+                    <td align="center"><strong>Inches</strong></td>
+                    <td align="center">30-32</td>
+                    <td align="center">34-36</td>
+                    <td align="center">38-40</td>
+                    <td align="center">40-42</td>
+                    <td align="center">44-46</td>
+                </tr>
+                <tr>
+                    <td align="center"><strong>cm</strong></td>
+                    <td align="center">75-80</td>
+                    <td align="center">85-90</td>
+                    <td align="center">95-100</td>
+                    <td align="center">100-105</td>
+                    <td align="center">110-115</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}
 
