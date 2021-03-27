@@ -128,14 +128,27 @@
         overflow-y: scroll;
         overflow-x: hidden;
     }
-    #toggle-sm-account {
-        background-color: transparent;
-        border: 0;
-    }
     #toggle-sm-account i:last-of-type {
         font-size: 1rem;
     } 
     #sm-account ul li ul {
         display: none;
+    }
+    .nav-item-size {
+        font-size: 1rem !important;
+    }
+    .i-sm {
+        font-size: 1rem !important;
+        margin-left: 0.5rem;
+    }
+    .hide-submenu {
+        display: none;
+    }
+    .b-bottom {
+        border-bottom: 1px solid white;
+    }
+    .a-tag-hover:hover {
+        background-color: rgba(245, 245, 245, 0.9);
+        color: black !important;
     }
 }

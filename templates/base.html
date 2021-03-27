@@ -39,7 +39,7 @@
 
     <header id="lg-header" class="d-none d-lg-flex flex-column">
         <div class="d-flex flex-column position-relative">
-            <a class="btn mx-auto" href="{% url 'home' %}"><h1 class="mt-2 m-0">Brazen Martial Arts</h1></a>        
+            <a class="btn mx-auto hover-item focused" href="{% url 'home' %}"><h1 class="mt-2 m-0">Brazen Martial Arts</h1></a>        
             <form method="GET" action="{% url 'products' %}" class="mx-auto mt-3 w-75 search-form d-flex">
                 <input id="q" name="q" class="px-3" type="text" placeholder="Search Products...">
                 <button class="px-2" type="submit"><i class="fas fa-search"></i></button>
@@ -47,13 +47,13 @@
             <!-- nav menu -->
             <nav id="nav-menu" class="d-none pb-3 mt-3 d-lg-block">            
                 <ul class="list-unstyled d-flex mb-0 align-items-center justify-content-between px-5 w-100">
-                    <li><a class="listitem btn p-0" href="{% url 'home' %}" title="Home Page"><i class="fas fa-home"></i></a></li>
-                    <li id="toggle-account" class="listitem"><i class="fas fa-user"></i></li>
-                    <li id="toggle-bag-menu" class="listitem" title="bag"><i class="fas fa-shopping-bag"></i></li>
+                    <li><a class="listitem btn hover-item focused p-0" href="{% url 'home' %}" title="Home Page" aria-label="Home Page"><i class="fas fa-home"></i></a></li>
+                    <li id="toggle-account" class="listitem" title="Account"><button class="btn-none hover-item text-white" aria-label="Account"><i class="fas fa-user"></i></button></li>
+                    <li id="toggle-bag-menu" class="listitem" title="My Shopping Bag"><button class="btn-none hover-item text-white" aria-label="My Shopping Bag"><i class="fas fa-shopping-cart"></i></button></li>
                 </ul>
             </nav>
 
-<!---------- account menu ----------------------------------------------------------------------------------------------------------------------->
+        <!-- account menu -->
         <div id="account" class="position-absolute w-100">
         {% if request.user.is_authenticated %}
             {% if request.user.is_superuser %}
@@ -67,11 +67,11 @@
                 <a href="{% url 'account_login' %}" class="w-100 text-center m-0 p-3 text-white h3">Login</a>
         {% endif %}
         </div>
-<!------------------------------------------------------------------------------------------------------------------------------------------------>
 
             <!-- bag menu  -->
             <div id="bag-menu" class="position-absolute px-2">
                 <a class="listitem text-center p-2 mt-2 w-100 d-block btn btn-primary" href="{% url 'view_bag' %}">View Bag</a>
+                <a class="listitem text-center p-2 mt-2 w-100 d-block btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
                 <p class="text-white m-0 p-3 text-center h5"><span class="mr-4">Sub-Total</span> £{{ total }}</p>
                 <div class="container-fluid">
                     {% for item in bag_items %}
@@ -96,49 +96,49 @@
             </div>
         </div>
         <!-- Product Menu -->
-        <nav id="product-menu" class="p-0">
+        <nav id="base-product-menu" class="p-0">
             <ul class="p-0 list-unstyled w-100">
                 <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                    <button class="w-100 d-flex align-items-center justify-content-center">BJJ <i class="fas fa-chevron-down"></i></button>
+                    <button class="w-100 d-flex align-items-center justify-content-center text-white btn-none nav-item-hover py-2">BJJ <i class="fas fa-chevron-down"></i></button>
                     <ul class="list-unstyled mt-3">
-                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=gi">Gi</a></li>
-                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=belts">Belts</a></li>
-                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=rash guards">Rash Guards</a></li>
-                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=spats">Spats</a></li>
-                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=shorts">Shorts</a></li>
-                        <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj">All Products</a></li>
+                        <li><a class="text-white btn focused p-2 nav-item-hover" href="{% url 'products' %}?category=bjj&product_type=gi">Gi</a></li>
+                        <li><a class="text-white btn focused p-2 nav-item-hover" href="{% url 'products' %}?category=bjj&product_type=belts">Belts</a></li>
+                        <li><a class="text-white btn focused p-2 nav-item-hover" href="{% url 'products' %}?category=bjj&product_type=rash%20guards">Rash Guards</a></li>
+                        <li><a class="text-white btn focused p-2 nav-item-hover" href="{% url 'products' %}?category=bjj&product_type=spats">Spats</a></li>
+                        <li><a class="text-white btn focused p-2 nav-item-hover" href="{% url 'products' %}?category=bjj&product_type=shorts">Shorts</a></li>
+                        <li><a class="text-white btn focused p-2 nav-item-hover" href="{% url 'products' %}?category=bjj">All Products</a></li>
                     </ul>
                 </li>
                 <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                    <button class="w-100 d-flex align-items-center justify-content-center">MMA <i class="fas fa-chevron-down"></i></button>
+                    <button class="w-100 d-flex align-items-center justify-content-center text-white btn-none nav-item-hover py-2">MMA <i class="fas fa-chevron-down"></i></button>
                     <ul class="list-unstyled mt-3">
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=handwraps">Handwraps</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=shin guards">Shin Guards</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=mouth guards">Mouth Guards</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=mma">All Products</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma&product_type=handwraps">Handwraps</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma&product_type=shin%20guards">Shin Guards</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma&product_type=mouth%20guards">Mouth Guards</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma">All Products</a></li>
                     </ul>
                 </li>
                 <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                    <button class="w-100 d-flex align-items-center justify-content-center">Muay Thai <i class="fas fa-chevron-down"></i></button>
+                    <button class="w-100 d-flex align-items-center justify-content-center text-white btn-none nav-item-hover py-2">Muay Thai <i class="fas fa-chevron-down"></i></button>
                     <ul class="list-unstyled mt-3">
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=gloves">Gloves</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=shorts">Shorts</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=handwraps">Handwraps</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=shin guards">Shin Guards</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=mouth guards">Mouth Guards</a></li>
-                        <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai">All Products</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai&product_type=gloves">Gloves</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai&product_type=shorts">Shorts</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai&product_type=handwraps">Handwraps</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai&product_type=shin%20guards">Shin Guards</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai&product_type=mouth%20guards">Mouth Guards</a></li>
+                        <li><a class="text-white focused btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai">All Products</a></li>
                     </ul>
                 </li>
-                <li class="p-3 m-0 h3 text-center">
-                    <span><a class="text-white" href="{% url 'products' %}">All Products</a></span>
+                <li class="p-3 m-0 h3">
+                    <span class="d-inline-block w-100"><a class="w-100 d-inline-block text-center text-white btn-none nav-item-hover py-2" href="{% url 'products' %}">All Products</a></span>
                 </li>
             </ul>
         </nav>
     </header>
 
-    <!-- Search overlay menu ------------------------------------------------------------>
+    <!-- Search overlay menu -->
     <div id="overlay-menu" class="position-fixed container-fluid m-0">
         <div id="search-header" class="row child">
             <h3 class="text-center w-100 p-4">Search Results for <br>"<span id="search-value"></span>"</h3>
@@ -150,9 +150,9 @@
 
         </div>
     </div>
-    <!--------------------------------------------------------------------------------->
     
-    <img id="base-img" src="https://scitechdaily.com/images/Burning-Coals.gif" alt="">
+    <!-- background image -->
+    <img id="base-img" src="../../media/misc/Burning-Coals.gif" alt="Burning Coals Background">
 
     <!-- small screen width header and menus -->
     {% include 'includes/base-md.html' %}
@@ -177,6 +177,11 @@
     <script src="https://js.stripe.com/v3/"></script>
     <!-- Custom JavaScript -->
     <script src="{% static 'js/base.js' %}"></script>
+    <script>
+        /* Used in ajax.js */
+        let mediaPrefix = '{% get_media_prefix %}';
+    </script>
+    <script src="{% static 'js/ajax.js' %}"></script>
     <script src="{% static 'js/toastr-settings.js' %}"></script>
     {% block js %}{% endblock %}
 </body>

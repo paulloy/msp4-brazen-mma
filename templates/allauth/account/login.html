@@ -8,10 +8,10 @@
 {% block inner_content %}
 
 <div class="px-5 pt-5">
-    <p class="h2 text-center">{% trans "Sign In" %}</p>
+    <p class="h2 text-center bold">{% trans "Sign In" %}</p>
 </div>
 <div class="m-0 d-flex justify-content-center my-3">
-    <span class="mr-1 h6">No account yet?</span><a class="h6" href="{{ signup_url }}">Sign up</a>
+    <span class="mr-1 h6 bold">No account yet?</span><a class="h6" href="{{ signup_url }}">Sign up</a>
 </div>
 
 {% get_providers as socialaccount_providers %}
@@ -40,7 +40,7 @@
 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p> -->
 {% endif %}
 
-<form class="login mx-auto" method="POST" action="{% url 'account_login' %}">
+<form class="login mx-auto allauth-form d-flex flex-column align-items-center" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
   {{ form|crispy }}
   {% if redirect_field_value %}
