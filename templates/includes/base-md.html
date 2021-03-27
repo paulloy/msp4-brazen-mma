@@ -1,10 +1,11 @@
 
-<header id="header-md" class="d-flex d-lg-none justify-content-between px-2">        
-    <a class="ml-2 text-white font-exo" href="{% url 'home' %}">Brazen Martial Arts</a>
-    <span class="d-inline-block">
-        <button id="toggle-sm-search" class="text-white mx-sm-3 mx-2 bg-transparent"><i class="fas fa-search"></i></button>
-        <button id="toggle-sm-bag" class="text-white mx-sm-3 m-2 bg-transparent"><i class="fas fa-shopping-bag"></i></button>
-        <button id="toggle-side-nav" class="text-white mx-sm-3 m-2 bg-transparent mr-2"><i class="fas fa-list-ul"></i></button>
+<header id="header-md" class="d-flex flex-column align-items-center d-lg-none px-2">        
+    <a class="text-white py-1 font-exo" href="{% url 'home' %}">Brazen Martial Arts</a>
+    <span class="d-flex justify-content-around w-100">
+        <a href="{% url 'home' %}" class="text-white d-flex justify-content-center align-items-center bg-transparent"><i class="fas fa-home"></i></a>
+        <button id="toggle-sm-search" class="text-white bg-transparent"><i class="fas fa-search"></i></button>
+        <button id="toggle-sm-bag" class="text-white bg-transparent"><i class="fas fa-shopping-bag"></i></button>
+        <button id="toggle-side-nav" class="text-white bg-transparent"><i class="fas fa-list-ul"></i></button>
     </span>
 </header>
 
@@ -65,27 +66,34 @@
     {% endif %}
 </div>
 
+<!-- Side nav -------------------------------------->
 <div id="side-nav" class="d-lg-none">
     <hr class="m-0">
-    <div class="d-flex flex-column">
-        <a class="text-white h5 w-100 p-3 text-center m-0" href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
-        <div class="d-flex">
-            {% if request.user.is_authenticated %}
-                {% if request.user.is_superuser %}
-                    <a href="#" class="w-100 text-center m-0 p-3 text-white h5">Product Management</a>
-                {% endif %}
-                <a href="{% url 'account_logout' %}" class="w-100 text-center m-0 p-3 text-white h5">Logout</a>
-            {% else %}
-                <a href="{% url 'account_signup' %}" class="w-100 text-center m-0 p-3 text-white h5"><u>Register</u></a>
-                <a href="{% url 'account_login' %}" class="w-100 text-center m-0 p-3 text-white h5"><u>Login</u></a>
-            {% endif %}
-        </div>
-    </div>
+    <nav id="sm-account" class="d-flex flex-column">
+        <ul class="list-unstyled m-0">
+            <li class="text-white text-center">
+                <button id="toggle-sm-account" class="w-100 h3 p-3 text-white m-0"><i class="fas fa-user"></i> Account <i class="fas fa-chevron-down"></i></button>                
+                <ul class="list-unstyled p-3 w-100">
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_superuser %}
+                            <li class="text-center p-3"><a href="{% url 'add_product' %}" class="w-100 text-center m-0 p-3 text-white h3"><small class="text-muted">Product Management</small><br>Add a Product</a></li>
+                        {% endif %}                    
+                        <li class="text-center p-3"><a href="{% url 'profile_order_history' %}" class="w-100 text-center m-0 p-3 text-white h3"><small class="text-muted">Profile</small><br>Order History</a></li>
+                        <li class="text-center p-3"><a href="{% url 'profile_delivery_info' %}" class="w-100 text-center m-0 p-3 text-white h3"><small class="text-muted">Profile</small><br>Update Delivery Info</a></li>
+                        <li class="text-center p-3"><a href="{% url 'account_logout' %}" class="w-100 text-center m-0 p-3 text-white h3">Logout</a></li>
+                    {% else %}
+                        <li class="text-center p-3"><a href="{% url 'account_signup' %}" class="w-100 text-center m-0 p-3 text-white h3">Register</a></li>
+                        <li class="text-center p-3"><a href="{% url 'account_login' %}" class="w-100 text-center m-0 p-3 text-white h3">Login</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        </ul>
+    </nav>
     <hr class="m-0">
     <nav id="product-menu" class="p-0">
         <ul class="p-0 list-unstyled w-100">
             <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                <span class="d-flex align-items-center justify-content-center">BJJ <i class="fas fa-chevron-down"></i></span>
+                <button class="d-flex align-items-center justify-content-center w-100 p-3">BJJ <i class="fas fa-chevron-down"></i></button>
                 <ul class="list-unstyled mt-3">
                     <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=gi">Gi</a></li>
                     <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=belts">Belts</a></li>
@@ -96,29 +104,29 @@
                 </ul>
             </li>
             <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                <span class="d-flex align-items-center justify-content-center">MMA <i class="fas fa-chevron-down"></i></span>
+                <button class="d-flex align-items-center justify-content-center w-100 p-3">MMA <i class="fas fa-chevron-down"></i></button>
                 <ul class="list-unstyled mt-3">
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=handwraps">Handwraps</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=shin guards">Shin Guards</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=mouth guards">Mouth Guards</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=mma">All Products</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=mma&product_type=handwraps">Handwraps</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=mma&product_type=shin guards">Shin Guards</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=mma&product_type=mouth guards">Mouth Guards</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=mma">All Products</a></li>
                 </ul>
             </li>
             <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                <span class="d-flex align-items-center justify-content-center">Muay Thai <i class="fas fa-chevron-down"></i></span>
+                <button class="d-flex align-items-center justify-content-center w-100 p-3">Muay Thai <i class="fas fa-chevron-down"></i></button>
                 <ul class="list-unstyled mt-3">
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=gloves">Gloves</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=shorts">Shorts</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=handwraps">Handwraps</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=shin guards">Shin Guards</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=mouth guards">Mouth Guards</a></li>
-                    <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai">All Products</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=muay thai&product_type=gloves">Gloves</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=muay thai&product_type=shorts">Shorts</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=muay thai&product_type=handwraps">Handwraps</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=muay thai&product_type=shin guards">Shin Guards</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=muay thai&product_type=mouth guards">Mouth Guards</a></li>
+                    <li><a class="text-white btn p-2" href="{% url 'products' %}?category=muay thai">All Products</a></li>
                 </ul>
             </li>
             <li class="p-3 m-0 h3 text-center">
-                <span><a class="text-white" href="{% url 'products' %}">All Products</a></span>
+                <span class="d-block"><a class="text-white p-3" href="{% url 'products' %}">All Products</a></span>
             </li>
         </ul>
     </nav>

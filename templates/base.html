@@ -57,10 +57,10 @@
         <div id="account" class="position-absolute w-100">
         {% if request.user.is_authenticated %}
             {% if request.user.is_superuser %}
-                <a href="#" class="w-100 text-center m-0 p-3 text-white h3">Product Management</a>
+                <a href="{% url 'add_product' %}" class="w-100 text-center m-0 p-3 text-white h3"><small class="text-muted">Product Management</small><br>Add a Product</a>
             {% endif %}
-                <a href="{% url 'profile_order_history' %}" class="w-100 text-center m-0 p-3 text-white h3">Order History</a>
-                <a href="{% url 'profile_delivery_info' %}" class="w-100 text-center m-0 p-3 text-white h3">Update Delivery Info</a>
+                <a href="{% url 'profile_order_history' %}" class="w-100 text-center m-0 p-3 text-white h3"><small class="text-muted">Profile</small><br>Order History</a>
+                <a href="{% url 'profile_delivery_info' %}" class="w-100 text-center m-0 p-3 text-white h3"><small class="text-muted">Profile</small><br>Update Delivery Info</a>
                 <a href="{% url 'account_logout' %}" class="w-100 text-center m-0 p-3 text-white h3">Logout</a>
         {% else %}
                 <a href="{% url 'account_signup' %}" class="w-100 text-center m-0 p-3 text-white h3">Register</a>
@@ -99,7 +99,7 @@
         <nav id="product-menu" class="p-0">
             <ul class="p-0 list-unstyled w-100">
                 <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                    <span class="d-flex align-items-center justify-content-center">BJJ <i class="fas fa-chevron-down"></i></span>
+                    <button class="w-100 d-flex align-items-center justify-content-center">BJJ <i class="fas fa-chevron-down"></i></button>
                     <ul class="list-unstyled mt-3">
                         <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=gi">Gi</a></li>
                         <li><a class="text-white btn p-2" href="{% url 'products' %}?category=bjj&product_type=belts">Belts</a></li>
@@ -110,7 +110,7 @@
                     </ul>
                 </li>
                 <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                    <span class="d-flex align-items-center justify-content-center">MMA <i class="fas fa-chevron-down"></i></span>
+                    <button class="w-100 d-flex align-items-center justify-content-center">MMA <i class="fas fa-chevron-down"></i></button>
                     <ul class="list-unstyled mt-3">
                         <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
                         <li><a class="text-white btn" href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
@@ -121,7 +121,7 @@
                     </ul>
                 </li>
                 <li class="p-3 m-0 h3 text-center toggle-sub-menu">
-                    <span class="d-flex align-items-center justify-content-center">Muay Thai <i class="fas fa-chevron-down"></i></span>
+                    <button class="w-100 d-flex align-items-center justify-content-center">Muay Thai <i class="fas fa-chevron-down"></i></button>
                     <ul class="list-unstyled mt-3">
                         <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=gloves">Gloves</a></li>
                         <li><a class="text-white btn" href="{% url 'products' %}?category=muay thai&product_type=shorts">Shorts</a></li>
@@ -138,9 +138,10 @@
         </nav>
     </header>
 
+    <!-- Search overlay menu ------------------------------------------------------------>
     <div id="overlay-menu" class="position-fixed container-fluid m-0">
         <div id="search-header" class="row child">
-
+            <h3 class="text-center w-100 p-4">Search Results for <br>"<span id="search-value"></span>"</h3>
         </div>
         <div id="view-full-results">
             
@@ -149,6 +150,7 @@
 
         </div>
     </div>
+    <!--------------------------------------------------------------------------------->
     
     <img id="base-img" src="https://scitechdaily.com/images/Burning-Coals.gif" alt="">
 

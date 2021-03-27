@@ -39,6 +39,7 @@ $('#toggle-sm-search').click(function() {
         }
     } else {
         $('#search-menu-sm').show();
+        $('#search-menu-sm form input').focus();
         searchMenuSmOpen = true;
         $('#block-content').fadeIn();
         $('#bag-sm-menu').fadeOut();
@@ -85,6 +86,11 @@ $('#block-content').click(function() {
     $('#search-menu-sm').fadeOut();
     searchMenuSmOpen = false;
 });
+
+$('#toggle-sm-account').click(function() {
+    $(this).siblings().slideToggle();
+});
+
 /* ------------------------------------- */
 
 // toggle menus within header
@@ -150,9 +156,8 @@ $q.on('input', function() {
     $('#product-row').empty();
     var value = $(this).val();
     
-    $('#search-header').empty();
-    var header = `<h3 class="text-white text-center w-100 p-4">Search Results for "${value}"</h3>`;
-    $('#search-header').append(header);
+    $('#search-value').empty();
+    $('#search-value').text(value);
     $('#product-row').append(`<p class="text-white position-absolute p-5 w-100 text-center h3">Searching <i class="fas fa-spinner fa-pulse"></i></p>`);
 
     // Display nothing if input is empty

@@ -11,7 +11,7 @@
         width: 20%;
     }
     #header-md {
-        height: 3rem;
+        height: 5rem !important;
         background-color: rgb(0, 0, 0) !important;
         width: 100vw;
         position: absolute;
@@ -21,20 +21,29 @@
         display: flex;
         align-items: center;
         border-bottom: 1px solid grey;
+        justify-content: center;
     }
     #header-md a {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 300;
         letter-spacing: 2px;
+        font-weight: 500;
     }
-    #header-md button {
+    #header-md span {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    #header-md span button,
+    #header-md span a {
         border: 0;
-        font-size: 1rem;
+        font-size: 1.4rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: inline-block;
     }
     #block-content {
-        height: calc(100vh - 3rem);
+        height: calc(100vh - 5rem);
         width: 100vw;
-        top: 3rem;
+        top: 5rem;
         left: 0;
     }
     #search-menu-sm {
@@ -44,7 +53,7 @@
     #search-menu-sm form {
         height: 3rem;
         position: absolute;
-        top: 3rem;
+        top: 5rem;
         left: 0;
         background-color: white;
         z-index: 10;
@@ -58,7 +67,7 @@
         width: 100vw;
         position: absolute;
         z-index: 10;
-        top: 3rem;
+        top: 5rem;
         left: 0;
         background-color: rgba(173, 216, 230, 0.2);
         overflow-y: scroll;
@@ -89,7 +98,7 @@
         width: 100vw;
         height: calc(100vh - 3rem);
         position: absolute;
-        top: 3rem;
+        top: 5rem;
         left: 0;
         background-color: rgba(173, 216, 230, 0.2);
         z-index: 10;
@@ -111,14 +120,22 @@
         background-color: rgba(0, 0, 0, 0.2);
         height: calc(100vh - 136px);
     }
-}
-@media only screen and (max-width: 400px) {
-    #header-md a {
-        letter-spacing: 0;
+    #side-nav nav:first-of-type {
+        height: auto;
     }
-}
-@media only screen and (max-width: 355px) {
-    #header-md a {
+    #sm-account {
+        color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    #toggle-sm-account {
+        background-color: transparent;
+        border: 0;
+    }
+    #toggle-sm-account i:last-of-type {
         font-size: 1rem;
+    } 
+    #sm-account ul li ul {
+        display: none;
     }
 }
