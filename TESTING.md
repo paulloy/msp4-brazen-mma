@@ -149,3 +149,46 @@ scripts:
 - 'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
 - Unnecessary semicolon.
 - undefined variable: $
+
+---
+
+## base
+
+### Validation
+
+#### HTML
+
+- [base.html](templates/base.html)
+    - ERROR: Element form not allowed as child of element span in this context. (Suppressing further errors from this subtree.)
+    - ERROR: Bad value for attribute href on element a: Illegal character in query: space is not allowed.
+- [base-md.html](templates/includes/base-md.html)
+    - WARNING: The document is not mappable to XML 1.0 due to two consecutive hyphens in a comment.
+    - ERROR: Bad value for attribute href on element a: Illegal character in query: space is not allowed.
+    - ERROR: Duplicate ID product-menu.
+
+#### CSS
+
+- [base.css](static/css/base.css)
+    - Value Error : color Parse Error (148,201,61)
+- [base-md.css](static/css/base-md.css)
+    - No errors found.
+
+- [toastr.css](static/css/toastr.css)
+    - This file has not been validated as it is not my own.
+    - [Toastr Github: toastr.scss](https://github.com/CodeSeven/toastr/blob/master/toastr.scss)
+
+#### JavaScript
+
+- [base.js](static/js/base.js)
+    - No errors found.
+- [toastr-settings.js](static/js/toastr-settings.js)
+    - variable 'toastr' undefined.
+    - missing semicolon.
+- [ajax.js](static/js/ajax.js)
+    - variable 'mediaPrefix' undefined.
+    - mediaPrefix is defined in [base.html](templates/base.html) with a Django template tag as its value.
+
+- [toastr.js](static/js/toastr.js)
+    - This file has not been validated as it is not my own.
+    - [Toastr Github: toastr.js](https://github.com/CodeSeven/toastr/blob/master/toastr.js)
+
