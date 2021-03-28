@@ -2,9 +2,6 @@
 
 ## bag
 
-templates:
- - [Bag](bag/templates/bag/bag.html)
-
 ### Test events 
 
 | ID | Event | Expected Response | Pass / Fail ? |
@@ -27,6 +24,10 @@ templates:
 | 1.16 | Bag is empty. | Display message that bag is currently empty. Hide Checkout button. | Pass |
 
  - [1]: As of commit *695f495*, these tests now Pass.
+
+### Python Testing
+
+- [views.py](bag/test_views.py)
 
 ### Validation
 
@@ -74,7 +75,16 @@ templates:
  - The patch to 2.12 fixed 2.07.
  - The expected response of test 2.14 & 2.15 was incorrect and has been updated. 
 
+### Python Testing
+
+- [test_views.py](checkout/test_views.py): tests for [views.py](checkout/views.py)
+- [test_models.py](checkout/test_models.py): tests for [models.py](checkout/models.py)
+- [test_forms.py](checkout/test_forms.py): tests for [forms.py](checkout/forms.py)
+
 ### Validation
+
+#### Python
+ - All python was validated according to PEP8 standards.
 
 #### HTML
  - [checkout.html](checkout/templates/checkout/checkout.html)
@@ -119,6 +129,9 @@ templates:
 | 3.10 | With no delivery info saved, place an order at the checkout and select 'save this delivery information' checkbox. | Default Delivery Info should now be autofilled upon returning to {% url 'profile_delivery_info %}. | Pass |
 
 ### Validation
+
+#### Python
+ - All python was validated according to PEP8 standards.
 
 #### CSS
 
@@ -205,6 +218,9 @@ modifications to these templates were to their style.
 
 ### Validation
 
+#### Python
+ - All python was validated according to PEP8 standards.
+
 #### HTML
 
 - [base.html](templates/base.html)
@@ -245,3 +261,77 @@ modifications to these templates were to their style.
     - This file has not been validated as it is not my own.
     - [Toastr Github: toastr.js](https://github.com/CodeSeven/toastr/blob/master/toastr.js)
 
+## products
+
+### Test Events
+
+| ID | Event | Expected Response | Pass / Fail ? |
+| ---- | ----- | --------------- |    :-----:    |
+| 5.01 | Display all products | Breadcrumbs display 'All Products' and number of products | Pass |
+| 5.01 | Display all products within a category | Breadcrumbs display 'All Products / <category>' and number of products | Pass |
+| 5.01 | Select 'all products' within breadcrumbs. | Display all products | Pass |
+| 5.01 | Display products of a particular type | Breadcrumbs display 'All Products / <category> / <product_type>' and number of products | Pass |
+| 5.01 | Select '<category>' within breadcrumbs. | Display all products within the category. | Pass |
+| 5.01 | Select 'sort products by price asc' | Product count should not change. Rearrange products from lowest to highest price. | Pass |
+| 5.01 | Select 'sort products by price desc' | Product count should not change. Rearrange products from highest to lowest price. | Pass |
+| 5.01 | Select 'sort products by name asc' | Product count should not change. Rearrange products by name from A to Z. | Pass |
+| 5.01 | Select 'sort products by name desc' | Product count should not change. Rearrange products by name from Z to A. | Pass |
+| 5.01 | Select 'filter products by men' | Product count may change. All products should be for men, or unisex. | Pass |
+| 5.01 | Select 'filter products by women' | Product count may change. All products should be for women, or unisex. | Pass |
+| 5.01 | Select 'filter products by unisex' | Product count may change. All products should be unisex. | Pass |
+| 5.01 | Select 'filter products by discounted' | Product count may change. All products should be discounted. | Pass |
+| 5.01 | Change filters and sorting several times. | Selecting a filter should not interfere with sorting and vice versa. e.g. Selecting men, then sort by price asc, should sort the men products and not clear this filter. | Pass |
+| 5.01 | Search for an empty string in search form. "" | Display, No results found for "" | Fail |
+| 5.01 | Search for random string. | Display, No results found for "sfghsdfgh" | Pass |
+| 5.01 | Search for a product that exists. | Display, <product_count> products found for "<searched_value>" | Pass |
+| 5.01 | Apply filters and sorting to search results. | Display all the same responses as the above tests on sorting and filtering. | Pass |
+| 5.01 | Select a product. | Direct user to {% url 'product_details' <product_id> %} | Pass |
+| 5.01 | Display product_details while logged in as superuser. | Display Product Admin. | Pass |
+| 5.01 | Select 'Update Product' | Display {% url 'edit_product' <product_id> %} with fields filled. | Pass |
+| 5.01 | Select 'Delete Product' | Display a menu asking if the user is sure they want to delete a product. | Pass |
+| 5.01 | Select 'Delete Product' in new menu. | Direct user to {% url 'products' %} with a toast that the product has been deleted. | Pass |
+| 5.01 | Select 'Cancel' in new menu. | Hide the menu and display the default Product Management buttons | Pass |
+| 5.01 | Select 'see size chart'. | Display generic size chart. | Pass |
+| 5.01 | Select 'close' on size chart window. | Hide size chart. | Pass |
+| 5.01 | Add a product with sizes to bag without selecting a size. | Display message "Please select a size." | Pass |
+| 5.01 | Select a size then add product to bag. | Product should be in bag now and a toast appears telling the user the name and size of the product added to the bag. | Pass |
+| 5.01 | Select a quantity other than the default. | Product should be in bag now and a toast appears telling the user the name and size of the product added to the bag. | Pass |
+| 5.01 | Select a quantity other than the default. | Product should be in bag now and a toast appears telling the user the name and size of the product added to the bag. | Pass |
+| 5.01 | Submit the 'add product' form. | Toast should appear informing the user of the success of this action. New product should be avaible on store now. | Pass |
+| 5.01 | Submit the 'update product' form. | User should be redirected to the products page again with the updated information displayed and a success toast. | Pass |
+
+### Validation
+
+#### Python
+ - All python was validated according to PEP8 standards.
+
+#### HTML
+
+- [products.html](products/templates/products/products.html)
+    - WARNING: The button role is unnecessary for element button.
+    - ERROR: The strike element is obsolete. Use CSS instead.
+    - ERROR: Bad value for attribute src on element img: Illegal character in path segment: space is not allowed.
+- [product_details.html](products/templates/products/product_details.html)
+    - WARNING: The document is not mappable to XML 1.0 due to two consecutive hyphens in a comment.
+    - ERROR: Element span not allowed as child of element ol in this context. 
+    - ERROR: The cellpadding attribute on the table element is obsolete.
+    - ERROR: The border attribute on the table element is obsolete.
+    - ERROR: The align attribute on the td element is obsolete.
+- [add_product.html](products/templates/products/add_product.html)
+    - No errors or warnings to show.
+- [add_product.html](products/templates/products/add_product.html)
+    - No errors or warnings to show.
+
+#### CSS
+
+- [products.css](products/static/css/products.css)
+    - No errors found.
+- [product-management.css](products/static/css/product-management.css)
+    - No errors found.
+
+#### JavaScript
+
+- [products.js](products/static/js/products.js)
+    - No errors found.
+- [product-management.js](products/static/js/product-management.js)
+    - No errors found.
