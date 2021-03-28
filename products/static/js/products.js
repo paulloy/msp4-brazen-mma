@@ -1,3 +1,5 @@
+/*globals $:false */
+/*jshint esversion: 6 */
 
 // add extra script. pointer events set to none on input
 let quantityValue = parseInt(document.getElementById('quantity').value);

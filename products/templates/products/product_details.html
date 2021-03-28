@@ -15,21 +15,22 @@
 
 {% block content %}
 
-<!-- breadcrumbs ------------------------------------------------------------------------------------------->
+<!-- breadcrumbs -->
 <div id="breadcrumbs" class="mx-auto bg-transparent">
     <nav aria-label="breadcrumb" class="h-100 d-flex align-items-center bg-white p-0">
         <ol class="breadcrumb d-flex flex-column p-0 m-0 w-100">
-            <span class="d-flex pt-3 px-4 justify-content-center">
-                <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ product.category }}">{{ product.category }}</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="{% url 'products' %}?category={{ product.category }}&product_type={{ product.product_type }}">{{ product.product_type }}</a></li> 
-            </span>   
+            <li class="d-flex pt-3 px-4 justify-content-center">
+                <ul class="list-unstyled d-flex">
+                    <li class="breadcrumb-item"><a href="{% url 'products' %}?category={{ product.category }}">{{ product.category }}</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="{% url 'products' %}?category={{ product.category }}&product_type={{ product.product_type }}">{{ product.product_type }}</a></li> 
+                </ul>
+            </li>   
             <li class="breadcrumb-item mx-auto px-3 pb-3 active m-0" aria-current="page">/ {{ product.name }}</li>                                
         </ol>
     </nav>
 </div>
-<!---------------------------------------------------------------------------------------------------------->
 
-<!-- product management ----------------------------------------------------------------------------------->
+<!-- product management -->
 {% if request.user.is_superuser %}
     <div id="product-management" class="p-3 mx-auto">
         <h4 class="text-center pb-3">Product Management</h4>
@@ -50,9 +51,8 @@
         </div>
     </div>
 {% endif %}
-<!--------------------------------------------------------------------------------------------------------->
 
-<!-- product display --------------------------------------------------------------------------------------------------------------------------------------------------->
+<!-- product display -->
 <div id="product-display" class="d-flex mx-auto p-3">        
     <!-- product image -->
     <div class="mx-auto product-img-container p-0 d-block">
@@ -68,7 +68,7 @@
             <p class="text-center p-2 bg-white bold mt-0">
                 <span class="mr-3 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></span>
                 <span class="mr-1 text-muted" title="Recommended Retail Price">RRP:</span>
-                <strike class="p-0 text-muted">£{{ product.rrp }}</strike></p>    
+                <span class="p-0 text-muted strike-through">£{{ product.rrp }}</span></p>    
         {% else %}
             <p class="p-2 mt-3 bold bg-white text-center price">£{{ product.price }}</p>
         {% endif %}
@@ -132,42 +132,40 @@
     </div>
 </div>
 
-<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
-
-<!-- size chart ------------------------------------------------------------------>
+<!-- size chart -->
 {% if has_sizes %}
 <div id="size-chart">
     <div class="d-flex flex-column justify-content-center align-items-center h-100 w-100">
         <button id="close-size-chart" class="btn btn-primary">Close</button>
     
-        <table class="sizeChart bg-white" border="1" cellpadding="2">
-            <tbody>
-                <tr>
-                    <td rowspan="2" align="center">&nbsp;</td>
-                    <td colspan="5" align="center"><strong>Size Chart</strong></td>
+        <table class="sizeChart bg-white border border-dark">
+            <tbody class="border border-dark">
+                <tr class="border border-dark">
+                    <td rowspan="2" class="text-center">&nbsp;</td>
+                    <td colspan="5" class="text-center"><strong>Size Chart</strong></td>
                 </tr>
-                <tr>
-                    <td align="center"><strong>XS</strong></td>
-                    <td align="center"><strong>S</strong></td>
-                    <td align="center"><strong>M</strong></td>
-                    <td align="center"><strong>L</strong></td>
-                    <td align="center"><strong>XL</strong></td>
+                <tr class="border border-dark">
+                    <td class="text-center border border-dark"><strong>XS</strong></td>
+                    <td class="text-center border border-dark"><strong>S</strong></td>
+                    <td class="text-center border border-dark"><strong>M</strong></td>
+                    <td class="text-center border border-dark"><strong>L</strong></td>
+                    <td class="text-center border border-dark"><strong>XL</strong></td>
                 </tr>
-                <tr>
-                    <td align="center"><strong>Inches</strong></td>
-                    <td align="center">30-32</td>
-                    <td align="center">34-36</td>
-                    <td align="center">38-40</td>
-                    <td align="center">40-42</td>
-                    <td align="center">44-46</td>
+                <tr class="border border-dark">
+                    <td class="border border-dark text-center"><strong>Inches</strong></td>
+                    <td class="border border-dark text-center">30-32</td>
+                    <td class="border border-dark text-center">34-36</td>
+                    <td class="border border-dark text-center">38-40</td>
+                    <td class="border border-dark text-center">40-42</td>
+                    <td class="border border-dark text-center">44-46</td>
                 </tr>
-                <tr>
-                    <td align="center"><strong>cm</strong></td>
-                    <td align="center">75-80</td>
-                    <td align="center">85-90</td>
-                    <td align="center">95-100</td>
-                    <td align="center">100-105</td>
-                    <td align="center">110-115</td>
+                <tr class="border border-dark">
+                    <td class="border border-dark text-center"><strong>cm</strong></td>
+                    <td class="border border-dark text-center">75-80</td>
+                    <td class="border border-dark text-center">85-90</td>
+                    <td class="border border-dark text-center">95-100</td>
+                    <td class="border border-dark text-center">100-105</td>
+                    <td class="border border-dark text-center">110-115</td>
                 </tr>
             </tbody>
         </table>

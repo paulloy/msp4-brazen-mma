@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta_description %}
-    <meta name="Description" content="This page displays products sold by Brazen MMA."/>
+    <meta name="Description" content="Browse Brazilian Jiu Jitsu, Muay Thai, and Mixed Martial Arts equipment and attire for men and women."/>
 {% endblock %}
 
 {% block title %}
@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block content %}
-
 
 {% if category and product_type != None %}
     <div class="w-100 p-3 bg-white">
@@ -47,27 +46,24 @@
     {% endif %}
 {% endif %} 
 
+{% if search_term %}
 <!-- search results -->
 <div id="search-results" class="w-100 p-3 bg-white">
-    {% if search_term %}
-        {% if products.count > 1 %}
-            <p class="m-0 bold">{{ products.count }} products found for "{{ search_term }}"</p>
-        {% elif products.count > 0 %}
-            <p class="m-0 bold">{{ products.count }} product found for "{{ search_term }}"</p>
-        {% else %}
-            <p class="m-0 bold">No results found for "{{ search_term }}"</p>
-        {% endif %}
+    {% if products.count > 1 %}
+        <p class="m-0 bold">{{ products.count }} products found for "{{ search_term }}"</p>
+    {% elif products.count > 0 %}
+        <p class="m-0 bold">{{ products.count }} product found for "{{ search_term }}"</p>
+    {% else %}
+        <p class="m-0 bold">No results found for "{{ search_term }}"</p>
     {% endif %}
-</div>
-<!-- end search results --> 
-   
-        
+</div>  
+{% endif %}       
 
  <!-- filters -->
  {% if products.count != 0 %}
 <div id="filters" class="w-100 bg-white d-flex justify-content-start p-3">
     <div>
-        <button class="btn btn-primary mr-3 dropdown-style dropdown-toggle float-right" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-primary mr-3 dropdown-style dropdown-toggle float-right" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {% if sort %}{{ sort }} {{ direction }}{% else %}Sort Products{% endif %}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -103,23 +99,21 @@
     {% endif %}
 </div>
 {% endif %}
-<!-- end filters -->
 
-<!-- Products --------------------------------------------------------------->
+<!-- products -->
 <div id="products" class="container-fluid">
     <div class="row">
-        <!-- products -->
         {% for product in products %}
             <a href="{% url 'product_details' product.product_id %}" class="p-2 carousel-cell my-3 mx-auto product-style position-relative d-flex flex-column">
                 <div class="img-container p-0 d-flex justify-content-center">                    
-                    <img class="img-thumbnail" src="../media/{{ product.image }}" alt="{{ product.name }}">
+                    <img class="img-thumbnail" src="{% get_media_prefix %}{{ product.image }}" alt="{{ product.name }}">
                 </div>
                 <strong class="my-2 w-100 product-name text-center mb-4">{{ product.name }}</strong>
                 <div class="position-absolute w-100 p-3">
                     {% if product.sale %}
                         <div class="d-flex mt-2 justify-content-center">
                             <p class="mx-2 bold my-0 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></p>
-                            <strike class="mr-2 bold my-0 text-muted">£{{ product.rrp }}</strike>
+                            <p class="d-inline-block strike-through mr-2 bold my-0 text-muted">£{{ product.rrp }}</p>
                         </div>
                     {% else %}
                         <p class="mt-2 mb-0 bold text-center text-dark">£{{ product.price }}</p>
@@ -127,9 +121,7 @@
                 </div>
             </a>
         {% endfor %}
-        <!-- end products -->
     </div>
 </div>
-<!------------------------------------------------------------------------------>
 
 {% endblock %}
