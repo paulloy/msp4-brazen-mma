@@ -6,7 +6,6 @@ templates:
  - [Bag](bag/templates/bag/bag.html)
 
 ### Test events 
-*21/03/21*
 
 | ID | Event | Expected Response | Pass / Fail ? |
 | ---- | ----- | --------------- |    :-----:    |
@@ -36,15 +35,13 @@ templates:
 stylesheets:
  - [bag.css](bag/static/css/bag.css)
 
-*24/03/21*: 
  - All stylesheets passed validation.
 
 #### JS
 
 scripts:
  - [bag.js](bag/static/js/bag.js)
-
-*24/03/21*: 
+ 
  - One undefined variable: $
  - One unused variable: $displayQuantity
 
@@ -55,7 +52,6 @@ templates:
  - [Checkout](checkout/templates/checkout/checkout.html)
 
 ### Test events
-*22/03/21*
 
 | ID | Event | Expected Response | Pass / Fail ? |
 | ---- | ----- | --------------- |    :-----:    |
@@ -88,8 +84,7 @@ templates:
 stylesheets:
  - [checkout_success.css](checkout/static/css/checkout_success.css)
  - [checkout.css](checkout/static/css/checkout.css)
-
-*24/03/21*: 
+ 
  - All stylesheets passed validation.
 
 #### JS
@@ -98,7 +93,6 @@ scripts:
  - [bag.js](bag/static/js/bag.js)
  - [stripe-elements.js](bag/static/js/stripe-elements.js)
 
-*24/03/21*:
  - bag.js:
     - One undefined variable: $
 
@@ -108,14 +102,12 @@ scripts:
     - undefined variable: $
     - undefined variable: Stripe
 
-## profiles
 
 templates:
  - [Profile Delivery Info](profiles/templates/profiles/delivery-info.html)
  - [Profile Order History](profiles/templates/profiles/order-history.html)
 
 ### Test events
-*24/03/21*
 
 | ID | Event | Expected Response | Pass / Fail ? |
 | ---- | ----- | --------------- |    :-----:    |
@@ -136,8 +128,7 @@ templates:
 
 stylesheets:
  - [profile.css](profiles/static/css/profile.css)
-
-*24/03/21*: 
+ 
  - All stylesheets passed validation.
 
 #### JS
@@ -145,7 +136,6 @@ stylesheets:
 scripts:
  - [profile.js](profiles/static/js/profile.js)
 
-*24/03/21*:
 - 'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
 - Unnecessary semicolon.
 - undefined variable: $
@@ -153,6 +143,68 @@ scripts:
 ---
 
 ## base
+
+### Test Events
+
+| ID | Event | Expected Response | Pass / Fail ? |
+| ---- | ----- | --------------- |    :-----:    |
+| 4.01 | Select Home page button. | Direct to {% url 'home %} | Pass |
+| 4.02 | Select Account button while anonymous. | Open #account and display options for logging in or registering. | Pass |
+| 4.03 | Select Register link. | Direct to Allauth registration page. | Pass |
+| 4.04 | Select Login link. | Direct to Allauth login page. | Pass |
+| 4.05 | Select Account button while logged in as a superuser. | Display links for adding a product, order history, update delivery info, and logout. | Pass |
+| 4.06 | Select 'Add a product' link. | Direct user to {% url 'add_product' %} | Pass |
+| 4.07 | Select 'Order History' link. | Direct user to {% url 'profile_order_history %} | Pass |
+| 4.08 | Select 'Update Delivery Info' link. | Direct user to {% url 'profile_delivery_info %} | Pass |
+| 4.09 | Select 'Logout' link. | Direct user to Allauth Sign out page. | Pass |
+| 4.10 | Login as regular user and view #accounts menu. | Display links for order history, update delivery info, and logout. | Pass |
+| 4.11 | Select 'My Shopping Bag' button. | Display #bag-menu | Pass |
+| 4.12 | Open #bag-menu with an empty bag. | Checkout button should be hidden if bag is empty. Message should display that bag is empty. | Fail |
+| 4.13 | Add a product then view #bag-menu | Added product is displayed in #bag-menu | Pass |
+| 4.14 | Select 'View Bag'. | Direct user to {% url 'view_bag' %} | Pass |
+| 4.15 | Select 'Checkout'. | Direct user to {% url 'checkout' %} | Pass |
+| 4.16 | Select a product image. | Direct user to {% url 'product_details' <product_id> %} | Pass |
+| 4.17 | Select a product name. | Direct user to {% url 'product_details' <product_id> %} | Pass |
+| 4.18 | Adding more products to bag. | Number of products in bag changes. | Fail |
+| 4.19 | Adding more products to bag. | Sub-total in bag changes. | Pass |
+| 4.20 | Focus on search form input. | Hide #block-content and display a preview of the users search query with ajax request. | Pass |
+| 4.21 | Blur on search form input while mouse is not hovering the #overlay-menu. | Hide #overlay-menu and display #block-content. | Pass |
+| 4.22 | Blur on search form input while mouse is hovering the #overlay-menu. | Do not hide #overlay-menu. | Pass |
+| 4.23 | On mouseleave on #overlay-menu while search form input is not focused on. | Hide #overlay-menu and display #block-content. | Pass |
+| 4.24 | Enter search criteria for non-existant product. | Display message that no products are found and hide 'View Full Results' button. | Pass |
+| 4.25 | Select 'View Full Results' button. | Display {% url 'products' %}?=q=<user input> | Pass |
+| 4.26 | Submit search form with enter key, or selecting its submit button. | Display {% url 'products' %}?=q=<user input> | Pass |
+| 4.27 | SM: Select Home page button. | Direct to {% url 'home %} | Pass |
+| 4.28 | SM: Select #toggle-sm-search button. | Display #search-menu-sm | Pass |
+| 4.29 | SM: Submit #search-menu-sm | Display {% url 'products' %}?=q=<user input> | Pass |
+| 4.30 | SM: Select #toggle-sm-bag button with items in bag. | Display #bag-sm-menu and hide #block-content. | Pass |
+| 4.31 | SM: Select #toggle-sm-bag button with an empty bag. | Display #bag-sm-menu with View Bag and Checkout buttons hidden. Display message that bag is empty. | Pass |
+| 4.32 | SM: Select 'View Bag' button. | Direct user to {% url 'view_bag' %} | Pass |
+| 4.33 | SM: Select 'Checkout' button. | Direct user to {% url 'checkout' %} | Pass |
+| 4.34 | SM: Select 'Checkout' button. | Direct user to {% url 'checkout' %} | Pass |
+| 4.35 | SM: Select Product image. | Direct user to {% url 'product_details' <product_id> %} | Pass |
+| 4.36 | SM: Select Product name. | Direct user to {% url 'product_details' <product_id> %} | Pass |
+| 4.37 | SM: Add products to bag then view it. | Sub-total and total products in bag should change. | Pass |
+| 4.38 | SM: Add products so that the length of items is greater than 3. | Display Sub-total, total products, View Bag, and Checkout at the bottom of the bag for a user who scrolls to the bottom. | Pass |
+| 4.39 | SM: Select #toggle-side-nav | Display #side-nav and hide #block-content. | Pass |
+| 4.40 | SM: Select Accounts | Display Accounts submenu. | Pass |
+| 4.41 | SM: Select MMA, BJJ, or Muay Thai. | Display category product_types submenus. | Pass |
+| 4.42 | SM: Select product_type. GI, Belts, Spats, etc. | Display {% url 'products %}?category=<category>&product_type=<product_type> | Pass |
+| 4.43 | SM: Select 'all products' within submenu. | Display {% url 'products %}?category=<category> | Pass |
+| 4.44 | SM: Select 'Add a product' link. | Direct user to {% url 'add_product' %} | Pass |
+| 4.45 | SM: Select 'Order History' link. | Direct user to {% url 'profile_order_history %} | Pass |
+| 4.46 | SM: Select 'Update Delivery Info' link. | Direct user to {% url 'profile_delivery_info %} | Pass |
+| 4.47 | SM: Select 'Logout' link. | Direct user to Allauth Sign out page. | Pass |
+| 4.48 | SM: Login as regular user and view #accounts menu. | Display links for order history, update delivery info, and logout. | Pass |
+| 4.49 | SM: Select Account button while logged in as a superuser. | Display links for adding a product, order history, update delivery info, and logout. | Pass |
+| 4.50 | SM: Select Account button while anonymous. | Open #account and display options for logging in or registering. | Pass |
+
+**NOTE**
+- SM: Base template on small screens. Screen width is less than 992px.
+- All of the "accounts" functionality; registration, login, confirm email, forgot email, etc, are handled by Allauth and pass all manual tests as expected.
+The links I did change within [signup.html](templates/allauth/account/signup.html) and [login.html](templates/allauth/account/login.html) direct to their usual pages. All other
+modifications to these templates were to their style.
+- Emails are successfully received, and links to the website work.
 
 ### Validation
 
