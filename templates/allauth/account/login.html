@@ -35,9 +35,7 @@
 
 {% include "socialaccount/snippets/login_extra.html" %}
 
-{% else %}
-<!-- <p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p> -->
+
 {% endif %}
 
 <form class="login mx-auto allauth-form d-flex flex-column align-items-center" method="POST" action="{% url 'account_login' %}">
