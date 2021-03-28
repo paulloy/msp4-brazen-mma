@@ -70,8 +70,14 @@
 
             <!-- bag menu  -->
             <div id="bag-menu" class="position-absolute pr-2 pl-3 pb-5 pt-2">
+                {% if product_count > 0 %}
                 <a class="listitem text-center p-2 mt-2 w-100 d-block btn btn-primary" href="{% url 'view_bag' %}">View Bag</a>
-                <a class="listitem text-center p-2 mt-2 w-100 d-block btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
+                <a class="listitem text-center p-2 mt-2 w-100 d-block btn btn-purchase text-dark" href="{% url 'checkout' %}">Checkout</a>
+                {% if product_count == 1 %}
+                    <p class="text-white m-0 px-3 pt-3 text-center h5">{{ product_count }} item in bag</p>
+                {% else %}
+                    <p class="text-white m-0 px-3 pt-3 text-center h5">{{ product_count }} items in bag</p>
+                {% endif %}
                 <p class="text-white m-0 p-3 text-center h5"><span class="mr-4">Sub-Total</span> £{{ total }}</p>
                 <div class="container-fluid">
                     {% for item in bag_items %}
@@ -93,6 +99,9 @@
                         </div>
                     {% endfor %}
                 </div>
+                {% else %}
+                <p class="text-white m-0 p-3 text-center h5">Your bag is currently empty.</p>
+                {% endif %}
             </div>
         </div>
         <!-- Product Menu -->

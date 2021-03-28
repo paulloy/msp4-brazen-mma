@@ -58,7 +58,7 @@
     <!-- Display this second menu if product_count is greater than 3. So a user does not have to scroll up to the first menu -->
     {% if product_count > 3 %}
         <div class="mx-auto bg-pale-blue my-2 p-2">
-            <p class="m-0 text-white d-flex justify-content-between px-2"><span>{{ product_count }} items in bag</span><span>Sub-Total: £{{ total }}</span></p>
+            <p class="m-0 d-flex justify-content-between px-2"><span>{{ product_count }} items in bag</span><span>Sub-Total: £{{ total }}</span></p>
         </div>
         <div class="mx-auto bg-pale-blue my-2 p-2 d-flex justify-content-around">
             <a class="btn btn-primary d-inline-block" href="{% url 'view_bag' %}">VIEW BAG</a>
