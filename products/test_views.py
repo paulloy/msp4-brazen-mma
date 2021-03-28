@@ -1,6 +1,4 @@
-from django.test import TestCase, RequestFactory, Client
-from django.shortcuts import HttpResponse
-from django.urls import reverse
+from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import User
 
 from . import models
@@ -37,7 +35,7 @@ class TestViews(TestCase):
 
     def test_q_in_get_request(self):
         response = self.client.post(
-            f'/products/?q=searched_value')
+            '/products/?q=searched_value')
         self.assertEqual(response.status_code, 200)
 
     def test_sort_and_direction_in_get_request(self):
@@ -50,7 +48,7 @@ class TestViews(TestCase):
                 self.assertEqual(response.status_code, 200)
 
     def test_filters_in_get_request(self):
-        filters = ['MEN', 'WOMEN', 'UNISEX']
+        filters = ['MEN', 'WOMEN', 'UNISEX', 'DISCOUNTED']
         for filter_key in filters:
             response = self.client.post(
                 f'/products/?filters={filter_key}')
