@@ -54,7 +54,7 @@ def all_products(request):
 
         if 'filters' in request.GET:
             filters = request.GET['filters']
-            
+
             if filters == 'DISCOUNTED':
                 products = products.filter(sale__exact=True)
             else:
