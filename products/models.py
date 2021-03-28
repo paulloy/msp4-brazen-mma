@@ -3,7 +3,6 @@ import uuid
 
 
 PRODUCT_CATEGORY_CHOICES = (
-    ('select category', 'SELECT CATEGORY'),
     ('bjj', 'BJJ'),
     ('mma', 'MMA'),
     ('muay thai', 'MUAY THAI'),
@@ -11,7 +10,6 @@ PRODUCT_CATEGORY_CHOICES = (
 )
 
 PRODUCT_TYPE_CHOICES = (
-    ('select type', 'SELECT TYPE'),
     ('shorts', 'SHORTS'),
     ('gloves', 'GLOVES'),
     ('shin guards', 'SHIN GUARDS'),
@@ -30,10 +28,18 @@ PRODUCT_TYPE_CHOICES = (
 )
 
 GENDER_CHOICES = (
-    ('select gender', 'SELECT GENDER'),
     ('men', 'MEN'),
     ('women', 'WOMEN'),
     ('unisex', 'UNISEX'),
+)
+
+ALLOWED_SIZES = (
+    ('xs', 'XS'),
+    ('s', 'S'),
+    ('m', 'M'),
+    ('l', 'L'),
+    ('xl', 'XL'),
+    ('false', 'FALSE'),
 )
 
 
@@ -43,17 +49,18 @@ class Product(models.Model):
     name = models.CharField(max_length=254, blank=False, null=False)
     description = models.TextField(null=False, blank=False)
     gender = models.CharField(
-        max_length=20, choices=GENDER_CHOICES, default="SELECT GENDER")
+        max_length=20, choices=GENDER_CHOICES, blank=False, null=False)
     sale = models.BooleanField(null=False, blank=False, default=False)
     rrp = models.DecimalField(
         verbose_name='Recommended Retail Price',
         max_digits=6, decimal_places=2, blank=False, null=False)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(
+        max_digits=6, decimal_places=2, blank=False, null=False)
     category = models.CharField(
         max_length=20, choices=PRODUCT_CATEGORY_CHOICES,
-        default="SELECT CATEGORY")
+        blank=False, null=False)
     product_type = models.CharField(
-        max_length=20, choices=PRODUCT_TYPE_CHOICES, default="SELECT TYPE")
+        max_length=20, choices=PRODUCT_TYPE_CHOICES, blank=False, null=False)
     image = models.ImageField(upload_to='product_images/',
                               blank=False, null=False,
                               default='products/static/ \
@@ -67,7 +74,8 @@ class ProductSizesStock(models.Model):
     product_sizes_stock_id = models.AutoField(primary_key=True)
     product_id = models.ForeignKey(
         'Product', on_delete=models.CASCADE, null=True)
-    size = models.CharField(max_length=254, null=True)
+    size = models.CharField(
+        max_length=10, choices=ALLOWED_SIZES, null=True)
     stock = models.PositiveIntegerField()
 
     def __str__(self):
