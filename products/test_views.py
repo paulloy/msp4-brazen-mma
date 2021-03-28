@@ -1,5 +1,4 @@
-from django.test import TestCase, RequestFactory
-from django.contrib.auth.models import User
+from django.test import TestCase
 
 from . import models
 from .models import Product, ProductSizesStock
@@ -8,11 +7,6 @@ import random
 
 
 class TestViews(TestCase):
-
-    def setUp(self):
-        self.request_factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username='user', email='user@example.com', password='password')
 
     """ all_products() """
     def test_all_products_view(self):
