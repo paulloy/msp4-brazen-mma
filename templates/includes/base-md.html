@@ -41,7 +41,7 @@
             </div>
             <div class="col-9 d-flex flex-column px-3 pl-4">                        
                 <div class="w-100 d-flex flex-column bg-transparent">
-                    <a href="{% url 'product_details' item.product.product_id %}" class="text-left pl-1 w-100">{{ item.product.name }}</a>
+                    <a href="{% url 'product_details' item.product.product_id %}" class="text-left p-0 w-100">{{ item.product.name }}</a>
                     {% if item.size != 'false' %}
                         <p class="m-0 mt-2 w-100 text-left"><span><em class="mr-1">Size:</em> {{ item.size }}</span></p>
                     {% endif %}
@@ -70,7 +70,7 @@
 <!-- Side nav -->
 <div id="side-nav" class="d-lg-none">
     <hr class="m-0">
-    <nav id="sm-account" class="d-flex flex-column">
+    <nav id="sm-account" class="d-flex flex-column p-0">
         <ul class="list-unstyled m-0">
             <li class="text-white text-center">
                 <button id="toggle-sm-account" class="w-100 h3 p-3 text-white m-0 btn-none nav-item-hover"><i class="fas fa-user"></i> Account <i class="fas fa-chevron-down"></i></button>                

@@ -45,7 +45,7 @@ $q.on('input', function() {
     
     $('#search-value').empty();
     $('#search-value').text(value);
-    $('#product-row').append(`<p class="text-white position-absolute p-5 w-100 text-center h3">Searching <i class="fas fa-spinner fa-pulse"></i></p>`);
+    $('#product-row').append(`<p id="searching-loader" class="text-white p-5 w-100 text-center h3">Searching <i class="fas fa-spinner fa-pulse"></i></p>`);
 
     // Display nothing if input is empty
     if (value.length > 0) {
@@ -62,38 +62,40 @@ $q.on('input', function() {
 
                     if (product.length === 0) {
                         $('#product-row').empty();
-                        $('#product-row').append(`<p class="text-white p-5 text-center">No results found. Please try searching for something else.</p>`);
+                        $('#product-row').append(`<p class="text-white text-paragraph p-5 text-center">No results found. Please try searching for something else.</p>`);
                         $('#view-full-results').empty();
                     } else {
                         $('#view-full-results').empty();
-                        $('#view-full-results').append(`<p class="text-white p-5"><a class="float-right h3" href="/products/?q=${value}">View full results?</a></p>`);
+                        $('#view-full-results').append(`<p class="text-white p-5"><a class="float-right btn btn-primary" href="/products/?q=${value}">View full results?</a></p>`);
                         $('#product-row').empty();
                         var column;
                         for (var i=0; i<4; i++) {
                             if (product[i].fields.price != product[i].fields.rrp) {
                                 column = `
-                                    <a href="${location}/products/${ product[i].pk }" class="product h-100 col-xl-3 p-2 col-lg-6 carousel-cell d-flex flex-column align-items-center">                            
-                                        <div class="img-container">
-                                            <img src="${ mediaPrefix }${ product[i].fields.image }" alt="${ product[i].fields.name }">
+                                    <a href="${location}/products/${ product[i].pk }" class="p-2 my-3 mx-auto product-style position-relative d-flex flex-column">                            
+                                        <div class="p-0 d-flex justify-content-center">
+                                            <img class="img-thumbnail" src="${ mediaPrefix }${ product[i].fields.image }" alt="${ product[i].fields.name }">
                                         </div>
-                                        <p class="my-0 py-2 text-center">${ product[i].fields.name }</p>
-                                        <div class="d-flex m-0 py-2 justify-content-between align-items-center">
-                                            <strike class="price pl-2 text-left text-muted">£${ product[i].fields.rrp }</strike>
-                                            <p class="text-right pr-2 price">£${ product[i].fields.price } <i class="fas fa-tags"></i></p>
+                                        <strong class="my-0 py-2 text-center text-black">${ product[i].fields.name }</strong>
+                                        <div class="position-absolute d-flex justify-content-center w-100 p-3">
+                                            <p class="mx-2 d-inline-block bold my-0 text-danger">£${ product[i].fields.price } <i class="fas fa-tags"></i></p>
+                                            <p class="mr-2 d-inline-block bold my-0 text-muted strike-through">£${ product[i].fields.rrp }</p>
                                         </div>
                                     </a>`;
                                 } else {
                                     column = `
-                                        <a href="${location}/products/${ product[i].pk }" class="product p-2 h-100 col-xl-3 col-lg-6 carousel-cell d-flex flex-column align-items-center">                            
-                                            <div class="img-container">
-                                                <img src="${ mediaPrefix }${ product[i].fields.image }" alt="${ product[i].fields.name }">
+                                        <a href="${location}/products/${ product[i].pk }" class="p-2 my-3 mx-auto product-style position-relative d-flex flex-column">                            
+                                            <div class="p-0 d-flex justify-content-center">
+                                                <img class="img-thumbnail" src="${ mediaPrefix }${ product[i].fields.image }" alt="${ product[i].fields.name }">
                                             </div>
-                                            <p class="my-0 py-2">${ product[i].fields.name }</p>
-                                            <p class="my-0 mx-2 text-right py-2 price">£${ product[i].fields.price }</p>
+                                            <strong class="my-0 py-2 d-inline-block text-center text-black">${ product[i].fields.name }</strong>
+                                            <div class="position-absolute w-100 d-flex justify-content-center p-3">
+                                                <p class="mt-2 mb-0 bold text-center d-inline-block text-dark">£${ product[i].fields.price }</p>
+                                            </div>
                                         </a>`;                                              
                                 }
                             $('#product-row').append(column);
-                            }                                  
+                            }                             
                         }                        
                     }                    
             });
