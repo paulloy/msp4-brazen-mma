@@ -94,16 +94,15 @@
                 {% for item in bag_items %}
                     <div class="row-border row mx-auto w-100 py-2">
                         <div class="img-summary col-12 col-md-3 d-flex justify-content-center">
-                            <img class="img-container" src="../media/{{ item.product.image }}"
+                            <img class="img-container" src="{% get_media_prefix %}{{ item.product.image }}"
                                 alt="{{ item.product.name }}">
                         </div>
                         <div class="col-md-6 mt-3 mt-md-0 col-12 d-flex align-items-center justify-content-md-start justify-content-center">
                             <strong class="text-center text-md-left">
                                 {{ item.product.name }}
                                 {% if item.size != 'false' %}
-                                <p class="text-center text-md-left">Size: {{ item.size }}</p>
+                                <span class="text-center text-md-left">Size: {{ item.size }}</span>
                                 {% endif %}
-                                <span class="parse-size d-none">{{ item.size }}</span>
                             </strong>
                         </div>
                         <div class="col-md-1 col-6 d-flex align-items-center justify-content-md-start justify-content-center py-4">QTY: {{ item.qty }}</div>
