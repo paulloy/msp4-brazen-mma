@@ -30,82 +30,78 @@ templates:
 
 ### Validation
 
+#### HTML
+- [bag.html](bag/templates/bag/bag.html)
+    - WARNING: The document is not mappable to XML 1.0 due to two consecutive hyphens in a comment.
+    - 28/03/21: This file is now valid. No errors found.
+
 #### CSS
-
-stylesheets:
  - [bag.css](bag/static/css/bag.css)
-
- - All stylesheets passed validation.
+    - No errors found.
+    - 28/03/21: This file is now valid. No errors found.
 
 #### JS
-
-scripts:
  - [bag.js](bag/static/js/bag.js)
- 
- - One undefined variable: $
- - One unused variable: $displayQuantity
+    - One undefined variable: $
+    - One unused variable: $displayQuantity
+    - 28/03/21: This file is now valid. No errors found.
 
 ## checkout
-
-templates:
- - [Checkout Success](checkout/templates/checkout/checkout_success.html)
- - [Checkout](checkout/templates/checkout/checkout.html)
 
 ### Test events
 
 | ID | Event | Expected Response | Pass / Fail ? |
 | ---- | ----- | --------------- |    :-----:    |
-| 2.01 | Anonymous User can checkout | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass [2] |
+| 2.01 | Anonymous User can checkout | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass [1] |
 | 2.02 | Submit form with empty required fields | Notify user to fill in required fields. | Pass |
 | 2.03 | Submit form with empty payment field | Display error within the card div. | Pass |
 | 2.04 | Submit form with empty optional fields | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass |
 | 2.05 | Submit form with empty optional fields | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass |
 | 2.06 | Submit form as a logged in user. | Display {% url 'checkout_success' <order_id> %} with order confirmation. | Pass |
-| 2.07 | Return to checkout after successful checkout. | Redirect to {% url 'home %} | Pass [2] |
+| 2.07 | Return to checkout after successful checkout. | Redirect to {% url 'home %} | Pass [1] |
 | 2.08 | Checkout with info saved. | Info should be auto filled for next checkout. | Pass |
 | 2.09 | Select login as an anonymous user. | Direct user to {% url 'accounts_login' %} | Pass |
 | 2.10 | Select 'adjust bag' button. | Direct user to {% url 'view_bag' %} | Pass |
 | 2.11 | Select 'view order summary' button. | Toggle the order summary. (For small screen widths where order summary is hidden) | Pass |
-| 2.12 | Access {% url 'checkout' %} by url with an empty bag. | Redirect the user to {% url 'home %} and display an error. | Pass [3] |
-| 2.13 | Access {% url 'checkout_success' %} by url with invalid order ID. | Redirect the user to {% url 'home %} and display an error. | Pass [2] |
+| 2.12 | Access {% url 'checkout' %} by url with an empty bag. | Redirect the user to {% url 'home %} and display an error. | Pass [2] |
+| 2.13 | Access {% url 'checkout_success' %} by url with invalid order ID. | Redirect the user to {% url 'home %} and display an error. | Pass [1] |
 | 2.14 | Access {% url 'cache_checkout_data' %} by url. | Display 405 error. | Pass |
 | 2.15 | Access {% url 'wh' %} by url. | Display 405 error. | Pass |
 | 2.16 | Checkout with Stripe test card number: 4000002500003155. Fail authentication. | Display error within the card div. | Pass |
 
- - [2]: As of commit *7b5923e*, these tests now Pass.
- - [3]: As of commit *2486c93*, this test now Passes.
+ - [1]: As of commit *7b5923e*, these tests now Pass.
+ - [2]: As of commit *2486c93*, this test now Passes.
  - The patch to 2.12 fixed 2.07.
  - The expected response of test 2.14 & 2.15 was incorrect and has been updated. 
 
 ### Validation
 
-#### CSS
+#### HTML
+ - [checkout.html](checkout/templates/checkout/checkout.html)
+    - Element p not allowed as child of element strong in this context.
+    - 28/03/21: This file is now valid. No errors found.
+ - [checkout_success.html](checkout/templates/checkout/checkout_success.html)
+    - No errors found.
 
-stylesheets:
- - [checkout_success.css](checkout/static/css/checkout_success.css)
+#### CSS
  - [checkout.css](checkout/static/css/checkout.css)
- 
- - All stylesheets passed validation.
+    - No errors found.
+ - [checkout_success.css](checkout/static/css/checkout_success.css)
+    - No errors found. 
 
 #### JS
-
-scripts:
- - [bag.js](bag/static/js/bag.js)
- - [stripe-elements.js](bag/static/js/stripe-elements.js)
-
- - bag.js:
+ - [checkout.js](checkout/static/js/checkout.js)
     - One undefined variable: $
-
- - stripe-elements.js
+    - 28/03/21: This file is now valid. No errors found.
+ - [stripe-elements.js](checkout/static/js/stripe-elements.js)
     - Missing semicolon.
     - 'template literal syntax' is only available in ES6 (use 'esversion: 6').
     - undefined variable: $
     - undefined variable: Stripe
+    - 'Stripe' is defined in the Stripe script link in [base.html](templates/base.html)
+    - 28/03/21: This file is now valid. No errors found.
 
-
-templates:
- - [Profile Delivery Info](profiles/templates/profiles/delivery-info.html)
- - [Profile Order History](profiles/templates/profiles/order-history.html)
+## profiles
 
 ### Test events
 
@@ -159,13 +155,13 @@ scripts:
 | 4.09 | Select 'Logout' link. | Direct user to Allauth Sign out page. | Pass |
 | 4.10 | Login as regular user and view #accounts menu. | Display links for order history, update delivery info, and logout. | Pass |
 | 4.11 | Select 'My Shopping Bag' button. | Display #bag-menu | Pass |
-| 4.12 | Open #bag-menu with an empty bag. | Checkout button should be hidden if bag is empty. Message should display that bag is empty. | Fail |
+| 4.12 | Open #bag-menu with an empty bag. | Checkout button should be hidden if bag is empty. Message should display that bag is empty. | Pass[1] |
 | 4.13 | Add a product then view #bag-menu | Added product is displayed in #bag-menu | Pass |
 | 4.14 | Select 'View Bag'. | Direct user to {% url 'view_bag' %} | Pass |
 | 4.15 | Select 'Checkout'. | Direct user to {% url 'checkout' %} | Pass |
 | 4.16 | Select a product image. | Direct user to {% url 'product_details' <product_id> %} | Pass |
 | 4.17 | Select a product name. | Direct user to {% url 'product_details' <product_id> %} | Pass |
-| 4.18 | Adding more products to bag. | Number of products in bag changes. | Fail |
+| 4.18 | Adding more products to bag. | Number of products in bag changes. | Pass[1] |
 | 4.19 | Adding more products to bag. | Sub-total in bag changes. | Pass |
 | 4.20 | Focus on search form input. | Hide #block-content and display a preview of the users search query with ajax request. | Pass |
 | 4.21 | Blur on search form input while mouse is not hovering the #overlay-menu. | Hide #overlay-menu and display #block-content. | Pass |
@@ -200,6 +196,7 @@ scripts:
 | 4.50 | SM: Select Account button while anonymous. | Open #account and display options for logging in or registering. | Pass |
 
 **NOTE**
+- [1]: As of commit *976aebc*, these tests now pass.
 - SM: Base template on small screens. Screen width is less than 992px.
 - All of the "accounts" functionality; registration, login, confirm email, forgot email, etc, are handled by Allauth and pass all manual tests as expected.
 The links I did change within [signup.html](templates/allauth/account/signup.html) and [login.html](templates/allauth/account/login.html) direct to their usual pages. All other
@@ -213,15 +210,18 @@ modifications to these templates were to their style.
 - [base.html](templates/base.html)
     - ERROR: Element form not allowed as child of element span in this context. (Suppressing further errors from this subtree.)
     - ERROR: Bad value for attribute href on element a: Illegal character in query: space is not allowed.
+    - 28/03/21: This file is now valid. No errors found.
 - [base-md.html](templates/includes/base-md.html)
     - WARNING: The document is not mappable to XML 1.0 due to two consecutive hyphens in a comment.
     - ERROR: Bad value for attribute href on element a: Illegal character in query: space is not allowed.
     - ERROR: Duplicate ID product-menu.
+    - 28/03/21: This file is now valid. No errors found.
 
 #### CSS
 
 - [base.css](static/css/base.css)
     - Value Error : color Parse Error (148,201,61)
+    - 28/03/21: This file is now valid. No errors found.
 - [base-md.css](static/css/base-md.css)
     - No errors found.
 
@@ -236,6 +236,7 @@ modifications to these templates were to their style.
 - [toastr-settings.js](static/js/toastr-settings.js)
     - variable 'toastr' undefined.
     - missing semicolon.
+    - 28/03/21: This file is now valid. No errors found.
 - [ajax.js](static/js/ajax.js)
     - variable 'mediaPrefix' undefined.
     - mediaPrefix is defined in [base.html](templates/base.html) with a Django template tag as its value.
