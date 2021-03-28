@@ -63,8 +63,7 @@ class Product(models.Model):
         max_length=20, choices=PRODUCT_TYPE_CHOICES, blank=False, null=False)
     image = models.ImageField(upload_to='product_images/',
                               blank=False, null=False,
-                              default='products/static/ \
-                                  product_img/placeholder.jpg')
+                              default='misc/image-not-found.jpg')
 
     def __str__(self):
         return self.name
