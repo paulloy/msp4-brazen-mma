@@ -22,6 +22,12 @@
 .btn-secondary:hover {
     background-color: #5a5852;
 }
+.btn-purchase {
+    background-color: #febd69 !important;
+}
+.btn-purchase:hover {
+    background-color: #d69f58 !important;
+}
 .bold {
     font-weight: 600;
 }
@@ -308,6 +314,14 @@ a {
     color: rgb(72, 107, 173);
 }
 
+/* Overwrite Toastr opacity */
+.toast {
+  opacity: 1 !important;
+}
+
+#toast-container > div {
+  opacity: 1 !important; 
+}
 
 /* Allauth form Formatting */
 

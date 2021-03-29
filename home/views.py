@@ -11,11 +11,11 @@ def index(request):
     products = Product.objects.all()
 
     products_bjj = random.sample(
-        list(products.filter(category__contains='bjj')), 6)
+        list(products.filter(category__contains='bjj')), 8)
     products_mma = random.sample(
-        list(products.filter(category__contains='mma')), 6)
+        list(products.filter(category__contains='mma')), 8)
     products_muay_thai = random.sample(
-        list(products.filter(category__contains='muay thai')), 6)
+        list(products.filter(category__contains='muay thai')), 8)
 
     context = {
         'products_bjj': products_bjj,

@@ -6,7 +6,6 @@ PRODUCT_CATEGORY_CHOICES = (
     ('bjj', 'BJJ'),
     ('mma', 'MMA'),
     ('muay thai', 'MUAY THAI'),
-    ('equipment', 'EQUIPMENT'),
 )
 
 PRODUCT_TYPE_CHOICES = (
@@ -19,12 +18,6 @@ PRODUCT_TYPE_CHOICES = (
     ('belts', 'BELTS'),
     ('rash guards', 'RASH GUARDS'),
     ('spats', 'SPATS'),
-    ('groin guards', 'GROIN GUARDS'),
-    ('kick shields', 'KICK SHIELDS'),
-    ('belly pads', 'BELLY PADS'),
-    ('punch bags', 'PUNCH BAGS'),
-    ('grappling dummies', 'GRAPPLING DUMMIES'),
-    ('joint support', 'JOINT SUPPORT'),
 )
 
 GENDER_CHOICES = (

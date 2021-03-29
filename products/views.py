@@ -113,7 +113,7 @@ def product_details(request, product_id):
 def add_product(request):
 
     if not request.user.is_superuser:
-        messages.error(request, 'sorry this page is private')
+        messages.error(request, 'Sorry this page is private.')
         return redirect(reverse('home'))
 
     ProductSizesStockFormSet = inlineformset_factory(
@@ -121,21 +121,24 @@ def add_product(request):
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
-        product = form.save()
 
         if form.is_valid():
+            product = form.save()
             formset = ProductSizesStockFormSet(request.POST, instance=product)
 
             if formset.is_valid():
                 formset.save()
 
-                messages.success(request, 'product added')
+                messages.success(request, 'Product added.')
                 return redirect('add_product')
             else:
-                messages.error(request, 'product failed to add')
+                form = ProductForm()
+                formset = ProductSizesStockFormSet()
+                messages.error(request, 'Product failed to add.')
 
         else:
-            messages.error(request, 'product failed to add')
+            formset = ProductSizesStockFormSet()
+            messages.error(request, 'Product failed to add.')
     else:
         form = ProductForm()
         formset = ProductSizesStockFormSet()
@@ -154,7 +157,7 @@ def add_product(request):
 def edit_product(request, product_id):
 
     if not request.user.is_superuser:
-        messages.error(request, 'sorry this page is private')
+        messages.error(request, 'Sorry this page is private.')
         return redirect(reverse('home'))
 
     product = get_object_or_404(Product, pk=product_id)
@@ -171,18 +174,18 @@ def edit_product(request, product_id):
             if formset.is_valid():
                 formset.save()
                 messages.success(
-                    request, f'{product.name} successfully updated')
+                    request, f'{product.name} successfully updated.')
                 return redirect(reverse(
                     'product_details', args=[product.product_id]))
             else:
-                messages.error(request, f'Failed to update {product.name}')
+                messages.error(request, f'Failed to update {product.name}.')
         else:
-            messages.error(request, f'Failed to update {product.name}')
+            messages.error(request, f'Failed to update {product.name}.')
             formset = ProductSizesStockFormSet(instance=product)
     else:
         form = ProductForm(instance=product)
         formset = ProductSizesStockFormSet(instance=product)
-        messages.info(request, f'You are currently editing {product.name}')
+        messages.info(request, f'You are currently editing {product.name}.')
 
     template = 'products/edit_product.html'
     context = {
@@ -198,12 +201,12 @@ def edit_product(request, product_id):
 def delete_product(request, product_id):
 
     if not request.user.is_superuser:
-        messages.error(request, 'sorry this page is private')
+        messages.error(request, 'Sorry this page is private.')
         return redirect(reverse('home'))
 
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
-    messages.success(request, 'Product deleted')
+    messages.success(request, 'Product successfully deleted.')
     return redirect(reverse('products'))
 
 

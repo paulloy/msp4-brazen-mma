@@ -64,7 +64,7 @@ def order_history(request, order_number):
         from_profile = False
 
     messages.info(request, (
-        f'This is a past confirmation for order {order_number}'))
+        f'This is a past confirmation for order {order_number}.'))
 
     template = 'checkout/checkout_success.html'
     context = {

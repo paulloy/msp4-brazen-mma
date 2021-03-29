@@ -41,12 +41,12 @@ def add_to_bag(request, product_id):
     if size == 'false':
         messages.success(
             request, f'<strong>{product.name}</strong> |' +
-            ' Qty: <strong>{quantity}</strong> | added to bag.')
+            f' Qty: <strong>{quantity}</strong> | added to bag.')
     else:
         messages.success(
             request, f'<strong>{product.name}</strong> |' +
-            ' Size: <strong class="text-capitalize">{size}</strong>' +
-            ' | Qty: <strong>{quantity}</strong>\
+            f' Size: <strong class="text-capitalize">{size}</strong>' +
+            f' | Qty: <strong>{quantity}</strong>\
                  | added to bag.')
 
     return redirect(redirect_url)
@@ -85,7 +85,7 @@ def adjust_bag(request, product_id):
     else:
         messages.success(
             request, f'<strong>{product.name}</strong> | Size: ' +
-            '<strong class="text-capitalize">{size}</strong> |' +
+            f'<strong class="text-capitalize">{size}</strong> |' +
             ' quantity updated.')
 
     return redirect(reverse('view_bag'))

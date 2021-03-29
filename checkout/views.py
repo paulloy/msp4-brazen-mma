@@ -89,7 +89,7 @@ def checkout(request):
                             order_line_item.save()
                 except Product.DoesNotExist:
                     messages.error(
-                        request, 'product does not exist in database.')
+                        request, 'Product does not exist in database.')
                     order.delete()
                     return redirect(reverse('view_bag'))
 
@@ -97,7 +97,7 @@ def checkout(request):
             return redirect(reverse(
                 'checkout_success', args=[order.order_number]))
         else:
-            messages.error(request, 'there was an error')
+            messages.error(request, 'Sorry, there was an error.')
 
     else:
         current_bag = bag_contents(request)
