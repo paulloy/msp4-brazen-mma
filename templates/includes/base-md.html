@@ -43,7 +43,7 @@
                 <div class="w-100 d-flex flex-column bg-transparent">
                     <a href="{% url 'product_details' item.product.product_id %}" class="text-left p-0 w-100">{{ item.product.name }}</a>
                     {% if item.size != 'false' %}
-                        <p class="m-0 mt-2 w-100 text-left"><span><em class="mr-1">Size:</em> {{ item.size }}</span></p>
+                        <p class="m-0 mt-2 w-100 text-left"><span><em class="mr-1">Size:</em> <span class="text-uppercase">{{ item.size }}</span></span></p>
                     {% endif %}
                 </div>
                 <div class="text-right w-100 mt-2 d-flex justify-content-between"><span><em class="mr-1">Quantity:</em> {{ item.qty }}</span>£{{ item.product.price }}</div>
@@ -95,7 +95,7 @@
         <ul class="p-0 list-unstyled w-100">
             <li class="m-0 h3 text-center toggle-sub-menu b-bottom">
                 <button class="d-flex align-items-center justify-content-center btn-none text-white nav-item-hover w-100 p-3">BJJ <i class="fas fa-chevron-down i-sm"></i></button>
-                <ul class="list-unstyled mt-3 hide-submenu">
+                <ul class="list-unstyled my-3 hide-submenu">
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=bjj&product_type=gi">Gi</a></li>
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=bjj&product_type=belts">Belts</a></li>
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=bjj&product_type=rash%20guards">Rash Guards</a></li>
@@ -106,7 +106,7 @@
             </li>
             <li class="m-0 h3 text-center toggle-sub-menu b-bottom">
                 <button class="d-flex align-items-center justify-content-center btn-none text-white nav-item-hover w-100 p-3">MMA <i class="fas fa-chevron-down i-sm"></i></button>
-                <ul class="list-unstyled mt-3 hide-submenu">
+                <ul class="list-unstyled my-3 hide-submenu">
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma&product_type=gloves">Gloves</a></li>
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma&product_type=shorts">Shorts</a></li>
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=mma&product_type=handwraps">Handwraps</a></li>
@@ -117,7 +117,7 @@
             </li>
             <li class="m-0 h3 text-center toggle-sub-menu b-bottom">
                 <button class="d-flex align-items-center justify-content-center btn-none text-white nav-item-hover w-100 p-3">Muay Thai <i class="fas fa-chevron-down i-sm"></i></button>
-                <ul class="list-unstyled mt-3 hide-submenu">
+                <ul class="list-unstyled my-3 hide-submenu">
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai&product_type=gloves">Gloves</a></li>
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai&product_type=shorts">Shorts</a></li>
                     <li><a class="text-white d-inline-block w-100 nav-item-size btn p-2 nav-item-hover" href="{% url 'products' %}?category=muay%20thai&product_type=handwraps">Handwraps</a></li>
