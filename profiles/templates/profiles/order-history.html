@@ -30,7 +30,7 @@
                 <p class="m-0">{{ order.date }}</p>
                 <button class="toggle-order-details"><i class="fas fa-chevron-down"></i></button>
             </div>
-            <!-- order-details - Hidden --------------------------------------------------------------->
+            <!-- order-details Hidden -->
             <div class="order-details bg-lightblue p-3 border-bottom">  
                 <div class="bg-white d-flex justify-content-end mb-3 p-2">
                     <a href="{% url 'order_history' order.order_number %}">View Order Summary</a> 
@@ -40,15 +40,14 @@
                 <a href="{% url 'product_details' item.product_id %}">{{ item.product.name }}<br></a>
                 <p class="m-0">
                     {% if item.product_size != 'false' %}
-                        Size: {{ item.product_size }}
+                        Size: <span class="text-uppercase">{{ item.product_size }}</span>
                     {% endif %}
                 </p>
                 <p>Qty: {{ item.quantity }}
                 </p>
             {% endfor %}
                 <p class="text-right bg-white p-2 bold">Grand-total: £{{ order.grand_total }}</p>
-            </div> 
-            <!------------------------------------------------------------------------------------------>           
+            </div>            
         {% endfor %}
         </div>
         {% else %}

@@ -1,13 +1,8 @@
-#block-content {
-    overflow: hidden;
-}
-
 /* Delivery Info */
 
 #delivery-details {
-    height: 100vh;
+    height: auto;
     width: 38rem;
-    overflow-y: scroll;
 }
 #delivery-details input::placeholder {
     color: #aab7c4;
@@ -25,19 +20,6 @@ label {
 #id_default_country option:first-child {
     color: #aab7c4;
 }
-@media only screen and (max-width: 992px) {
-    #delivery-details {
-        height: calc(100vh - 48px);
-    }
-    label {
-        margin-left: 0;
-    }
-}
-@media only screen and (max-width: 640px) {
-    #delivery-details {
-        width: 100%;
-    }
-}
 
 /* Order History */
 
@@ -45,9 +27,8 @@ label {
     border-bottom: 1px solid black;
 }
 #order-history {
-    height: 100vh;
+    height: auto;
     width: 38rem;
-    overflow-y: scroll;
 }
 .order-details {
     display: none;
@@ -62,13 +43,16 @@ span,
 .toggle-order-details {
     border: 1px solid black;
 }
+
+
 @media only screen and (max-width: 992px) {
-    #order-history {
-        height: calc(100vh - 48px);
+    label {
+        margin-left: 0;
     }
 }
 @media only screen and (max-width: 640px) {
-    #order-history {
+    #order-history,
+    #delivery-details {
         width: 100%;
     }
 }

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib import messages
 from .models import UserProfile
 from .forms import UserProfileForm
@@ -49,13 +49,27 @@ def profile_order_history(request):
 def order_history(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
+    if request.user:
+        username = request.user.username
+
+        if str(username) == str(order.user_profile):
+            from_profile = True
+        else:
+            messages.error(
+                request, 'You must login before you can view' +
+                ' your order summary.')
+            return redirect(reverse('account_login'))
+    else:
+        username = None
+        from_profile = False
+
     messages.info(request, (
         f'This is a past confirmation for order {order_number}'))
 
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
-        'from_profile': True,
+        'from_profile': from_profile,
     }
 
     return render(request, template, context)
