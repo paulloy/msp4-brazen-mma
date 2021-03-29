@@ -1,8 +1,6 @@
 from django.test import TestCase
 from products.models import Product
 
-from django.contrib.messages import get_messages
-
 
 class TestViews(TestCase):
     """ test bag/views.py """

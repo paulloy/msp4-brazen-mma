@@ -40,10 +40,13 @@ def add_to_bag(request, product_id):
 
     if size == 'false':
         messages.success(
-            request, f'<strong>{product.name}</strong> | added to bag.')
+            request, f'<strong>{product.name}</strong> |' +
+            ' Qty: <strong>{quantity}</strong> | added to bag.')
     else:
         messages.success(
-            request, f'<strong>{product.name}</strong> | Size: <strong>{size}</strong>\
+            request, f'<strong>{product.name}</strong> |' +
+            ' Size: <strong class="text-capitalize">{size}</strong>' +
+            ' | Qty: <strong>{quantity}</strong>\
                  | added to bag.')
 
     return redirect(redirect_url)
@@ -81,8 +84,9 @@ def adjust_bag(request, product_id):
             request, f'<strong>{product.name}</strong> | quantity updated.')
     else:
         messages.success(
-            request, f'<strong>{product.name}</strong> | Size: \
-                <strong>{size}</strong> | quantity updated.')
+            request, f'<strong>{product.name}</strong> | Size: ' +
+            '<strong class="text-capitalize">{size}</strong> |' +
+            ' quantity updated.')
 
     return redirect(reverse('view_bag'))
 
@@ -116,7 +120,7 @@ def remove_from_bag(request, product_id):
             request, f'<strong>{product.name}</strong> | removed from bag.')
     else:
         messages.success(
-            request, f'<strong>{product.name}</strong> | Size: <strong>\
+            request, f'<strong>{product.name}</strong> | Size: <strong class="text-capitalize">\
                 {size}</strong> | removed from bag.')
 
     request.session['bag'] = bag
