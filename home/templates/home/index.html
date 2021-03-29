@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta_description %}
-    <meta name="Description" content="Brazen MMA home page."/>
+    <meta name="Description" content="Buy Mixed Martial Arts, Brazilian Jiu Jitsu, or Muay Thai gear at Brazen Martial Arts."/>
 {% endblock %}
 
 {% block title %}
@@ -12,15 +12,14 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <!-- flickity -->
+    <!-- https://github.com/metafizzy/flickity -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 {% endblock %}
 
 {% block content %}
 <!-- hero image -->
 <div id="hero-image" class="position-relative">
-    <div id="hero-image-container">
-        <!-- <img src="https://www.verywellfit.com/thmb/rYgOA5OFD9-eca1GmrnS8g4NJis=/3000x2002/filters:no_upscale():max_bytes(150000):strip_icc()/heavy-bag-work-mrbig_photography-58f7d4f75f9b581d5982bd51.jpg" alt=""> -->
-    </div>
+    <div id="hero-image-container"></div>
     <div class="cover"></div>
     <div class="hero-description text-white flex-column d-flex justify-content-center align-items-center">
         <p class="h3 text-center px-3 bold">Welcome to Brazen Martial Arts!</p>
@@ -32,7 +31,7 @@
             <div id="shop-buttons">
                 <a href="{% url 'products' %}?category=bjj" class="mx-3 btn btn-primary">BJJ</a>
                 <a href="{% url 'products' %}?category=mma" class="mx-3 btn btn-primary">MMA</a>
-                <a href="{% url 'products' %}?category=muay thai" class="mx-3 btn btn-primary">Muay Thai</a>
+                <a href="{% url 'products' %}?category=muay%20thai" class="mx-3 btn btn-primary">Muay Thai</a>
             </div>
         </div>
     </div>
@@ -44,43 +43,43 @@
     {% for product in products_bjj %}
         <a href="{% url 'product_details' product.product_id %}" class="p-2 carousel-cell product-style d-flex flex-column">
             <div class="img-container p-0 d-flex justify-content-center">                    
-                <img class="img-thumbnail" src="../media/{{ product.image }}" alt="{{ product.name }}">
+                <img class="img-thumbnail" src="{% get_media_prefix %}{{ product.image }}" alt="{{ product.name }}">
             </div>
             <strong class="my-2 w-100 product-name text-center mb-4">{{ product.name }}</strong>
             <div class="position-absolute">
                 {% if product.sale %}
                     <div class="d-flex my-2">
                         <p class="mx-2 bold my-0 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></p>
-                        <strike class="mr-2 bold my-0 text-muted">£{{ product.rrp }}</strike>
+                        <p class="strike-through mr-2 bold my-0 text-muted">£{{ product.rrp }}</p>
                     </div>
                 {% else %}
                     <p class="my-2 bold text-dark">£{{ product.price }}</p>
                 {% endif %}
             </div>
-            </a>
+        </a>
     {% endfor %}
 </div>
 
 <!-- Muay Thai carousel -->
-<div class="carousel-header w-100 h3 m-0 p-3 d-flex align-items-center justify-content-center"><a class="btn-button text-center" href="{% url 'products' %}?category=muay thai">Muay Thai <i class="far fa-hand-pointer"></i><small class="h6 bold ml-1"> VIEW ALL</small></a></div>
+<div class="carousel-header w-100 h3 m-0 p-3 d-flex align-items-center justify-content-center"><a class="btn-button text-center" href="{% url 'products' %}?category=muay%20thai">Muay Thai <i class="far fa-hand-pointer"></i><small class="h6 bold ml-1"> VIEW ALL</small></a></div>
 <div class="product-row carousel2">    
     {% for product in products_muay_thai %}
         <a href="{% url 'product_details' product.product_id %}" class="p-2 carousel-cell product-style d-flex flex-column">
             <div class="img-container p-0 d-flex justify-content-center">                    
-                <img class="img-thumbnail" src="../media/{{ product.image }}" alt="{{ product.name }}">
+                <img class="img-thumbnail" src="{% get_media_prefix %}{{ product.image }}" alt="{{ product.name }}">
             </div>
             <strong class="my-2 w-100 product-name text-center mb-4">{{ product.name }}</strong>
             <div class="position-absolute">
                 {% if product.sale %}
                     <div class="d-flex my-2">
                         <p class="mx-2 bold my-0 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></p>
-                        <strike class="mr-2 bold my-0 text-muted">£{{ product.rrp }}</strike>
+                        <p class="strike-through mr-2 bold my-0 text-muted">£{{ product.rrp }}</p>
                     </div>
                 {% else %}
                     <p class="my-2 bold text-dark">£{{ product.price }}</p>
                 {% endif %}
             </div>
-            </a>
+        </a>
     {% endfor %}
 </div>
 
@@ -90,14 +89,14 @@
     {% for product in products_mma %}
         <a href="{% url 'product_details' product.product_id %}" class="p-2 carousel-cell product-style d-flex flex-column">
             <div class="img-container p-0 d-flex justify-content-center">                    
-                <img class="img-thumbnail" src="../media/{{ product.image }}" alt="{{ product.name }}">
+                <img class="img-thumbnail" src="{% get_media_prefix %}{{ product.image }}" alt="{{ product.name }}">
             </div>
             <strong class="my-2 w-100 product-name text-center mb-4">{{ product.name }}</strong>
             <div class="position-absolute">
                 {% if product.sale %}
                     <div class="d-flex my-2">
                         <p class="mx-2 bold my-0 text-danger">£{{ product.price }} <i class="fas fa-tags"></i></p>
-                        <strike class="mr-2 bold my-0 text-muted">£{{ product.rrp }}</strike>
+                        <p class="strike-through mr-2 bold my-0 text-muted">£{{ product.rrp }}</p>
                     </div>
                 {% else %}
                     <p class="my-2 bold text-dark">£{{ product.price }}</p>
@@ -111,9 +110,7 @@
 
 {% block js %}
     <script src="{% static 'js/index.js' %}"></script>
-
     <!-- flickity -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
     <script src="{% static 'js/flickity.js' %}"></script>
 {% endblock %}

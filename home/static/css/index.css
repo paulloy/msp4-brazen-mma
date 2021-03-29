@@ -2,6 +2,7 @@
 .carousel-cell {
     display: flex;
     flex-direction: column;
+    min-width: 20rem;
 }
 .img-container {
     width: 12.5rem;
