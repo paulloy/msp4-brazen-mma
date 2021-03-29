@@ -130,7 +130,10 @@
 | 3.10 | With no delivery info saved, place an order at the checkout and select 'save this delivery information' checkbox. | Default Delivery Info should now be autofilled upon returning to {% url 'profile_delivery_info %}. | Pass |
 | 3.11 | Navigate to {% url 'profile_order_history' %} while not logged in. | Direct user to log in page. | Pass |
 | 3.12 | Navigate to {% url 'profile_delivery_info' %} while not logged in. | Direct user to log in page. | Pass |
-| 3.13 | Navigate to {% url 'order_history' <order_numer> %} while not logged in. | Direct user to log in page. | Fail |
+| 3.13 | Navigate to {% url 'order_history' <order_numer> %} while not logged in. | Direct user to log in page. | Pass[1] |
+
+**NOTES**
+- As of commit *6b03dc8* this test now passes.
 
 ### Validation
 
@@ -387,3 +390,24 @@ modifications to these templates were to their style.
     - One undefined variable 'Flickity'.
     - This variable is defined in the flickity script in [base.html](templates/base.html)
 
+## Responsive Design
+
+Google Chrome Developer tools were used throughout the development to test the responsive design of the project. The deployed website is fully responsive from 320px to 3840px.
+
+The responsive design was also tested at [Am I Responsive?](http://ami.responsivedesign.is/)
+
+## Lighthouse
+
+I used Lighthouse in Chrome Developer Tools to test my website performance, accessiblity, best practices, and SEO.
+
+ - ### Total Score
+ - ![lighthouse1](README_media/lighthouse/lighthouse1.png)
+ - ### Performance
+ - ![lighthouse2](README_media/lighthouse/lighthouse2.png)
+ - ![lighthouse3](README_media/lighthouse/lighthouse3.png)
+ - ### Accessibility
+ - ![lighthouse4](README_media/lighthouse/lighthouse4.png)
+ - ### Best Practices
+ - ![lighthouse5](README_media/lighthouse/lighthouse5.png)
+ - ### SEO
+ - ![lighthouse6](README_media/lighthouse/lighthouse6.png)
