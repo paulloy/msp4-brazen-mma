@@ -178,6 +178,7 @@ def edit_product(request, product_id):
                 messages.error(request, f'Failed to update {product.name}')
         else:
             messages.error(request, f'Failed to update {product.name}')
+            formset = ProductSizesStockFormSet(instance=product)
     else:
         form = ProductForm(instance=product)
         formset = ProductSizesStockFormSet(instance=product)

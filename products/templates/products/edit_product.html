@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta_description %}
-    <meta name="Description" content="Update product page"/>
+    <meta name="Description" content="Product management. Update product details."/>
 {% endblock %}
 
 {% block title %}
@@ -18,10 +18,11 @@
 <div id="product-management" class="mx-auto">
     <h2 class="text-center bold p-3 m-0">Product Management</h2>
     <h5 class="text-center bold p-3 m-0">UPDATE PRODUCT</h5>
-    <form class="d-flex flex-column w-100 p-md-5 p-2" method="POST" action="{% url 'edit_product' product.product_id %}" enctype="multipart/form-data">
+    <form id="product-form" class="d-flex flex-column w-100 p-md-5 p-2" method="POST" action="{% url 'edit_product' product.product_id %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}             
-        <div id="inline-form" class="d-flex flex-column">   
+        <div id="inline-form" class="d-flex flex-column">  
+            <ol id="error-list" class="text-danger pb-3 px-3 d-flex flex-column"></ol> 
             {{ formset.management_form }}
             {% for inlineform in formset %}
             <div class="d-flex justify-content-around align-items-center">
@@ -30,7 +31,8 @@
             {% endfor %}
         </div>
         <div class="border-top pt-3">
-            <button id="add-new-product-submit" class="btn my-3 w-100 btn-primary" type="submit">Update Product</button>
+            <button id="add-new-product-submit" class="btn my-3 w-100 btn-primary" type="submit" disabled>Update Product</button>
+            <a class="btn my-3 w-100 btn-secondary" href="{% url 'product_details' product.product_id %}">Return to Product Page</a>
         </div>
     </form>
 </div>
