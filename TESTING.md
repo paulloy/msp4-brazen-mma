@@ -299,6 +299,12 @@ modifications to these templates were to their style.
 | 5.30 | Select a quantity other than the default. | Product should be in bag now and a toast appears telling the user the name and size of the product added to the bag. | Pass |
 | 5.31 | Submit the 'add product' form. | Toast should appear informing the user of the success of this action. New product should be avaible on store now. | Pass |
 | 5.32 | Submit the 'update product' form. | User should be redirected to the products page again with the updated information displayed and a success toast. | Pass |
+| 5.33 | Submit product with size 'false' and another size selected. | Form should not submit, display error to user. | Fail |
+| 5.34 | Cancel product update by selecting cancel button. | Direct the user back to the products page. | Fail |
+| 5.35 | Submit add or update product form with duplicate sizes. | Do not submit form. Display error. | Fail |
+| 5.36 | Submit form with with no sizes added | Do not submit form. Display error. | Fail |
+| 5.35 | Submit form with size selected but no stock added. | Do not submit form. Display error. | Fail |
+| 5.35 | Submit form with stock added by no size (or 'false') selected. | Do not submit form. Display error. | Fail |
 
 ### Validation
 
