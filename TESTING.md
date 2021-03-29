@@ -23,11 +23,11 @@
 | 1.15 | Access bag/adjust/<product_id> by direct url input for a product that is not in the bag. | Redirect to {% url 'home %} and display error toast. | Pass [1] |
 | 1.16 | Bag is empty. | Display message that bag is currently empty. Hide Checkout button. | Pass |
 
+**NOTES**
  - [1]: As of commit *695f495*, these tests now Pass.
 
 ### Python Testing
-
-- [views.py](bag/test_views.py)
+- [test_views.py](bag/test_views.py)
 
 ### Validation
 
@@ -70,6 +70,7 @@
 | 2.15 | Access {% url 'wh' %} by url. | Display 405 error. | Pass |
 | 2.16 | Checkout with Stripe test card number: 4000002500003155. Fail authentication. | Display error within the card div. | Pass |
 
+**NOTES**
  - [1]: As of commit *7b5923e*, these tests now Pass.
  - [2]: As of commit *2486c93*, this test now Passes.
  - The patch to 2.12 fixed 2.07.
@@ -127,27 +128,26 @@
 | 3.08 | Navigate to {% url 'profile_order_history' %} after updating default delivery info. | All the same orders should be displayed to the user. | Pass |
 | 3.09 | Navigate to {% url 'checkout' %} after updating default delivery info. | Only the filled in fields should be automatically filled on the checkout form. | Pass |
 | 3.10 | With no delivery info saved, place an order at the checkout and select 'save this delivery information' checkbox. | Default Delivery Info should now be autofilled upon returning to {% url 'profile_delivery_info %}. | Pass |
+| 3.11 | Navigate to {% url 'profile_order_history' %} while not logged in. | Direct user to log in page. | Pass |
+| 3.12 | Navigate to {% url 'profile_delivery_info' %} while not logged in. | Direct user to log in page. | Pass |
+| 3.13 | Navigate to {% url 'order_history' <order_numer> %} while not logged in. | Direct user to log in page. | Fail |
 
 ### Validation
 
 #### Python
  - All python was validated according to PEP8 standards.
 
-#### CSS
+#### HTML
+ - [order-history.html](profiles/templates/profiles/order-history.html)
+    - WARNING: The document is not mappable to XML 1.0 due to two consecutive hyphens in a comment.
 
-stylesheets:
+#### CSS
  - [profile.css](profiles/static/css/profile.css)
- 
- - All stylesheets passed validation.
+    - No errors found.
 
 #### JS
-
-scripts:
  - [profile.js](profiles/static/js/profile.js)
-
-- 'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
-- Unnecessary semicolon.
-- undefined variable: $
+    - No errors found.
 
 ---
 
@@ -217,9 +217,6 @@ modifications to these templates were to their style.
 - Emails are successfully received, and links to the website work.
 
 ### Validation
-
-#### Python
- - All python was validated according to PEP8 standards.
 
 #### HTML
 
@@ -299,12 +296,25 @@ modifications to these templates were to their style.
 | 5.30 | Select a quantity other than the default. | Product should be in bag now and a toast appears telling the user the name and size of the product added to the bag. | Pass |
 | 5.31 | Submit the 'add product' form. | Toast should appear informing the user of the success of this action. New product should be avaible on store now. | Pass |
 | 5.32 | Submit the 'update product' form. | User should be redirected to the products page again with the updated information displayed and a success toast. | Pass |
-| 5.33 | Submit product with size 'false' and another size selected. | Form should not submit, display error to user. | Fail |
-| 5.34 | Cancel product update by selecting cancel button. | Direct the user back to the products page. | Fail |
-| 5.35 | Submit add or update product form with duplicate sizes. | Do not submit form. Display error. | Fail |
-| 5.36 | Submit form with with no sizes added | Do not submit form. Display error. | Fail |
-| 5.35 | Submit form with size selected but no stock added. | Do not submit form. Display error. | Fail |
-| 5.35 | Submit form with stock added by no size (or 'false') selected. | Do not submit form. Display error. | Fail |
+| 5.33 | Submit product with size 'false' and another size selected. | Form should not submit, display error to user. | Pass[1] |
+| 5.34 | Cancel product update by selecting cancel button. | Direct the user back to the products page. | Pass[1] |
+| 5.35 | Submit add or update product form with duplicate sizes. | Do not submit form. Display error. | Pass[1] |
+| 5.36 | Submit form with with no sizes added | Do not submit form. Display error. | Pass[1] |
+| 5.37 | Submit form with size selected but no stock added. | Do not submit form. Display error. | Pass[1] |
+| 5.38 | Submit form with stock added by no size (or 'false') selected. | Do not submit form. Display error. | Pass[1] |
+| 5.39 | Access Product management add product by url while not logged in. | Direct the user to log in page. | Pass |
+| 5.40 | Access Product management edit product by url while not logged in. | Direct the user to log in page. | Pass |
+| 5.41 | Access Product management delete product by url while not logged in. | Direct the user to log in page. | Pass |
+| 5.42 | Access Product management add product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error messsage. | Pass |
+| 5.43 | Access Product management edit product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error messsage. | Pass |
+| 5.44 | Access Product management delete product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error messsage. | Pass |
+
+**NOTES**
+- [1] As of commit *ce213e7* these tests now pass.
+
+### Python Testing
+- [test_views.py](products/test_views.py)
+- [test_models.py](products/test_models.py)
 
 ### Validation
 
@@ -341,3 +351,39 @@ modifications to these templates were to their style.
     - No errors found.
 - [product-management.js](products/static/js/product-management.js)
     - No errors found.
+
+
+## home
+
+### Test Events
+
+| ID | Event | Expected Response | Pass / Fail ? |
+| ---- | ----- | --------------- |    :-----:    |
+| 6.01 | Reload page a few times. | Each carousel displays 6 random prodcuts of each category. | Pass |
+| 6.02 | Select 'Brazilian Jiu Jitsu View All'. | Direct user to {% url 'products' %}?category=bjj | Pass |
+| 6.03 | Select 'Muay Thai View All'. | Direct user to {% url 'products' %}?category=muay%20thai | Pass |
+| 6.04 | Select 'Mixed Martial Arts View All'. | Direct user to {% url 'products' %}?category=mma | Pass |
+| 6.05 | Select 'BJJ' shop now button. | Direct user to {% url 'products' %}?category=bjj | Pass |
+| 6.06 | Select 'MMA' shop now button. | Direct user to {% url 'products' %}?category=mma | Pass |
+| 6.07 | Select 'Muay Thai' shop now button. | Direct user to {% url 'products' %}?category=muay%20thai | Pass |
+| 6.08 | Select a product from the carousel. | Direct user to {% url 'product_details' <product_id> %} | Pass |
+
+### Python Testing
+- [test_views.py](home/test_views.py)
+
+### HTML
+- [index.html](home/templates/home/index.html)
+    - ERROR: Bad value for attribute href on element a: Illegal character in query: space is not allowed.
+    - ERROR: The strike element is obsolete. Use CSS instead.
+
+### CSS
+- [index.css](home/static/css/index.css)
+    - No errors found.
+
+### JavaScript
+ - [index.js](home/static/js/index.js)
+    - No errors found.
+- [flickity.js](home/static/js/flickity.js)
+    - One undefined variable 'Flickity'.
+    - This variable is defined in the flickity script in [base.html](templates/base.html)
+
