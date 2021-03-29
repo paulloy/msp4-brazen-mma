@@ -2,9 +2,8 @@
 .w-80 {
     width: 80%;
 }
-#order-details,
-#anonymous-user {
-    background-color: rgba(255, 255, 255, 0.8);
+#order-details {
+    background-color: rgba(255, 255, 255, 0.9);
 }
 h5 {
     font-weight: 600;
@@ -14,6 +13,10 @@ div {
 }
 .word-wrap {
     word-wrap: break-word;
+}
+#return {
+    display: inline-block;
+    width: 15rem;
 }
 
 @media only screen and (max-width: 1200px) {

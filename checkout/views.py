@@ -1,5 +1,5 @@
 from django.shortcuts import (render, redirect, reverse,
-                              get_object_or_404, HttpResponse)
+                              HttpResponse)
 from django.contrib import messages
 from django.conf import settings
 from django.views.decorators.http import require_POST
@@ -100,10 +100,6 @@ def checkout(request):
             messages.error(request, 'there was an error')
 
     else:
-        bag = request.session.get('bag', {})
-        if not bag:
-            messages.error(request, 'Your bag is currently empty.')
-
         current_bag = bag_contents(request)
         total = current_bag['total'] + settings.DEFAULT_DELIVERY_CHARGE
         stripe_total = round(total * 100)
