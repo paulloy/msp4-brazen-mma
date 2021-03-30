@@ -21,7 +21,7 @@ def cache_checkout_data(request):
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
-            'bag': json.dumps(request.session.get('bag')),
+            'bag': json.dumps(request.session.get('bag', {})),
             'save_info': request.POST.get('save_info'),
             'username': request.user,
         })
@@ -71,22 +71,15 @@ def checkout(request):
             for product_id, item_data in bag.items():
                 try:
                     product = Product.objects.get(product_id=product_id)
-                    if isinstance(item_data, int):
+                    for size, qty in item_data['product_size'].items():
                         order_line_item = OrderLineItem(
                             order=order,
                             product=product,
-                            quantity=item_data,
+                            quantity=qty,
+                            product_size=size,
                         )
                         order_line_item.save()
-                    else:
-                        for size, qty in item_data['product_size'].items():
-                            order_line_item = OrderLineItem(
-                                order=order,
-                                product=product,
-                                quantity=qty,
-                                product_size=size,
-                            )
-                            order_line_item.save()
+
                 except Product.DoesNotExist:
                     messages.error(
                         request, 'Product does not exist in database.')
@@ -97,7 +90,7 @@ def checkout(request):
             return redirect(reverse(
                 'checkout_success', args=[order.order_number]))
         else:
-            messages.error(request, 'Sorry, there was an error.')
+            messages.error(request, 'Sorry, your form is invalid.')
 
     else:
         current_bag = bag_contents(request)
