@@ -44,7 +44,7 @@
                 <div class="w-100 d-flex my-1">
                     <!-- get sizes in -->
                     <div class="w-50">
-                        <p>{{ item.product.name }}<br> Size: <span class="text-uppercase">{{ item.product_size }}</span><br>Qty: <span>{{ item.quantity }}</span></p>
+                        <p>{{ item.product.name }}{% if item.product_size != 'false' %}<br> Size: <span class="text-uppercase">{{ item.product_size }}{% endif %}</span><br>Qty: <span>{{ item.quantity }}</span></p>
                         
                     </div>
                     <div class="w-50 text-right">
@@ -67,22 +67,28 @@
                     <div class="w-50">Address 1</div>
                     <div class="w-50 text-right">{{ order.street_address1 }}</div>
                 </div>
+                {% if order.street_address2 != None %}
                 <div class="w-100 d-flex my-1">
                     <div class="w-50">Address 2</div>
                     <div class="w-50 text-right">{{ order.street_address2 }}</div>
                 </div>
+                {% endif %}
+                {% if order.county != None %}
                 <div class="w-100 d-flex my-1">
                     <div class="w-50">County</div>
                     <div class="w-50 text-right">{{ order.county }}</div>
                 </div>
+                {% endif %}
                 <div class="w-100 d-flex my-1">
                     <div class="w-50">Town/City</div>
                     <div class="w-50 text-right">{{ order.town_or_city }}</div>
                 </div>
+                {% if order.postcode != None %}
                 <div class="w-100 d-flex my-1">
                     <div class="w-50">Postcode</div>
                     <div class="w-50 text-right">{{ order.postcode }}</div>
                 </div>
+                {% endif %}
                 <div class="w-100 d-flex my-1">
                     <div class="w-50">Country</div>
                     <div class="w-50 text-right">{{ order.country }}</div>
