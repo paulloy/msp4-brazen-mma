@@ -74,7 +74,7 @@ $q.on('input', function() {
                                 column = `
                                     <a href="${location}/products/${ product[i].pk }" class="p-2 my-3 mx-auto product-style position-relative d-flex flex-column">                            
                                         <div class="p-0 d-flex justify-content-center">
-                                            <img class="img-thumbnail" src="${ mediaPrefix }${ product[i].fields.image }" alt="${ product[i].fields.name }">
+                                            <img class="img-thumbnail img-scale-down" src="${ mediaPrefix }${ product[i].fields.image }" alt="${ product[i].fields.name }">
                                         </div>
                                         <strong class="my-0 py-2 text-center text-black">${ product[i].fields.name }</strong>
                                         <div class="position-absolute d-flex justify-content-center w-100 p-3">
@@ -86,7 +86,7 @@ $q.on('input', function() {
                                     column = `
                                         <a href="${location}/products/${ product[i].pk }" class="p-2 my-3 mx-auto product-style position-relative d-flex flex-column">                            
                                             <div class="p-0 d-flex justify-content-center">
-                                                <img class="img-thumbnail" src="${ mediaPrefix }${ product[i].fields.image }" alt="${ product[i].fields.name }">
+                                                <img class="img-thumbnail img-scale-down" src="${ mediaPrefix }${ product[i].fields.image }" alt="${ product[i].fields.name }">
                                             </div>
                                             <strong class="my-0 py-2 d-inline-block text-center text-black">${ product[i].fields.name }</strong>
                                             <div class="position-absolute w-100 d-flex justify-content-center p-3">

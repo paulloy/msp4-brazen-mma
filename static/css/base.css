@@ -10,6 +10,9 @@
     height: 2.5rem;
     width: 15rem;
 }
+.img-scale-down {
+    object-fit: scale-down;
+}
 .btn-danger {
     background-color: #d23430;
 }
