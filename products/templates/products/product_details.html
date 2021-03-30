@@ -126,7 +126,15 @@
                 <input id="size_input" type="hidden" name="size" value="false">                    
             </div>
             <div class="px-3">
-                <button id="add-to-bag-submit" type="submit" class="my-3 btn btn-primary w-100">Add to bag <i class="fas fa-shopping-bag"></i></button>
+                {% if has_sizes == False %}
+                    {% if no_stock == True %}
+                        <button id="add-to-bag-submit" type="submit" class="my-3 btn btn-primary w-100" disabled>OUT OF STOCK</i></button>
+                    {% else %}
+                        <button id="add-to-bag-submit" type="submit" class="my-3 btn btn-primary w-100">Add to bag <i class="fas fa-shopping-bag"></i></button>
+                    {% endif %}
+                {% else %}
+                    <button id="add-to-bag-submit" type="submit" class="my-3 btn btn-primary w-100">Add to bag <i class="fas fa-shopping-bag"></i></button>
+                {% endif %}                    
             </div>
         </form>       
     </div>
