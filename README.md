@@ -285,12 +285,13 @@ My wireframes were developed using [JustInMind](https://www.justinmind.com/?utm_
 - [Heroku](https://www.heroku.com/) - Used to deploy my live website.
 - [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql) - Used to store my database.
 - [Stripe](https://stripe.com/gb?utm_campaign=paid_brand-UK_en_Search_Brand_Stripe-2032860449&utm_medium=cpc&utm_source=google&ad_content=355351450259&utm_term=stripe&utm_matchtype=e&utm_adposition=&utm_device=c&gclid=Cj0KCQjw9YWDBhDyARIsADt6sGa0SXRpd16FfP8t-rfKZR8WthMn32xRCTgIhTPIPWMktdJvNODppUIaAlXbEALw_wcB) - Used for secure card payment.
-- [Amazon Web Services](https://aws.amazon.com/) - Used to store my static and media files.
+- [Amazon Web Services S3](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Categories=categories%23storage&trk=ps_a134p000006gB41AAE&trkCampaign=acq_paid_search_brand&sc_channel=PS&sc_campaign=acquisition_GB&sc_publisher=Google&sc_category=Storage&sc_country=GB&sc_geo=EMEA&sc_outcome=acq&sc_detail=aws%20s3&sc_content=S3_e&sc_matchtype=e&sc_segment=474715198033&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|Storage|S3|GB|EN|Text&s_kwcid=AL!4422!3!474715198033!e!!g!!aws%20s3&ef_id=Cj0KCQjwmIuDBhDXARIsAFITC_6U1FNtx6V72D0gASj7APTZkEppd-zDhS63T-m-aJ9Bw1gYn_gi7vcaArEqEALw_wcB:G:s&s_kwcid=AL!4422!3!474715198033!e!!g!!aws%20s3) - Used to store my static and media files.
 - [Flickity](https://flickity.metafizzy.co/) - Used for creating carousels
 - [Toastr](https://github.com/CodeSeven/toastr) - Used for displaying message toasts.
 - [Bootstrap](https://getbootstrap.com/) - Used for creating dropdown menus, grids, and styling.
 - [Font Awesome](https://fontawesome.com/) - Used for displaying icons within buttons primarily.
 - [Python module requirements installed with PIP3](requirements.txt) - Features used for the backend.
+- [Gmail](https://mail.google.com/) - Used to send emails.
 
 
 
@@ -299,6 +300,129 @@ My wireframes were developed using [JustInMind](https://www.justinmind.com/?utm_
 [View Tests](TESTING.md)
 
 ## Deployment
+
+My project was deployed to [Heroku](https://www.heroku.com/) with my static and media files stored on [Amazon Web Services S3](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Categories=categories%23storage&trk=ps_a134p000006gB41AAE&trkCampaign=acq_paid_search_brand&sc_channel=PS&sc_campaign=acquisition_GB&sc_publisher=Google&sc_category=Storage&sc_country=GB&sc_geo=EMEA&sc_outcome=acq&sc_detail=aws%20s3&sc_content=S3_e&sc_matchtype=e&sc_segment=474715198033&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|Storage|S3|GB|EN|Text&s_kwcid=AL!4422!3!474715198033!e!!g!!aws%20s3&ef_id=Cj0KCQjwmIuDBhDXARIsAFITC_6U1FNtx6V72D0gASj7APTZkEppd-zDhS63T-m-aJ9Bw1gYn_gi7vcaArEqEALw_wcB:G:s&s_kwcid=AL!4422!3!474715198033!e!!g!!aws%20s3).
+
+You can view my deployed project at [https://brazenmartialarts.herokuapp.com/](https://brazenmartialarts.herokuapp.com/)
+
+### Live Deployment
+
+#### Heroku Deployment
+
+1. Login/Register to Heroku. From your dashboard, select "New" then "Create new app" from the dropdown menu.
+1. Name your app and choose the region closest to you. Select "Create app".
+1. On your dashboard select the "Resources" tab. Here you can search for "Heroku Postgres" and select it as an add-on.
+1. Login to Heroku from your terminal with:
+    - `heroku login`
+    - Alternatively, if this fails, you can use `heroku login -i`
+1. If you have not followed the steps for [Local Deployment](#local-deployment), then the python modules "dj_database_url" and "psycopg2" need to be installed.
+Enter the following into your terminal to install these.
+    - `pip3 install dj_database_url`
+    - `pip3 install psycopg2`
+1. So Heroku knows what modules to install, save your installed modules in a requirements.txt file by entering the following into the terminal:
+    - `pip3 freeze > requirements.txt`
+1. In your settings.py file, import dj_database_url by adding the following to your files head.
+    - `import dj_database_url`
+1. Replace the default SQLite "DATABASES" configuration with:
+    - `DATABASES = {'default': dj_database_url.parse(os.environ.get('<DATABASE_URL>'))}`
+    - Where <DATABASE_URL> is the url of your database.
+    - Your database url can be obtained by going to the "settings" tab within your Heroku dashboard. It will be saved as a config variable after you added Heroku Postgres to your app. Alternatively,
+    enter `heroku config` into your teminal to reveal your config vars.
+    - It is advised to keep your database url private by adding it to an env.py file.
+1. Apply migrations to your new database configuration with:
+    - `python3 manage.py makemigrations`
+    - `python3 manage.py migrate`
+    - `heroku run python3 manage.py makemigrations`
+    - `heroku run python3 manage.py migrate`
+1. Create a superuser in your terminal with:
+    - `python3 manage.py createsuperuser`
+1. In the "settings" tab of your Heroku dashboard, select "Reveal config vars". The following config vars are used in this project.
+
+    | Key | Value |
+    | ----- | ----- |
+    | AWS_ACCESS_KEY_ID | Obtained from AWS |
+    | AWS_SECRET_ACCESS_KEY | Obtained from AWS |
+    | DATABASE_URL | Added automatically when Heroku Postgres is added to your app |
+    | EMAIL_HOST_PASS | Your Gmail host password |
+    | EMAIL_HOST_USER | Your Gmail email |
+    | SECRET_KEY | Your Django secret key |
+    | STRIPE_PUBLIC_KEY | Obtained from Stripe |
+    | STRIPE_WH_SECRET | Obtained from Stripe |
+    | USE_AWS | True |
+1. Create a Procfile by first installing "gunicorn" with:
+    - `pip3 install gunicorn`
+1. After installation is complete, create a "Procfile" and add the following:
+    - `web: gunicorn <APP_NAME>.wsgi:application`
+    - Where <APP_NAME> is the name of your folder that contains your settings.py file.
+1. Temporarily disable the collection of static files before deploying to Heroku. Static files will be
+saved to AWS S3. Add "DISABLE_COLLECTSTATIC" with a value of "1" to your config variables. This can be deleted after
+deploying the Heroku is complete.
+1. In your settings.py add `['<HEROKU_APP_NAME>.herokuapp.com', 'localhost']` to ALLOWED_HOSTS.
+    - Where <HEROKU_APP_NAME> is your Heroku app name.
+1. Commit your changes and push to Github.
+1. Initialise your Heroku git remote with the following in your terminal:
+    - `heroku git:remote -a <HEROKU_NAPP_NAME>`
+    - Where <HEROKU_APP_NAME> is your heroku app name.
+1. Finally push to Heroku with the following in your terminal:
+    - `git push heroku master`
+1. Automatic deployments can be enabled from the "deploy" tab within your Heroku dashboard so everything you push your code to Github, it will be pushed to Heroku also.
+
+#### Adding Static and Media files to AWS
+
+1. Login/register to Amazon Web Services (AWS) so you can save your static and media files to its S3 cloud storage.
+1. Open the AWS management console within "account". Go to "services" and search for "S3".
+1. Create a new bucket within S3.
+1. Name your bucket and select the region closest to you.
+1. Uncheck "block all public access" so that your bucket will be public. Confirm then create your bucket.
+1. Open your new bucket and navigate to "settings".
+1. Navigate to the "properties" tab and enable static website hosting.
+1. Within the "permission" tab, paste in the following CORS Configuration:
+    - `[{"AllowedHeaders": ["Authorization"], "AllowedMethods": ["GET"], "AllowedOrigins": ["*"], "ExposeHeaders": []}]`
+1. Within the "Bucket Policy" tab, select "policy generator"
+    - Set policy type to "s3 bucket policy".
+    - Allow all principles by setting its value as *
+    - The "Actions" is "GetObject".
+    - Add in your ARN, this can be found in the "Bucket Policy" tab within the "Permissions" tab of your bucket.
+    - Select "Add statement" then "Generate Policy".
+    - Copy the policy and paste it into the bucket policy editor.
+    - add "/*" (without quote marks) to the end of your "resource" key then save.
+    - In the "Access Control List" set the list objects permission to everyone.
+1. Within "services" on your AWS management console, search for "IAM".
+    - Go to "groups" within the IAM dashboard then "Create new group".
+    - Skip policies and continue until the group is created. 
+    - Navigate to "Policies" within the dashboard then "create policy".
+    - Select the JSON tab then "import managed policy".
+    - Import "AmazonS3FullAccess".
+    - Delete the Resource key value and replace it with:
+        - `["<ARN>", "<ARN>/*"]`
+        - Where ARN is your ARN.
+    - Select "Review policy", then name and describe your policy. Select "Create Policy".
+    - Return to "Groups", select your group then "Attach policy" and attach the policy you just created.
+    - Navigate to the "Users" tab within the IAM dashboard and add a user.
+    - Give your user a name and programmatic access.
+    - Select your bucket with your attached policy.
+    - Download the .CSV file. Store this file somewhere safe as it cannot be downloaded again.
+1. In your terminal install boto3 and django-storages with:
+    - `pip3 install boto3`
+    - `pip3 install django-storages`
+1. Freeze these modules in your terminal with:
+    - `pip3 freeze > requirements.txt`
+1. Add "storages" to your list of INSTALLED_APPS in settings.py
+1. Add the following to your settings.py file to connect to S3:
+    - ![deploy1](README_media/misc/deploy1.png)
+    - Where USE_AWS is True in your Heroku config vars. So only your Heroku app has access to S3.
+    - Where <BUCKET_NAME> and <REGION_NAME> are your bucket name and region name respectively.
+    - Where AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are the values from your .CSV file.
+    - Add the values of your .CSV file as config variables within Heroku.
+    - Delete your DISABLE_COLLECTSTATIC config var as static files will be added to S3 now.
+1. Add the following below AWS_SECRET_ACCESS_KEY within settings.py:
+    - `AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'`
+1. Create a file called "custom_storages.py" and add the following:
+    - ![deploy2](README_media/misc/deploy2.png)
+1. Beneath your bucket configuration in settings.py add the following:
+    - ![deploy3](README_media/misc/deploy3.png)
+1. Commit and push your changes. Use `git push heroku master` in your terminal if you do not have automatic deployment enabled on Heroku.
+1. Your Heroku app should now be saving static and media files to S3.  
 
 ### Local Deployment
 
