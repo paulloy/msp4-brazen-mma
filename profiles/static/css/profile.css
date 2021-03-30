@@ -33,10 +33,7 @@ label {
 .order-details {
     display: none;
 }
-span,
-.bold {
-    font-weight: 600;
-}
+
 .bg-lightblue {
     background-color: rgba(0, 0, 0, 0.05);
 }
