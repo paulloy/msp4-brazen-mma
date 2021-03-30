@@ -15,6 +15,9 @@
     height: 100%;
     object-fit: scale-down;
 }
+.flickity-prev-next-button {
+    border: 2px solid black !important;
+}
    
 .product p,
 .product div {
@@ -92,7 +95,7 @@
     min-height: 100vh;
 }
 #hero-image {
-    max-height: 50vh;
+    height: 50vh;
 }
 .product-style {
     background-color: whitesmoke;
@@ -141,7 +144,10 @@
 @media only screen and (max-width: 540px) { 
     .carousel-header {
         font-size: 1rem !important;
-    }        
+    }  
+    #hero-image {    
+        height: 70vh;
+    }      
 }
  #header-md {
     height: 3rem;
