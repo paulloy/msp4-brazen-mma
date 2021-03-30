@@ -36,9 +36,6 @@
 h2 {
     background-color: rgba(255, 255, 255, 0.9);
 }
-#block-content {
-    overflow: hidden;
-}
 .product-thumbnail {
     min-height: 10rem;
     max-height: 10rem;
@@ -67,10 +64,7 @@ h2 {
     width: 100%;
 }
 #shopping-bag {
-    overflow-y: scroll;
-    overflow-x: hidden;
     width: 38rem;
-    height: calc(100vh - 202px);
     background-color: white;
 }
 #sub-total {
@@ -91,11 +85,6 @@ h2 {
 }
 h6 {
     font-weight: 500;
-}
-@media only screen and (max-width: 992px) {
-    #shopping-bag {
-        height: calc(100vh - 218px);
-    }
 }
 @media only screen and (max-width: 612px) {
     #shopping-bag,
@@ -118,9 +107,6 @@ h6 {
     }
 }
 @media only screen and (max-width: 470px) {
-    #shopping-bag {
-        height: calc(100vh - 218px);
-    }
     .product-thumbnail {
         min-height: 5rem;
         max-height: 5rem;
@@ -139,9 +125,6 @@ h6 {
     }
     .btn-size:last-of-type {
         margin-top: 0.5rem;
-    }
-    #shopping-bag {
-        height: calc(100vh - 272px);
     }
     #sub-total {
         height: 175px;
