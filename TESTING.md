@@ -504,3 +504,6 @@ I used Lighthouse in Chrome Developer Tools to test my website performance, acce
  so I've added confirmation emails to [views.py](checkout/views.py). Confirmation emails will now be sent from Heroku. I have been unable to resolve this bug at this time.
  - In flickity.js the variable flky is defined three times. I did this because when I added a carousel class to multiple carousels, only one carousel would work. Defining three 
  carousel classes resolved this issue, however there is most likely a better fix.
+ - I realised late in development that I never added functionality that allows a user to update their password from the Profiles app. A users password can only be updated if 
+ they select the forgot password link on the login form. Not every user changes their password because they forgot it, so this makes for a frustrating user experience and will be
+ an important issue to fix in the next update to this project.

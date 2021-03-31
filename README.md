@@ -19,10 +19,12 @@ encourage returning and happy customers.
 ## Table of Contents
 
 - [UX](#ux)
-    - [Project Goals](#project-goals)
-    - [User Goals](#user-goals)
-    - [User Stories](#user-stories)
-    - [UX Design Process](#ux-design-process)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Credits](#credits)
+
 ## UX
 
 ### Project Goals
@@ -40,6 +42,7 @@ a good user experience.
 - Add products to a shopping bag so I can purchase them.
 - Receive feedback from the website so I know when my actions have been successful or not.
 - Accessible design.
+- A registration page where I can save my delivery and billing information for faster future checkout.
 
 ### User Stories
 
@@ -69,12 +72,11 @@ As a store owner:
 
 [View User Story Testing](TESTING.md#user-stories)
 
-
 ### UX Design Process
 
-### Strategy
+Strategy
 
-For this project the focus is on developing a MVP (Minimum Viable Product). After users interact with the project
+For this project the focus is on developing an MVP (Minimum Viable Product). After users interact with the project
 and feedback is received a new plan can be developed for implementing additional features to the project. My plan is
 to develop an e-commerce website that retails martial arts equipment. I decided for my MVP that my products 
 would consist of apparel for Brazilian Jiu Jitsu, Muay Thai, and Mixed Martial Arts with more products 
@@ -83,17 +85,17 @@ view each product, add the product to a bag and then securely checkout. A user a
 storing useful information such as billing and delivery information so if a user decides to buy more products
 in the future, this would make their checkout quicker and smoother.
 
-#### Product Objectives
+Product Objectives
 
 This project provides value to the retailer by:
-- Providing sales to consumers not lcoated within travel distince to the retailer.
+- Providing sales to consumers not located within travel distance to the retailer.
 - Providing customers with a good user experience so that users come to trust or enjoy shopping with this retailer.
-- The website can help the retailer with understanding their customers needs better.
+- The website can help the retailer with understanding their customers' needs better.
 - Product management within the website can provide a useful way for the retailer to store information about
 their products, customers, and orders.
 
-#### User needs
-- A satisfying user expierience through apropriate use of content, interactivity, navigation, and feedback.
+User needs
+- A satisfying user experience through appropriate use of content, interactivity, navigation, and feedback.
 - Easy checkout.
 - Access to previous order details.
 - A well designed database that allows customers to quickly find the product they are searching for.
@@ -101,14 +103,14 @@ their products, customers, and orders.
 - Ability to create an account so user delivery details can be saved for a quicker future checkout.
 - Accessible design.
 
-### Scope
+#### Scope
 
-#### Functional Requirements
+Functional Requirements
 
 Browsing experience:
 
 - The website should feature a search form so users can easily search for the product they are looking for.
-- A product menu should be added as an additonal method of searching through products.
+- A product menu should be added as an additional method of searching through products.
 - There should be functionality present for filtering products by gender, and sorting products by name or price.
 - As more users visit the website their feedback can be used to improve the browsing experience.
 
@@ -132,13 +134,13 @@ Login:
 they will not have to continuously log in.
 - There should be an option for a user to create a new password if they have forgotten it.
 - It should be obvious to the user when they are logged in. Display login/Register when a user is logged out, display Profile/log out when a user is logged in.
-- Messages should be displayed to the user why their login attempt failed. e.g. "incorrect password/email."
+- Messages should be displayed to the user as to why their login attempt failed. e.g., "incorrect password/email."
 - Logged in users should see a message informing them that their login was successful.
 
 Profiles:
 - Users should be able to view all their past orders, and update user information.
 
-#### Content Requirements
+Content Requirements
 
 Branding:
 - Website surface should conform to retailer branding.
@@ -153,11 +155,11 @@ and the number of items in the cart.
 The checkout should have the same content as the cart with additional fields for entering contact details, delivery details, and billing details.
 
 Cart & Checkout Feedback:
-- Messages should appear informing the user what item has been added to cart if it was successful. If there is an error, an error message should appear with a possible fix;
- if no fix is possible then contact the retailer.
+- Messages should appear informing the user what item has been added to cart if it was successful. If there is an error, an error message should appear with a possible fix.
+ If no fix is possible then contact the retailer.
 - The user should be informed if their checkout has been successful and receive an email with a copy of their order details.
 
-#### Database Schema:
+Database Schema:
 
 A relational database was used to store my data. My development database used was [SQLite](https://www.sqlite.org/index.html), and my deployed database used was
 [Heroku Postgres](https://www.heroku.com/postgres) A relational database allowed me to connect data stored in separate tables through the use of foreign keys.
@@ -169,10 +171,10 @@ The product model stores information on products sold by this website.
 | ---- | ----- | --------------- |
 | product_id | uuid | Unique identifier for a product. |
 | name | str | The products name. Used for queries and displayed as content. |
-| description | str | A description of the product. Used for quirires and displayed as content. |
+| description | str | A description of the product. Used for queries and displayed as content. |
 | gender | str | Used to filter products according to the gender the product is designed for. |
 | sale | boolean | Identifies if the product is on sale and discounted. This is true when rrp is not equal to price. |
-| rrp | decimal | The reccommended retail price of the product. This is displayed as content. |
+| rrp | decimal | The recommended retail price of the product. This is displayed as content. |
 | price | decimal | The actual price this product is sold for. This is displayed as content. |
 | category | str | Identifies a category the product belongs to. This is used to improve user queries. |
 | product_type | str | Products also have a type that further classifies them and improves user queries. |
@@ -231,15 +233,15 @@ This model stores the users default delivery and billing information.
 | ---- | ----- | --------------- |
 | UserProfile_id | int | Unique identifier for this table. |
 | user | int | A foreign key that identifies the User that this table belongs to. |
-| default_full_name | str | The users full name. For autofilling the checkout form on the users next checkout. |
-| default_email | str | The users email. For autofilling the checkout form on the users next checkout. |
-| default_phone_number | str | The users phone_number. For autofilling the checkout form on the users next checkout. |
-| default_street_address1 | str | The users street_address1. For autofilling the checkout form on the users next checkout. |
-| default_street_address2 | str | The users street_address2. For autofilling the checkout form on the users next checkout. |
-| default_town_or_city | str | The users town or city. For autofilling the checkout form on the users next checkout. |
-| default_postcode | str | The users postcode. For autofilling the checkout form on the users next checkout. |
-| default_county | str | The users county. For autofilling the checkout form on the users next checkout. |
-| default_country | str | The users country. For autofilling the checkout form on the users next checkout. |
+| default_full_name | str | The users full name. For auto filling the checkout form on the users next checkout. |
+| default_email | str | The users email. For auto filling the checkout form on the users next checkout. |
+| default_phone_number | str | The users phone_number. For auto filling the checkout form on the users next checkout. |
+| default_street_address1 | str | The users street_address1. For auto filling the checkout form on the users next checkout. |
+| default_street_address2 | str | The users street_address2. For auto filling the checkout form on the users next checkout. |
+| default_town_or_city | str | The users town or city. For auto filling the checkout form on the users next checkout. |
+| default_postcode | str | The users postcode. For auto filling the checkout form on the users next checkout. |
+| default_county | str | The users county. For auto filling the checkout form on the users next checkout. |
+| default_country | str | The users country. For auto filling the checkout form on the users next checkout. |
 
 Allauth User Model:
 This model stores the users registration information. I did not create this model. It is the default Allauth User model.
@@ -268,13 +270,13 @@ UserProfile model:
 - The "user" key has a value that is a foreign key identifying the User that this table belongs to.
 - The User model has only one UserProfile attached to it.
 
-### Structure
+#### Structure
 
 The conceptual model for organising the content of this website will be that of a shopping catalogue.
 Products are organised into different categories and types that a user can select from, similar to the index of
-a shoppping catalogue.
+a shopping catalogue.
 
-#### Interaction Design
+Interaction Design
 
 Product Search:
  - Two methods of searching for products exist. A user can use a search form to submit a query that identifies 
@@ -283,21 +285,21 @@ Product Search:
 - After a list of products are displayed, sorting and filtering functionality can assist in narrowing down the users search.
 Products can be sorted by asc/desc price, and alphabetically by asc/desc name. Products can be filtered by gender or if a
 product is discounted.
-- Breadcrumbs let a user know where they are at all times while searching for products.
+- Breadcrumbs let a user know where they are always while searching for products.
 - I found the following to be helpful in designing my navigation. [Website Navigation Examples](https://www.mockplus.com/blog/post/website-navigation-examples-practices)
 
 Header:
 - The most important navigational elements are contained within the header. The product menu, bag, accounts, and home page buttons are included here.
 This should ensure the user has access to the most important interaction features at all times and never feels lost within the website.
 
-#### information Architecture
+information Architecture
 
-Product Organistaion:
-- The task of categorising products is difficult as the cateogories must not be too general nor too specific. Too many options to select from can frustrate the user
+Product Organisation:
+- The task of categorising products is difficult as the categories must not be too general nor too specific. Too many options to select from can frustrate the user
 as too much time is spent searching through lists. Displaying all products at once would be as bad as displaying too many categories to select from.
 - I have first defined my products by the martial art they were designed for, these being BJJ, MMA, and Muay Thai. The products are categorised further 
-into sub categories specific to the main categories. BJJ > shorts displays BJJ shorts, while MMA > shorts displays MMA shorts. At most there should be 
-5 sub categories.
+into subcategories specific to the main categories. BJJ > shorts displays BJJ shorts, while MMA > shorts displays MMA shorts. At most there should be 
+5 subcategories.
 - BJJ > Shorts, GI, Belts, Spats, Rash Guards.
 - MMA > Gloves, Shorts, Handwraps, Mouth Guards, Shin Guards.
 - Muay Thai > Gloves, Shorts, Handwraps, Mouth Guards, Shin Guards.
@@ -306,19 +308,89 @@ Checkout:
 - The checkout menu should display a list of all items that have been added to the cart, the item image, name, price, quantity, and size.
 - Options for removing items from the cart should be available.
 
-### Skeleton
+#### Skeleton
 
 I developed a set of wireframes as my projects Skeleton for small and large screen widths.
 My wireframes were developed using [JustInMind](https://www.justinmind.com/?utm_medium=cpc&utm_source=google&utm_campaign=1063145459&utm_term=justinmind_e&gclid=Cj0KCQjwmIuDBhDXARIsAFITC_7fJ-f91qPfUBKpKEnOQhcGG5Y3Ek848l20UUVZ8MjCnlbMRApU_DkaAmqnEALw_wcB)
 [View skeleton wireframes](WIREFRAMES.md)
 
-### Surface 
+#### Surface 
 
-- The design of the website should be accessible with text that has acceptable constrast with its background.
+- The design of the website should be accessible with text that has acceptable contrast with its background.
 - All designs should confirm to the branding of the retailer.
 - The colours used should be dark themed as this is a website selling combat apparel.
 - Buttons are highlighted with bootstrap classes. Error messages are displayed as red, and success messages are displayed as green.
 - Background images help give more depth to the page.
+
+## Features
+
+### Bag app 
+
+- The bag app is responsible for storing products in preparation for checkout.
+- When a user adds a product to their shopping bag, the product is added to the bag apps context processor.
+- The bags template displays all the items a user has added to their bag.
+- Products can be added and removed from the bag.
+- The quantity of a product can be adjusted in the bag.
+- From the bag, a user can navigate to checkout.
+- The bag displays the total quantity of products added and their sub-total.
+
+### Checkout app
+
+- This app features a view for making payments for orders.
+- A miniature order summary displays all the products from the shopping bag.
+- Stripe handles card payments.
+- Users can store billing and delivery details to their profile from the checkout view.
+- There is a view for viewing a complete order summary.
+- The order summary is displayed after a successful checkout is complete.
+- Past orders are displayed in this view as well.
+- The Order and OrderLineItem models are stored in this app.
+
+### Home app
+
+- This app displays the home page view. 
+- A hero image and call to action are first displayed to the user.
+- There are three carousels that display eight random products from each product category.
+
+### Profiles app
+
+- This app allows a user to view past successful order summaries.
+- A user can update their default delivery information
+- The UserProfile Model is stored in this app.
+
+### Products app
+- This app allows users to browse products.
+- Filters and sorting functionality improves the users browsing experience.
+- There is a view for displaying an individual product.
+- The products details are displayed to the user.
+- A user can add the products to their shopping bag from this view.
+- There are product management views for store owners.
+- One view allows the store owner to add new products to the store with validation
+that ensures that products are not incorrectly added.
+- Another view lets the store owner update product details.
+- The store owner can delete a product from the website from the products own page.
+- The Product and ProductSizesStock models are stored in this app.
+
+### Base app
+- This is the base template.
+- All other templates will inherit from the base template.
+- The base template contains within the main page header a link to the home page, a product menu, an accounts menu, a search menu, and a bag menu.
+- The product menu is the primary method of navigating products within the Products app.
+- The search menu is the secondary method of navigating products within the products app.
+- The accounts menu displays links to the login and registration forms for anonymous users.
+- For logged in users, the accounts menu has links to the Profiles app where a user can update their delivery information, or their order history.
+- Within the accounts menu, available only to superusers is a link to the Add Product form within the Products app.
+- For all users there is a logout link within the accounts menu.
+- The bag menu is a smaller version of the Bag app, without the ability to update product quantities or remove products.
+- The bag menu has a link to the Bag app view, and the Checkout app view for completing checkout.
+
+### Future Features
+
+- Fix any known issues and failed tests within TESTING.md.
+- Update product management so a superuser can make more use of the websites databases and learn more from customer interaction with the website.
+- Add functionality that allows users to add different billing and delivery information.
+- Add social media login to the website.
+- Allow checkout payment to be handled additionally by Paypal, or Google Pay.
+- Add compressed thumbnail versions of the product images to the Product model so as to speed up loading times.
 
 ## Technologies used
 
@@ -377,7 +449,7 @@ Enter the following into your terminal to install these.
     - `DATABASES = {'default': dj_database_url.parse(os.environ.get('<DATABASE_URL>'))}`
     - Where <DATABASE_URL> is the url of your database.
     - Your database url can be obtained by going to the "settings" tab within your Heroku dashboard. It will be saved as a config variable after you added Heroku Postgres to your app. Alternatively,
-    enter `heroku config` into your teminal to reveal your config vars.
+    enter `heroku config` into your terminal to reveal your config vars.
     - It is advised to keep your database url private by adding it to an env.py file.
 1. Apply migrations to your new database configuration with:
     - `python3 manage.py makemigrations`
@@ -486,20 +558,37 @@ deploying the Heroku is complete.
 1. To install all python module requirements, enter the following command into your terminal:
     - `pip3 install -r requirements.txt`
 
-
 ## Credits
 
 ### Media
 
 The following images were sourced from:
 - [Burning-Coals.gif](https://scitechdaily.com/images/Burning-Coals.gif)
+
 - [Home Page Hero Image](https://www.verywellfit.com/thmb/rYgOA5OFD9-eca1GmrnS8g4NJis=/3000x2002/filters:no_upscale():max_bytes(150000):strip_icc()/heavy-bag-work-mrbig_photography-58f7d4f75f9b581d5982bd51.jpg)
+
+- Icons used on this website were sourced from [Font Awesome](https://fontawesome.com/)
+
 
 ### Content
 
 - Wireframes were developed using [JustInMind](https://www.justinmind.com/)
+
 - Additional fonts used in this project were acquired from [Google Fonts](https://fonts.google.com/)
+
 - The image at the top of this README was produced on [Am I Responsive?](http://ami.responsivedesign.is/)
+
+- Products where sourced from [VIEW PRODUCT SOURCES](PRODUCTS.md)
+
+- Message Toasts were sourced from [Toastr](https://codeseven.github.io/toastr/#:~:text=toastr%20is%20a%20Javascript%20library,Growl%20type%20non%2Dblocking%20notifications.&text=The%20goal%20is%20to%20create,can%20be%20customized%20and%20extended.)
+
+- Carousels were sourced from [Flickity](https://github.com/metafizzy/flickity)
+
+### Acknowledgements
+
+- Thanks to [The Code Institute](https://codeinstitute.net/) for my coding lessons.
+- Thanks to my friends and family for beta testing my website, and providing valuable feedback.
+- Thanks to my mentor Caleb for his help with deploying my project.
 
 ### Books I read
 - [The Elements of User Experience: User-Centered Design for the Web - Jesse James Garrett](https://www.amazon.co.uk/Elements-User-Experience-User-Centered-Design/dp/0735712026)
