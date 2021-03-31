@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block meta_description %}
-    <meta name="Description" content="Browse Brazilian Jiu Jitsu, Muay Thai, and Mixed Martial Arts equipment and attire for men and women."/>
+    <meta name="Description" content="Browse Brazilian Jiu Jitsu, Muay Thai, and Mixed Martial Arts equipment for men and women."/>
 {% endblock %}
 
 {% block title %}
- - Products
+ - Products{% if search_term != None %} - {{ search_term }}{% endif %}{% if category != None %} - {{ category }}{% endif %}{% if product_type != None %} - {{ product_type }}{% endif %}
 {% endblock %}
 
 {% block css %}

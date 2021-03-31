@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta_description %}
-    <meta name="Description" content="This is the product page for {{ product.name }}"/>
+    <meta name="Description" content="This is the product page for {{ product.name }}. Buy now for £{{ product.price }}. {% if product.sale %}Formally £{{ product.rrp }}.{% endif %}"/>
 {% endblock %}
 
 {% block title %}
