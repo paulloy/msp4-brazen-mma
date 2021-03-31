@@ -28,7 +28,7 @@
             </div>
             <div class="mx-auto bg-pale-blue my-2 p-2 d-flex justify-content-around">
                 <a class="btn btn-primary d-inline-block" href="{% url 'view_bag' %}">VIEW BAG</a>
-                <a class="btn btn-primary d-inline-block" href="{% url 'checkout' %}">CHECKOUT</a>
+                <a class="btn btn-purchase d-inline-block" href="{% url 'checkout' %}">CHECKOUT</a>
             </div>
         {% endif %}
     </div>
@@ -62,7 +62,7 @@
         </div>
         <div class="mx-auto bg-pale-blue my-2 p-2 d-flex justify-content-around">
             <a class="btn btn-primary d-inline-block" href="{% url 'view_bag' %}">VIEW BAG</a>
-            <a class="btn btn-primary d-inline-block" href="{% url 'checkout' %}">CHECKOUT</a>
+            <a class="btn btn-purchase d-inline-block" href="{% url 'checkout' %}">CHECKOUT</a>
         </div>
     {% endif %}
 </div>
