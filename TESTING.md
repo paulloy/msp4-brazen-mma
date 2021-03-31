@@ -1,6 +1,86 @@
 # Testing
 
-## bag
+[Return to README.md](README.md)
+
+## Table of Contents
+
+- [User Story Testing](#user-story-testing)
+- [Bag](#bag)
+- [Checkout](#checkout)
+- [Profiles](#profiles)
+- [Base](#base)
+- [Products](#products)
+- [Home](#home)
+- [Responsive Design](#responsive-design)
+- [Lighthouse](#lighthouse)
+- [Known Issues](#known-issues)
+
+## User Story Testing
+
+[1] I want a website thats purpose is immediately evident.
+- The landing page of the website reads, "Welcome to Brazen Martial Arts! We work with industry leading suppliers to get you the best gear... at the best price!"
+- A call to action "SHOP NOW" displays three buttons that a user familiar to mixed martial arts would recognise.
+- Scrolling down the page, the three buttons above are displayed again with carousels featuring products below.
+- Prices are displayed on the products, so it is immediately evident that this is a martial arts store.
+
+[2] If I decide to continue browsing the website I want an intuitive and easy navigation that does not require too much time 
+to learn to navigate.
+- The product navigation is contained within the header. On desktop the product menu is immediately visible. On small screens, the product menu is
+contained within a side menu. The header on small screens stays fixed at the top, so a user will know that this header is important.
+- Breadcrumbs are displayed so a user has reminders of what kind of products they are currently viewing.
+- The product menu contains very few links so it would not take up too much working memory to learn to use.
+- Product pages also have breadcrumbs.
+
+[3] I want to be able to be able to quickly compare prices with other products, and take advantage of discounts.
+- Products are displayed next to each other in lists. An image is shown, the products name, a price, and for some products, a discount.
+- Discounted products are displayed with a red coloured price, with the old price grey and striked through.
+
+[4] I want to be able learn more about a product and save products that I am interested in so I can purchase them after I browse more.
+- Product pages come with an enlarged image of the product, its name, a description, and sizes if they have sizes. A size chart displays more information about the size of the product.
+- Products can be added to a shopping bag where they are stored so long as the user stays on the webpage.
+
+[5] I want to be able to checkout without having to first register an account.
+- Anonymous users can checkout, and receive a confirmation email of their order without having to register an account.
+
+[6] I want to receive an email confirmation of my order and be able to register an account.
+- A menu is available in the header at all times where a user can register an account to the website.
+- The user is notified at checkout, that they can save their delivery and billing details when they checkout.
+- On successful checkout, the user is asked if they would like to create an account.
+
+[7] I want to be able to save my billing and delivery information for quicker future checkouts.
+- A logged in user can save their delivery and billing information at checkout so that at their next checkout, the form is automatically filled
+and only card details have to be added to complete the checkout.
+
+[8] I want to be able to update my default delivery and billing information.
+- Registered users can update their default delivery information at anytime through the accounts menu in the header.
+
+[9] I want to be able to view my past orders.
+- A registered user can view their order history at anytime through the accounts menu in the header.
+
+[10] I want to be able to reset my password if I have forgotten it.
+- On the login page, their is a link the user can click that will take them to a page where their email address can be submitted.
+- The user will receive an email that links them back to the website where they can then change their password, and login to their account.
+
+[11] I want to be able to add new products to the website.
+- Within the header in the accounts menu, the store owner can navigate to a product management form that allows them to add new products to the store.
+- Validation is included so few errors occur when adding new products.
+
+[12] I want to be able to update products on the website.
+- On a products page, a product management menu is displayed to the superuser. There is an update button that takes the user to a product management
+update form. The products information is auto filled.
+- Validation is included so few errors occur when updating products.
+
+[13] I want to be able to remove products from the website.
+- The product management menu mentioned above also includes a remove button. In case the superuser accidentically clicks this button, a second menu opens asking the 
+user if they are sure they want to delete the product. The user can then confirm deletion, or cancel.
+
+[14] Be confident that other users cannot add, remove, or update the products on my website.
+- Only registered superusers have access to product management. These templates and links are not rendered on the front end unless a user is a superuser.
+- Even if a non-superuser had a url to a private page, they must be logged in order to view the page. Non-superusers are forbidden access.
+- Only the website administrator can create new superusers. A regular user cannot create a superuser account from the website.
+- Product prices are managed in the backend and cannot be accessed without the right secret keys and hidden tokens.
+
+## Bag
 
 ### Test events 
 
@@ -47,7 +127,7 @@
     - One unused variable: $displayQuantity
     - 28/03/21: This file is now valid. No errors found.
 
-## checkout
+## Checkout
 
 ### Test events
 
@@ -69,6 +149,7 @@
 | 2.14 | Access {% url 'cache_checkout_data' %} by url. | Display 405 error. | Pass |
 | 2.15 | Access {% url 'wh' %} by url. | Display 405 error. | Pass |
 | 2.16 | Checkout with Stripe test card number: 4000002500003155. Fail authentication. | Display error within the card div. | Pass |
+| 2.17 | Change delivery information while logged in without selecting 'save-info'. | Default delivery info should not change. | Fail |
 
 **NOTES**
  - [1]: As of commit *7b5923e*, these tests now Pass.
@@ -112,7 +193,7 @@
     - 'Stripe' is defined in the Stripe script link in [base.html](templates/base.html)
     - 28/03/21: This file is now valid. No errors found.
 
-## profiles
+## Profiles
 
 ### Test events
 
@@ -124,10 +205,10 @@
 | 3.04 | Selecting 'View Order Summary.' | Direct user to {% url 'order_history' <order_numer> %} and display an info-message that this is a past order confirmation. | Pass |
 | 3.05 | Select a product name | Direct user to {% url 'product_details' <product_id> %} | Pass |
 | 3.06 | Submit empty form. | Page should reload with the form containing no values. | Pass |
-| 3.07 | Submit form with values added. | Page should reload with submitted fields autofilled. | Pass |
+| 3.07 | Submit form with values added. | Page should reload with submitted fields auto filled. | Pass |
 | 3.08 | Navigate to {% url 'profile_order_history' %} after updating default delivery info. | All the same orders should be displayed to the user. | Pass |
 | 3.09 | Navigate to {% url 'checkout' %} after updating default delivery info. | Only the filled in fields should be automatically filled on the checkout form. | Pass |
-| 3.10 | With no delivery info saved, place an order at the checkout and select 'save this delivery information' checkbox. | Default Delivery Info should now be autofilled upon returning to {% url 'profile_delivery_info %}. | Pass |
+| 3.10 | With no delivery info saved, place an order at the checkout and select 'save this delivery information' checkbox. | Default Delivery Info should now be auto filled upon returning to {% url 'profile_delivery_info %}. | Pass |
 | 3.11 | Navigate to {% url 'profile_order_history' %} while not logged in. | Direct user to log in page. | Pass |
 | 3.12 | Navigate to {% url 'profile_delivery_info' %} while not logged in. | Direct user to log in page. | Pass |
 | 3.13 | Navigate to {% url 'order_history' <order_numer> %} while not logged in. | Direct user to log in page. | Pass[1] |
@@ -143,6 +224,7 @@
 #### HTML
  - [order-history.html](profiles/templates/profiles/order-history.html)
     - WARNING: The document is not mappable to XML 1.0 due to two consecutive hyphens in a comment.
+    - 31/03/21: No errors found.
 
 #### CSS
  - [profile.css](profiles/static/css/profile.css)
@@ -154,7 +236,7 @@
 
 ---
 
-## base
+## Base
 
 ### Test Events
 
@@ -183,9 +265,9 @@
 | 4.21 | Blur on search form input while mouse is not hovering the #overlay-menu. | Hide #overlay-menu and display #block-content. | Pass |
 | 4.22 | Blur on search form input while mouse is hovering the #overlay-menu. | Do not hide #overlay-menu. | Pass |
 | 4.23 | On mouseleave on #overlay-menu while search form input is not focused on. | Hide #overlay-menu and display #block-content. | Pass |
-| 4.24 | Enter search criteria for non-existant product. | Display message that no products are found and hide 'View Full Results' button. | Pass |
+| 4.24 | Enter search criteria for non-existent product. | Display message that no products are found and hide 'View Full Results' button. | Pass |
 | 4.25 | Select 'View Full Results' button. | Display {% url 'products' %}?=q=<user input> | Pass |
-| 4.26 | Submit search form with enter key, or selecting its submit button. | Display {% url 'products' %}?=q=<user input> | Pass |
+| 4.26 | Submit search form with enter key or selecting its submit button. | Display {% url 'products' %}?=q=<user input> | Pass |
 | 4.27 | SM: Select Home page button. | Direct to {% url 'home %} | Pass |
 | 4.28 | SM: Select #toggle-sm-search button. | Display #search-menu-sm | Pass |
 | 4.29 | SM: Submit #search-menu-sm | Display {% url 'products' %}?=q=<user input> | Pass |
@@ -261,7 +343,7 @@ modifications to these templates were to their style.
     - This file has not been validated as it is not my own.
     - [Toastr Github: toastr.js](https://github.com/CodeSeven/toastr/blob/master/toastr.js)
 
-## products
+## Products
 
 ### Test Events
 
@@ -280,7 +362,7 @@ modifications to these templates were to their style.
 | 5.11 | Select 'filter products by women' | Product count may change. All products should be for women, or unisex. | Pass |
 | 5.12 | Select 'filter products by unisex' | Product count may change. All products should be unisex. | Pass |
 | 5.13 | Select 'filter products by discounted' | Product count may change. All products should be discounted. | Pass |
-| 5.14 | Change filters and sorting several times. | Selecting a filter should not interfere with sorting and vice versa. e.g. Selecting men, then sort by price asc, should sort the men products and not clear this filter. | Pass |
+| 5.14 | Change filters and sorting several times. | Selecting a filter should not interfere with sorting and vice versa. e.g., Selecting men, then sort by price asc, should sort the men products and not clear this filter. | Pass |
 | 5.15 | Search for an empty string in search form. "" | Display, No results found for "" | Fail |
 | 5.16 | Search for random string. | Display, No results found for "sfghsdfgh" | Pass |
 | 5.17 | Search for a product that exists. | Display, <product_count> products found for "<searched_value>" | Pass |
@@ -297,20 +379,20 @@ modifications to these templates were to their style.
 | 5.28 | Select a size then add product to bag. | Product should be in bag now and a toast appears telling the user the name and size of the product added to the bag. | Pass |
 | 5.29 | Select a quantity other than the default. | Product should be in bag now and a toast appears telling the user the name and size of the product added to the bag. | Pass |
 | 5.30 | Select a quantity other than the default. | Product should be in bag now and a toast appears telling the user the name and size of the product added to the bag. | Pass |
-| 5.31 | Submit the 'add product' form. | Toast should appear informing the user of the success of this action. New product should be avaible on store now. | Pass |
+| 5.31 | Submit the 'add product' form. | Toast should appear informing the user of the success of this action. New product should be available on store now. | Pass |
 | 5.32 | Submit the 'update product' form. | User should be redirected to the products page again with the updated information displayed and a success toast. | Pass |
 | 5.33 | Submit product with size 'false' and another size selected. | Form should not submit, display error to user. | Pass[1] |
 | 5.34 | Cancel product update by selecting cancel button. | Direct the user back to the products page. | Pass[1] |
 | 5.35 | Submit add or update product form with duplicate sizes. | Do not submit form. Display error. | Pass[1] |
-| 5.36 | Submit form with with no sizes added | Do not submit form. Display error. | Pass[1] |
+| 5.36 | Submit form with no sizes added | Do not submit form. Display error. | Pass[1] |
 | 5.37 | Submit form with size selected but no stock added. | Do not submit form. Display error. | Pass[1] |
 | 5.38 | Submit form with stock added by no size (or 'false') selected. | Do not submit form. Display error. | Pass[1] |
 | 5.39 | Access Product management add product by url while not logged in. | Direct the user to log in page. | Pass |
 | 5.40 | Access Product management edit product by url while not logged in. | Direct the user to log in page. | Pass |
 | 5.41 | Access Product management delete product by url while not logged in. | Direct the user to log in page. | Pass |
-| 5.42 | Access Product management add product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error messsage. | Pass |
-| 5.43 | Access Product management edit product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error messsage. | Pass |
-| 5.44 | Access Product management delete product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error messsage. | Pass |
+| 5.42 | Access Product management add product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error message. | Pass |
+| 5.43 | Access Product management edit product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error message. | Pass |
+| 5.44 | Access Product management delete product by url while logged in as a regular user. | Direct the user to {% url 'home %} and display an error message. | Pass |
 
 **NOTES**
 - [1] As of commit *ce213e7* these tests now pass.
@@ -356,13 +438,13 @@ modifications to these templates were to their style.
     - No errors found.
 
 
-## home
+## Home
 
 ### Test Events
 
 | ID | Event | Expected Response | Pass / Fail ? |
 | ---- | ----- | --------------- |    :-----:    |
-| 6.01 | Reload page a few times. | Each carousel displays 6 random prodcuts of each category. | Pass |
+| 6.01 | Reload page a few times. | Each carousel displays 6 random products of each category. | Pass |
 | 6.02 | Select 'Brazilian Jiu Jitsu View All'. | Direct user to {% url 'products' %}?category=bjj | Pass |
 | 6.03 | Select 'Muay Thai View All'. | Direct user to {% url 'products' %}?category=muay%20thai | Pass |
 | 6.04 | Select 'Mixed Martial Arts View All'. | Direct user to {% url 'products' %}?category=mma | Pass |
@@ -398,7 +480,7 @@ The responsive design was also tested at [Am I Responsive?](http://ami.responsiv
 
 ## Lighthouse
 
-I used Lighthouse in Chrome Developer Tools to test my website performance, accessiblity, best practices, and SEO.
+I used Lighthouse in Chrome Developer Tools to test my website performance, accessibility, best practices, and SEO.
 
  - ### Total Score
  - ![lighthouse1](README_media/lighthouse/lighthouse1.png)
@@ -411,3 +493,12 @@ I used Lighthouse in Chrome Developer Tools to test my website performance, acce
  - ![lighthouse5](README_media/lighthouse/lighthouse5.png)
  - ### SEO
  - ![lighthouse6](README_media/lighthouse/lighthouse6.png)
+
+ ## Known Issues
+
+ - Test [2.17]: I discovered this bug late in development. Due to time constraints, it has not been fixed yet.
+ - Test [5.15]: I have been unable to fix this bug on time. Submitting an empty form will display all products on the website, so it is not a major bug.
+ - Using chrome dev tools in the bag template, I can remove the min and max attributes which allows me to update the quantity of a product in my bag to 0, or a number greater than 99. Some backend code.
+ should be able to fix this error.
+ - The payment_intent.succeeded webhook for my deployed website returns a 500 error. This error does not occur in the development version. This caused confirmation emails to not be sent to the user
+ so I've added confirmation emails to [views.py](checkout/views.py). Confirmation emails will now be sent from Heroku. I have been unable to resolve this bug at this time.
