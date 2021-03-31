@@ -19,8 +19,58 @@ encourage returning and happy customers.
 ## Table of Contents
 
 - [UX](#ux)
-
+    - [Project Goals](#project-goals)
+    - [User Goals](#user-goals)
+    - [User Stories](#user-stories)
+    - [UX Design Process](#ux-design-process)
 ## UX
+
+### Project Goals
+- Using the full stack framework Django, I want to develop an e-commerce website for a potential customer that
+retails martial arts equipment.
+- I want to provide to the customers and retailer a meaningful experience, intuitive interactions with the website, and 
+a good user experience.
+- Build a website in line with good coding practices.
+- Develop a website with few bugs.
+- I want my website to be universally accessible.
+
+### User Goals
+- Add, update, or delete products.
+- Search for products with an intuitive navigational design that takes little time to learn how to use.
+- Add products to a shopping bag so I can purchase them.
+- Receive feedback from the website so I know when my actions have been successful or not.
+- Accessible design.
+
+### User Stories
+
+New User
+As a new user:
+- [1] I want a website thats purpose is immediately evident.
+- [2] If I decide to continue browsing the website I want an intuitive and easy navigation that does not require too much time 
+to learn to navigate. 
+- [3] I want to be able to be able to quickly compare prices with other products, and take advantage of discounts.
+- [4] I want to be able learn more about a product and save products that I am interested in so I can purchase them after I browse more.
+- [5] I want to be able to checkout without having to first register an account.
+- [6] I want to receive an email confirmation of my order and be able to register an account.
+
+Registered User
+As a registered user:
+- [7] I want to be able to save my billing and delivery information for quicker future checkouts.
+- [8] I want to be able to update my default delivery and billing information.
+- [9] I want to be able to view my past orders.
+- [10] I want to be able to reset my password if I have forgotten it.
+
+Store Owner
+As a store owner:
+- [11] I want to be able to add new products to the website.
+- [12] I want to be able to update products on the website.
+- [13] I want to be able to remove products from the website.
+- [14] Be confident that other users cannot add, remove, or update the products on my website.
+
+[View User Story Testing](TESTING.md#user-stories)
+
+
+### UX Design Process
 
 ### Strategy
 
