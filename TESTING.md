@@ -502,3 +502,5 @@ I used Lighthouse in Chrome Developer Tools to test my website performance, acce
  should be able to fix this error.
  - The payment_intent.succeeded webhook for my deployed website returns a 500 error. This error does not occur in the development version. This caused confirmation emails to not be sent to the user
  so I've added confirmation emails to [views.py](checkout/views.py). Confirmation emails will now be sent from Heroku. I have been unable to resolve this bug at this time.
+ - In flickity.js the variable flky is defined three times. I did this because when I added a carousel class to multiple carousels, only one carousel would work. Defining three 
+ carousel classes resolved this issue, however there is most likely a better fix.
